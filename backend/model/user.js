@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
   {
@@ -48,6 +49,12 @@ const userSchema = new mongoose.Schema(
         ref: "CourseProgress",
       },
     ],
+    resetPasswordToken:{
+      type:String
+    },
+    resetPasswordTokenExpires:{
+      type:Date
+    }
   },
   {
     timestamps: true,
@@ -60,5 +67,15 @@ userSchema.pre("save", async function (next) {
   }
   this.password = await bcrypt.hash(this.password, 10);
 });
+
+userSchema.methods.getToken = function () {
+  return jwt.sign({ ...this,password:null }, process.env.JWT_SECRET, {
+    expiresIn: "2h",
+  });
+};
+
+userSchema.methods.comparePassword = async function (pass) {
+  return await bcrypt.compare(pass, this.password);
+};
 
 module.exports = mongoose.model("User", userSchema);
