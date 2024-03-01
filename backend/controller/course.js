@@ -1,8 +1,6 @@
 const Category = require("../model/category");
 const Course = require("../model/course");
 const User = require("../model/user");
-const Section = require("../model/section");
-const SubSection = require("../model/subSection");
 
 const { uploadToCloudinary } = require("../config/cloudinary");
 
@@ -113,34 +111,3 @@ exports.getAllCourses = catchAsync(async (req, res) => {
     courses: allCourse,
   });
 });
-
-exports.createSection = catchAsync(async (req, res) => {
-  const { sectionName, courseId } = req.body;
-
-  if (!sectionName || !courseId) {
-    return res.status(400).json({
-      success: false,
-      message: "All fields are required!",
-    });
-  }
-
-  const newSection = await Section.create({ sectionName });
-
-  await Course.findByIdAndUpdate(
-    courseId,
-    {
-      $push: {
-        courseContents: newSection._id,
-      },
-    },
-    {
-      new: true,
-    }
-  );
-
-  res.status(201).json({
-    success: true,
-    message: "Section created successfully!",
-  });
-});
-

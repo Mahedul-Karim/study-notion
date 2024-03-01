@@ -11,7 +11,12 @@ const subSectionSchema = new mongoose.Schema({
     type: String,
   },
   videoUrl: {
-    type: String,
+    public_id:{
+      type:String
+    },
+    url:{
+      type:String
+    }
   },
 });
 
