@@ -48,7 +48,7 @@ exports.createCourse = catchAsync(async (req, res) => {
 
   const categoryDetails = await Category.findById(category);
 
-  if (!tagDetails) {
+  if (!categoryDetails) {
     return res.status(404).json({
       success: false,
       message: "Tag details not found!",
@@ -111,3 +111,7 @@ exports.getAllCourses = catchAsync(async (req, res) => {
     courses: allCourse,
   });
 });
+
+exports.getCourseDetails = catchAsync(async (req,res)=>{
+  
+})

@@ -29,13 +29,13 @@ const userSchema = new mongoose.Schema(
       enum: ["Admin", "Student", "Instructor"],
     },
     additionalDetails: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       required: true,
       ref: "Profile",
     },
     courses: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: "Course",
       },
     ],
@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema(
     },
     courseProgress: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.ObjectId,
         ref: "CourseProgress",
       },
     ],

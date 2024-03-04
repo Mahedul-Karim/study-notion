@@ -23,7 +23,12 @@ exports.createSection = catchAsync(async (req, res) => {
     {
       new: true,
     }
-  );
+  ).populate({
+    path: "courseContents",
+    populate: {
+      path: "SubSection",
+    },
+  }).exec();
 
   res.status(201).json({
     success: true,
