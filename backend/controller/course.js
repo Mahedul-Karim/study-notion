@@ -6,35 +6,6 @@ const { uploadToCloudinary } = require("../config/cloudinary");
 
 const catchAsync = require("../util/catchAsync");
 
-exports.createCategory = catchAsync(async (req, res) => {
-  const { name, description } = req.body;
-
-  if (!name || !description) {
-    return res.status(400).json({
-      success: false,
-      message: "All fields are required!",
-    });
-  }
-
-  const categorys = await Category.create({
-    name,
-    description,
-  });
-
-  res.status(200).json({
-    success: false,
-    message: "Category created successfully!",
-  });
-});
-
-exports.getAllCategorys = catchAsync(async (req, res) => {
-  const categorys = await Category.find({}, { name: true, description: true });
-
-  res.status(200).json({
-    success: true,
-    categorys,
-  });
-});
 
 exports.createCourse = catchAsync(async (req, res) => {
   const {
@@ -82,7 +53,7 @@ exports.createCourse = catchAsync(async (req, res) => {
     }
   );
 
-  categoryDetails.course = course._id;
+  categoryDetails.course.push(course._id);
   await categoryDetails.save();
 
   res.status(201).json({
@@ -112,6 +83,28 @@ exports.getAllCourses = catchAsync(async (req, res) => {
   });
 });
 
-exports.getCourseDetails = catchAsync(async (req,res)=>{
-  
-})
+exports.getCourseDetails = catchAsync(async (req, res) => {
+  const  courseId  = req.params;
+
+  const courseDetails = await Course.findById(courseId)
+    .populate({
+      path: "instructor",
+      populate: {
+        path: "additionalDetails",
+      },
+    })
+    .populate("category")
+    .populate("ratingAndReviews")
+    .populate({
+      path: "courseContents",
+      populate: {
+        path: "subSection",
+      },
+    })
+    .exec();
+
+  res.status(200).json({
+    success: true,
+    data: courseDetails,
+  });
+});

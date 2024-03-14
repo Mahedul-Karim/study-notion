@@ -1,6 +1,6 @@
 const Section = require("../model/section");
 const Course = require("../model/course");
-
+const catchAsync = require("../util/catchAsync");
 exports.createSection = catchAsync(async (req, res) => {
   const { sectionName, courseId } = req.body;
 

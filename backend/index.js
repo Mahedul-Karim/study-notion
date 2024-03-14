@@ -3,20 +3,47 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-const { configCloudinary } = require('./config/cloudinary');
+const { configCloudinary } = require("./config/cloudinary");
+
+const { connect } = require("./config/db");
+
+const categoryRoute = require("./routes/category");
+const courseRoute = require("./routes/course");
+// const paymentRoute = require("./routes/payment");
+const profileRoute = require("./routes/profile");
+const ratingRoute = require("./routes/rating");
+const sectionRoute = require("./routes/section");
+const subSecRoute = require("./routes/subSection");
+const userRoute = require("./routes/user");
 
 dotenv.config({
-  path: "./.env",
+  path: "/.env",
 });
+connect();
+configCloudinary();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 app.options("*", cors());
 app.use(express.json({ extended: true, limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 
+app.use("/api/v1/user", userRoute);
+app.use("/api/v1/course", courseRoute);
+app.use("/api/v1/profile", profileRoute);
+// app.use("/api/v1/payment", paymentRoute);
+app.use("/api/v1/rating", ratingRoute);
+app.use("/api/v1/section", sectionRoute);
+app.use("/api/v1/subSection", subSecRoute);
+app.use("/api/v1/category", categoryRoute);
 
-configCloudinary();
+const PORT = process.env.PORT || 4000;
 
+app.listen(PORT, () => console.log(`server is running at ${process.env.PORT}`));

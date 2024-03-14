@@ -1,6 +1,6 @@
 const SubSection = require("../model/subSection");
 const Section = require("../model/section");
-
+const catchAsync = require("../util/catchAsync");
 const { uploadToCloudinary } = require("../config/cloudinary");
 
 exports.createSubSection = catchAsync(async (req, res) => {
