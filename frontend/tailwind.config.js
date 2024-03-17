@@ -42,6 +42,13 @@ export default {
         yellow:'rgb(255 214 10)',
         blue:{
           200:'#118ab2'
+        },
+        grey:{
+          5:'rgb(249,249,249)'
+        },
+        green:{
+          300:'rgb(5 167 123)',
+          700:'rgb(1 74 50)'
         }
       },
       extend:{

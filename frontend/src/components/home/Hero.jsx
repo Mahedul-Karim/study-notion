@@ -13,7 +13,7 @@ const Hero = () => {
       >
         Become an Instructor <FaArrowRight />
       </Link>
-      <h1 className="text-4xl font-bold text-white mt-4 text-center">
+      <h1 className="text-3xl 400px:text-4xl font-bold text-white mt-4 text-center">
         Empower Your Future with<HighlightText>Coding Skills</HighlightText>{" "}
       </h1>
       <p className="text-richblack-300 font-bold max-w-[80%] text-center mt-4">
@@ -22,7 +22,7 @@ const Hero = () => {
         including hands-on projects, quizzes, and personalized feedback from
         instructors.
       </p>
-      <div className="flex items-center gap-4 400px:flex-row flex-col mt-6">
+      <div className="flex items-start 400px:items-center gap-4 400px:flex-row flex-col mt-6 w-full 400px:w-auto">
 
       <Button yellow to={"/about"}>Learn More</Button>
       <Button to={"/login"}>Book a demo</Button>

@@ -1,21 +1,18 @@
 import React from "react";
 import Hero from "../components/home/Hero";
-import Container from "../components/ui/Container";
+import Container from "../components/layout/Container";
 import Banner from "../components/home/Banner";
 import CodeBlock from "../components/home/CodeBlock";
 import HighlightText from "../components/ui/HighlightText";
-const BTN_1 = {
-  text: "Try it yourself",
-  to: "/login",
-};
-const BTN_2 = {
-  text: "Learn more",
-  to: "/about",
-};
+import LearnMoreSection from "../components/home/LearnMoreSection";
+import TimelineSection from "../components/home/TimelineSection";
+import {
+  BTN_1,
+  BTN_2,
+  TYPE_STRING_1,
+  TYPE_STRING_2,
+} from "../components/util/data";
 
-const TYPE_STRING_1='<!DOCTYPE html>\n<html lang="en">\n<head>\n<title>This is my page</title>\n</head>\n<body>\n<h1><a href="#">Header</a></h1>\n<nav><a href="#">One</a><a href="#">Two</a>\n<a href="#">Three</a></nav>\n</body>\n</html>';
-
-const TYPE_STRING_2='import React from react\nimport Button from button\nimport { TypeAnimation } from react-type-animation\nimport { FaArrowRight } from react-icons/fa;\n\nconst home = () => {\nreturn(\n<div>Home</div>\n)\n}\nexport default Home; '
 
 const Home = () => {
   return (
@@ -48,6 +45,16 @@ const Home = () => {
               btn2={BTN_2}
               text={TYPE_STRING_2}
             />
+          </div>
+        </Container>
+      </section>
+      <section className="bg-grey-5">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16">
+            <LearnMoreSection />
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-8 mt-20 justify-items-center">
+            <TimelineSection />
           </div>
         </Container>
       </section>
