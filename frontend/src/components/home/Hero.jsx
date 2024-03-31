@@ -14,7 +14,7 @@ const Hero = () => {
         Become an Instructor <FaArrowRight />
       </Link>
       <h1 className="text-3xl 400px:text-4xl font-bold text-white mt-4 text-center">
-        Empower Your Future with<HighlightText>Coding Skills</HighlightText>{" "}
+        Empower Your Future with<HighlightText blue>Coding Skills</HighlightText>{" "}
       </h1>
       <p className="text-richblack-300 font-bold max-w-[80%] text-center mt-4">
         With our online coding courses, you can learn at your own pace, from

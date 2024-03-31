@@ -31,6 +31,7 @@ exports.sentOtp = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: `OTP was sent to ${email}`,
+    otp
   });
 });
 exports.signUp = catchAsync(async (req, res) => {
@@ -75,9 +76,9 @@ exports.signUp = catchAsync(async (req, res) => {
     });
   }
 
-  const recentOtp = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
-
-  if (otp !== recentOtp) {
+  const recentOtp = await OTP.findOne({ email });
+  
+  if (otp !== recentOtp.otp) {
     return res.status(401).json({
       success: false,
       message: "OTP does not match!",
@@ -87,7 +88,7 @@ exports.signUp = catchAsync(async (req, res) => {
   const profile = await Profile.create({
     gender: null,
     dateOfBirth: null,
-    contactNumber,
+    contactNumber: contactNumber ? contactNumber : null,
     about: null,
   });
 
@@ -101,10 +102,12 @@ exports.signUp = catchAsync(async (req, res) => {
     image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
   });
 
+ await OTP.findOneAndDelete({email});
+
   res.status(201).json({
     success: true,
     message: "User registered successfully!",
-    user,
+    host:req.headers.host,
   });
 });
 
@@ -169,13 +172,15 @@ exports.resetPasswordToken = catchAsync(async (req, res) => {
   user.resetPasswordTokenExpires = new Date(Date.now() + 5 * 60 * 1000);
   await user.save();
 
-  const url = `http://localhost:3000/reset?token=${url}`;
+  const url = `http://localhost:3000/reset-password?token=${token}`;
 
   await sendEmail(email, "Password Reset Link", url);
 
   res.status(200).json({
     success: true,
     message: `An email with password reset link was sent to ${email}`,
+    url,
+    fullUrl : req.protocol + '://' + req.get('host') + req.originalUrl
   });
 });
 

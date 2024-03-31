@@ -42,7 +42,7 @@ exports.createRating = catchAsync(async (req, res) => {
     reviews,
   });
 
-  Course.findByIdAndUpdate(courseId, {
+  await Course.findByIdAndUpdate(courseId, {
     $push: {
       ratingAndReviews: ratingAndReview._id,
     },

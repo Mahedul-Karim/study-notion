@@ -12,6 +12,7 @@ import {
   TYPE_STRING_1,
   TYPE_STRING_2,
 } from "../components/util/data";
+import AboutSection from "../components/home/AboutSection";
 
 
 const Home = () => {
@@ -26,7 +27,7 @@ const Home = () => {
               order={[1, 2]}
               title={
                 <>
-                  Unlock your <HighlightText> coding potential</HighlightText>{" "}
+                  Unlock your <HighlightText blue> coding potential</HighlightText>{" "}
                   with our online courses.
                 </>
               }
@@ -56,6 +57,7 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-8 mt-20 justify-items-center">
             <TimelineSection />
           </div>
+          <AboutSection />
         </Container>
       </section>
     </>

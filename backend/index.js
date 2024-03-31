@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const http = require('http');
 
 const { configCloudinary } = require("./config/cloudinary");
 
@@ -26,7 +27,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -46,4 +47,7 @@ app.use("/api/v1/category", categoryRoute);
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => console.log(`server is running at ${process.env.PORT}`));
+
+const server = http.createServer(app);
+
+server.listen(PORT, () => console.log(`server is running at ${PORT}`));

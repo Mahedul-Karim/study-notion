@@ -40,6 +40,8 @@ export default {
           900: "#001B22",
         },
         yellow:'rgb(255 214 10)',
+        yellow50:'rgb(255 214 10)',
+        yellow800:'rgb(61 42 1)',
         blue:{
           200:'#118ab2'
         },
@@ -49,6 +51,9 @@ export default {
         green:{
           300:'rgb(5 167 123)',
           700:'rgb(1 74 50)'
+        },
+        pink:{
+          200:'rgb(239 71 111)'
         }
       },
       extend:{
