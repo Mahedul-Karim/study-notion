@@ -7,7 +7,7 @@ const NavLinks = ({id,icon,title,to}) => {
   return (
     <>
       {
-        id < 4 ? (
+        id < 4  ? (
           <NavLink
             to={to}
             

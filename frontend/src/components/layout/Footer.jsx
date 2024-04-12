@@ -5,14 +5,17 @@ const Footer = () => {
   const location = useLocation();
   const [isMobileDashboard, setIsMobileDashboard] = useState(false);
 
-  const setMobileDashboard = () => {
-    setIsMobileDashboard(
-      location?.pathname?.split("/").includes("dashboard") &&
-        document.body.clientWidth < 1024
-    );
-  };
+  
 
   useEffect(() => {
+
+    const setMobileDashboard = () => {
+      setIsMobileDashboard(
+        location?.pathname?.split("/").includes("dashboard") &&
+          document.body.clientWidth < 1024
+      );
+    };
+
     setMobileDashboard();
 
     window.addEventListener("resize", setMobileDashboard);

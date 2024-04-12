@@ -84,3 +84,25 @@ export const OVERVIEW_DATA = [
     text: "Awards",
   },
 ];
+export const TRCKING_BAR = [
+  {
+    id: 1,
+    number: 1,
+  },
+  {
+    id: 1.5,
+    number: 1,
+  },
+  {
+    id: 2,
+    number: 2,
+  },
+  {
+    id: 2.5,
+    number: 2,
+  },
+  {
+    id: 3,
+    number: 3,
+  },
+];

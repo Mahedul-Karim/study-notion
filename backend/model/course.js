@@ -19,6 +19,10 @@ const courseSchema = new mongoose.Schema({
   whatYouWillLearn: {
     type: String,
   },
+  isDrift:{
+    type:Boolean,
+    default:true
+  },
   courseContents: [
     {
       type: mongoose.Schema.ObjectId,
@@ -34,6 +38,11 @@ const courseSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
+  instructions:[
+    {
+      type:String
+    }
+  ],
   thumbnail: {
     public_id: {
       type: String,
@@ -43,8 +52,7 @@ const courseSchema = new mongoose.Schema({
     },
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+    type: String,
   },
   studentsEnrolled: [
     {
@@ -52,6 +60,9 @@ const courseSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  courseDuration:{
+    type:String,
+  },
   status: {
     type: String,
     enum: ["Draft", "Published"],

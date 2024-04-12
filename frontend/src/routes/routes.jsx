@@ -12,6 +12,12 @@ import UserProfile from "../components/dashboard/user/profile/UserProfile";
 import EnrolledCourses from "../components/dashboard/user/enrolled-courses/EnrolledCourses";
 import Cart from "../components/dashboard/user/cart/Cart";
 import UserSettings from "../components/dashboard/user/settings/UserSettings";
+import InstructorDashboardPage from "../pages/dashboard/instructor/InstructorDashboardPage";
+import InstructorProfile from "../components/dashboard/instructor/profile/InstructorProfile";
+import InstructorSettings from "../components/dashboard/instructor/settings/InstructorSettings";
+import MyCourses from "../components/dashboard/instructor/courses/my-course/MyCourses";
+import CreateCourses from "../components/dashboard/instructor/courses/create-course/CreateCourses";
+import Analytics from "../components/dashboard/instructor/analytics/Analytics";
 
 export const routes = createBrowserRouter([
   {
@@ -19,7 +25,7 @@ export const routes = createBrowserRouter([
     element: <Main />,
     children: [
       {
-        index:true,
+        index: true,
         element: <Home />,
       },
       {
@@ -47,7 +53,6 @@ export const routes = createBrowserRouter([
         element: <UserDashboardPage />,
         children: [
           {
-            
             element: <UserProfile />,
             index: true,
           },
@@ -60,9 +65,35 @@ export const routes = createBrowserRouter([
             element: <Cart />,
           },
           {
-            path:'/dashboard/user/settings',
-            element:<UserSettings />
-          }
+            path: "/dashboard/user/settings",
+            element: <UserSettings />,
+          },
+        ],
+      },
+      {
+        path: "/dashboard/instructor",
+        element: <InstructorDashboardPage />,
+        children: [
+          {
+            element: <InstructorProfile />,
+            index: true,
+          },
+          {
+            path: "/dashboard/instructor/settings",
+            element: <InstructorSettings />,
+          },
+          {
+            path: "/dashboard/instructor/my-courses",
+            element: <MyCourses />,
+          },
+          {
+            path: "/dashboard/instructor/add-course",
+            element: <CreateCourses />,
+          },
+          {
+            path: "/dashboard/instructor/analytics",
+            element: <Analytics />,
+          },
         ],
       },
       {

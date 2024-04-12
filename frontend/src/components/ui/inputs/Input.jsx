@@ -9,7 +9,8 @@ const Input = ({
   name,
   onChange,
   disabled,
-  value
+  value,
+  register
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -24,7 +25,8 @@ const Input = ({
       return "password";
     }
   };
-
+ 
+ 
   return (
     <>
       <label className="text-[15px] text-richblack-5 mb-1">
@@ -35,13 +37,11 @@ const Input = ({
       </label>
       <input
         type={returnType()}
-        required={required}
+        required={!required}
         className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
         placeholder={placeholder}
-        name={name}
         disabled={disabled}
-        onChange={onChange}
-        value={value ? value : ""}
+        {...register}
       />
       {type === "password" && (
         <button

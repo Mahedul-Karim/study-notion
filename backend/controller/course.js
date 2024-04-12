@@ -15,17 +15,10 @@ exports.createCourse = catchAsync(async (req, res) => {
     price,
     category,
     thumbnail,
+    instructions
   } = req.body;
 
-  const categoryDetails = await Category.findById(category);
-
-  if (!categoryDetails) {
-    return res.status(404).json({
-      success: false,
-      message: "Tag details not found!",
-    });
-  }
-
+  
   const uploadImage = await uploadToCloudinary(thumbnail);
 
   const course = await Course.create({
@@ -38,7 +31,9 @@ exports.createCourse = catchAsync(async (req, res) => {
     },
     whatYouWillLearn,
     price,
-    category: categoryDetails._id,
+    category,
+    courseContents:[],
+    instructions
   });
 
   const instructor = await User.findByIdAndUpdate(

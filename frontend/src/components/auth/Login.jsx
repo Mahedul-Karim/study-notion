@@ -1,19 +1,28 @@
 import React, { useState } from "react";
-import Input from "../ui/inputs/Input";
+
 import FormButton from "../ui/inputs/FormButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../layout/Container";
 import toast from "react-hot-toast";
 import Spinner from "../ui/Spinner";
 import { useApi } from "../../hooks/useApi";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/profile";
+import Label from "../dashboard/common/form/inputs/Label";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { mutate, isPending } = useApi({
     success: (data) => {
       toast.success("Login success");
+      navigate("/dashboard/user");
+      dispatch(setUser(data.user));
     },
     error: (err) => {
       toast.error(err);
@@ -27,7 +36,6 @@ const Login = () => {
       method: "POST",
       data: { email, password },
     };
-   
 
     mutate({ endpoint: "user/login", options });
   };
@@ -46,10 +54,10 @@ const Login = () => {
 
           <form className="flex flex-col gap-3" onSubmit={formSubmit}>
             <div>
-              <Input
-                type={"email"}
-                required
-                label={"Email address"}
+              <Label>Email Address</Label>
+              <input
+                type="email"
+                className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
                 placeholder={"Enter your email address"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -57,16 +65,27 @@ const Login = () => {
               />
             </div>
             <div className="relative">
-              <Input
-                type={"password"}
-                required
-                label={"Password"}
+              <Label>Password</Label>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
                 placeholder={"Enter your password"}
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isPending}
               />
+              <button
+                className="absolute top-[50%] right-[10px]"
+                onClick={() => setShowPassword((prev) => !prev)}
+                type="button"
+              >
+                {!showPassword ? (
+                  <IoEyeOutline fontSize={24} />
+                ) : (
+                  <IoEyeOffOutline fontSize={24} />
+                )}
+              </button>
               <Link
                 to={"/forgot-password"}
                 className="absolute top-[105%] right-0 text-blue-200 text-[13px]"

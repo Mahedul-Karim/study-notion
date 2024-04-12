@@ -11,6 +11,8 @@ import Spinner from "../ui/Spinner";
 import { useDispatch } from "react-redux";
 import { useOtp } from "../../hooks/useOtp";
 import Container from "../layout/Container";
+import Label from "../dashboard/common/form/inputs/Label";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const BUTTON_VALUE = ["Student", "Instructor"];
 
@@ -25,7 +27,7 @@ const initialState = {
 
 const SignUp = () => {
   const [state, dispatchFn] = useReducer(signupReducer, initialState);
-
+  const [showPassword, setShowPassword] = useState(false);
   const reduxDispatch = useDispatch();
 
   const { mutate, isPending } = useOtp();
@@ -78,10 +80,10 @@ const SignUp = () => {
             </div>
             <div className="flex 400px:items-center gap-4 flex-col 400px:flex-row">
               <div>
-                <Input
-                  type={"text"}
-                  required
-                  label={"First Name"}
+                <Label>First Name</Label>
+                <input
+                  type="text"
+                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
                   disabled={isPending}
                   placeholder={"Enter first name"}
                   onChange={(e) =>
@@ -91,10 +93,10 @@ const SignUp = () => {
                 />
               </div>
               <div>
-                <Input
-                  type={"text"}
-                  required
-                  label={"Last Name"}
+                <Label>Last Name</Label>
+                <input
+                  type="text"
+                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
                   placeholder={"Enter last name"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -105,10 +107,10 @@ const SignUp = () => {
               </div>
             </div>
             <div>
-              <Input
-                type={"email"}
-                required
-                label={"Email Address"}
+              <Label>Email Address</Label>
+              <input
+                type="text"
+                className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
                 placeholder={"Enter email address"}
                 disabled={isPending}
                 onChange={(e) =>
@@ -119,10 +121,10 @@ const SignUp = () => {
             </div>
             <div className="flex 400px:items-center gap-4 flex-col 400px:flex-row">
               <div className="relative">
-                <Input
-                  type={"password"}
-                  required
-                  label={"Create Password"}
+                <Label>Create Password</Label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
                   placeholder={"Enter Password"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -130,12 +132,23 @@ const SignUp = () => {
                   }
                   value={state.password}
                 />
+                {/* <button
+                  className="absolute top-[50%] right-[10px]"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  type="button"
+                >
+                  {!showPassword ? (
+                    <IoEyeOutline fontSize={24} />
+                  ) : (
+                    <IoEyeOffOutline fontSize={24} />
+                  )}
+                </button> */}
               </div>
               <div className="relative">
-                <Input
-                  type={"password"}
-                  required
-                  label={"Confirm Password"}
+                <Label>Confirm Password</Label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
                   placeholder={"Confirm Password"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -146,6 +159,17 @@ const SignUp = () => {
                   }
                   value={state.confirmPassword}
                 />
+                {/* <button
+                  className="absolute top-[50%] right-[10px]"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  type="button"
+                >
+                  {!showPassword ? (
+                    <IoEyeOutline fontSize={24} />
+                  ) : (
+                    <IoEyeOffOutline fontSize={24} />
+                  )}
+                </button> */}
               </div>
             </div>
             <FormButton

@@ -1,37 +1,46 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import { IoCartOutline } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa6";
 import { HiOutlineUserCircle } from "react-icons/hi2";
-import { FaGraduationCap } from "react-icons/fa";
+import { RxDashboard } from "react-icons/rx";
 import { BsGear } from "react-icons/bs";
 import { VscSignOut } from "react-icons/vsc";
 import Sidebar from "../common/Sidebar";
-const USER_DASHBOARD_LINKS = [
+import { RiComputerLine } from "react-icons/ri";
+
+const INSTRUCTOR_DASHBOARD_LINKS = [
   {
     id: 1,
-    to: "/dashboard/user",
+    to: "/dashboard/instructor",
     title: "My Profile",
     icon: <HiOutlineUserCircle fontSize={24} />,
   },
   {
     id: 2,
-    to: "/dashboard/user/enrolled-courses",
-    title: "Enrolled Courses",
-    icon: <FaGraduationCap fontSize={24} />,
+    to: "/dashboard/instructor/analytics",
+    title: "Dashboard",
+    icon: <RxDashboard fontSize={20} />,
   },
   {
     id: 3,
-    to: "/dashboard/user/cart",
-    title: "Cart",
-    icon: <IoCartOutline fontSize={24} />,
+    to: "/dashboard/instructor/my-courses",
+    title: "My Courses",
+    icon: <RiComputerLine fontSize={20} />,
+  },
+  {
+    id: 3.5,
+    to: "/dashboard/instructor/add-course",
+    title: "Add Course",
+    icon: <FaPlus fontSize={20} />,
   },
   {
     id: 4,
-    to: "/dashboard/user/settings",
+    to: "/dashboard/instructor/settings",
     title: "Settings",
     icon: <BsGear fontSize={20} />,
   },
+
   {
     id: 5,
     title: "Logout",
@@ -39,10 +48,10 @@ const USER_DASHBOARD_LINKS = [
   },
 ];
 
-const UserDashboard = () => {
+const InstructorDashboard = () => {
   return (
     <div className="min-h-[calc(100vh_-_70px)] grid  lg:grid-cols-[250px_1fr]">
-      <Sidebar dashboardLinks={USER_DASHBOARD_LINKS} />
+      <Sidebar dashboardLinks={INSTRUCTOR_DASHBOARD_LINKS} />
       <div className="py-5 400px:py-8 overflow-x-scroll w-full hideScrollbar">
         <div className="text-richblack-25 flex flex-col gap-4 w-11/12 mx-auto max-w-[1000px]">
           <Outlet />
@@ -52,4 +61,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default InstructorDashboard;

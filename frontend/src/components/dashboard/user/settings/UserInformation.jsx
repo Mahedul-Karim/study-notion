@@ -4,6 +4,8 @@ import CancelButton from "../../common/CancelButton";
 import FormButton from "../../../ui/inputs/FormButton";
 import Title from "../../common/Title";
 import Section from "../../common/Section";
+import TextArea from "../../../ui/inputs/TextArea";
+import Select from "../../../ui/inputs/Select";
 
 const UserInformation = () => {
   return (
@@ -35,23 +37,23 @@ const UserInformation = () => {
               <label className="text-[15px] text-richblack-5 mb-1">
                 Gender
               </label>
-              <select className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25">
+              <Select>
                 <option>Select a gender</option>
                 <option>Male</option>
                 <option>Female</option>
-              </select>
+              </Select>
             </div>
           </div>
           <div>
-            <Input label={"Contact Number"} type={"number"} placeholder={"Enter Contact Number"}/>
+            <Input
+              label={"Contact Number"}
+              type={"number"}
+              placeholder={"Enter Contact Number"}
+            />
           </div>
           <div>
             <label className="text-[15px] text-richblack-5 mb-1">About</label>
-            <textarea
-              className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
-              rows={5}
-              placeholder="Enter Bio Details"
-            />
+            <TextArea placeholder={"Enter Bio Details"} />
           </div>
         </div>
       </Section>
