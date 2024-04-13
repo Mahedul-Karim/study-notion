@@ -22,7 +22,7 @@ const Hero = () => {
         including hands-on projects, quizzes, and personalized feedback from
         instructors.
       </p>
-      <div className="flex items-start 400px:items-center gap-4 400px:flex-row flex-col mt-6 w-full 400px:w-auto">
+      <div className="flex items-start 400px:items-center gap-4 mt-6 w-full 400px:w-auto">
 
       <Button yellow to={"/about"}>Learn More</Button>
       <Button to={"/login"}>Book a demo</Button>

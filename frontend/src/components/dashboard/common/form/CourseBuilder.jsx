@@ -6,9 +6,12 @@ import CancelButton from "../CancelButton";
 import FormButton from "../../../ui/inputs/FormButton";
 import Label from "./inputs/Label";
 import { useDispatch, useSelector } from "react-redux";
-import { addSection, editSection,deleteSection } from "../../../../store/slices/course";
+import {
+  addSection,
+  editSection,
+  deleteSection,
+} from "../../../../store/slices/course";
 import { toast } from "react-hot-toast";
-
 
 const CourseBuilder = ({ setActive, setIsEditing }) => {
   const [sectionName, setSectionName] = useState("");
@@ -40,9 +43,19 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
     setSectionName("");
   };
 
-  const removeSection=(index)=>{
-    dispatch(deleteSection(index))
-  }
+  const removeSection = (index) => {
+    dispatch(deleteSection(index));
+  };
+
+  const nextForm = () => {
+    if (
+      newCourse.courseContents.length === 0 ||
+      newCourse.courseContents[0].subSection.length === 0
+    ) {
+      return toast.error("One section and one sub section is required!");
+    }
+    setActive(3);
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -112,7 +125,9 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
         >
           Prev
         </CancelButton>
-        <FormButton extraClass="!mt-0">Next</FormButton>
+        <FormButton extraClass="!mt-0" onClick={nextForm}>
+          Next
+        </FormButton>
       </div>
     </div>
   );

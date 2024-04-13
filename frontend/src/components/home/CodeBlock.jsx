@@ -17,7 +17,7 @@ const CodeBlock = ({
           {title}
         </h2>
         <p className="text-richblack-300 font-bold mt-4">{paragraph}</p>
-        <div className="flex flex-col 400px:flex-row items-start 400px:items-center gap-6 mt-4">
+        <div className="flex items-start 400px:items-center gap-6 mt-4">
           <Button yellow to={btn1?.to}>
             {btn1?.text}
           </Button>

@@ -137,6 +137,13 @@ body {
 .hideScrollbar::-webkit-scrollbar {
   display: none;
 }
-.cart > *:not(:last-child){
+.cart > *:not(:last-child) {
   border-bottom: 1px solid #2c333f;
+}
+
+.active::before {
+  transform: translate(75%, 15px) rotate(-35deg);
+}
+.active::after {
+  transform: translate(18%, -16px) rotate(35deg);
 }

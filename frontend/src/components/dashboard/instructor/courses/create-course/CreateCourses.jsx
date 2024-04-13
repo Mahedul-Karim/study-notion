@@ -5,6 +5,7 @@ import Tracking from "./Tracking";
 import { TRCKING_BAR } from "../../../../util/data";
 import CourseForm from "../../../common/form/CourseForm";
 import CourseBuilder from "../../../common/form/CourseBuilder";
+import CoursePublish from "../../../common/form/CoursePublish";
 
 const CreateCourses = () => {
   const [active, setActive] = useState(1);
@@ -31,6 +32,7 @@ const CreateCourses = () => {
           {active === 2 && (
             <CourseBuilder setActive={setActive} setIsEditing={setIsFormEdit} />
           )}
+          {active === 3 && <CoursePublish setActive={setActive}/>}
         </Section>
       </div>
     </>
