@@ -13,7 +13,7 @@ const Category = ({ register, errors }) => {
         <option>Choose a category</option>
         {NAV_CATEGORY.map((cat, i) => (
           <option key={i}>
-            {cat}
+            {cat.title}
           </option>
         ))}
       </Select>

@@ -18,7 +18,7 @@ const Card = () => {
       <div className="flex items-center pl-2 gap-2 text-[15px] mt-1">
         <span className="text-yellow">4.5</span>
         <p className="flex items-center">
-          <Ratings size={18} rating={4.5} />{" "}
+          <Ratings size={16} rating={2.5} />{" "}
         </p>
         <p>4 ratings</p>
       </div>

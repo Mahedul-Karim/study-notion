@@ -49,6 +49,7 @@ const CourseSlider = () => {
             },
           }}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
+         
         >
           <SwiperSlide>
             <Card />
