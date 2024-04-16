@@ -18,6 +18,7 @@ import InstructorSettings from "../components/dashboard/instructor/settings/Inst
 import MyCourses from "../components/dashboard/instructor/courses/my-course/MyCourses";
 import CreateCourses from "../components/dashboard/instructor/courses/create-course/CreateCourses";
 import Analytics from "../components/dashboard/instructor/analytics/Analytics";
+import Course from "../pages/course/Course";
 
 export const routes = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ export const routes = createBrowserRouter([
             element: <Analytics />,
           },
         ],
+      },
+      {
+        path:'/category/:categoryName',
+        element:<Course />
       },
       {
         path: "*",

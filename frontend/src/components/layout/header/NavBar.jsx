@@ -3,7 +3,11 @@ import { NAV_CATEGORY, NAV_LINKS } from "../../util/data";
 import { Link, NavLink } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
 
+
+
+
 const NavBar = ({ extraClass = "" }) => {
+ 
   return (
     <nav>
       <ul className={`${extraClass} items-center gap-4 text-richblack-25`}>
@@ -20,10 +24,10 @@ const NavBar = ({ extraClass = "" }) => {
                   {NAV_CATEGORY.map((link, i) => (
                     <Link
                       key={i}
-                      to={""}
-                      className="inline-block px-6 py-4 hover:bg-richblack-50 rounded-md transition-all duration-200"
+                      to={`/category/${link?.title.split(" ").join("-")}`}
+                      className="inline-block px-6 py-4 hover:bg-richblack-50 rounded-md transition-all duration-200 first-letter:capitalize"
                     >
-                      {link}
+                      {link?.title}
                     </Link>
                   ))}
                 </div>

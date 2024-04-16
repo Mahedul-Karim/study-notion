@@ -60,10 +60,26 @@ export const NAV_LINKS = [
 ];
 
 export const NAV_CATEGORY = [
-  "Python",
-  "Web Development",
-  "JavaScript",
-  "React",
+  {
+    title: "python",
+    description:
+      "Master the Python programming language, one of the most versatile and widely used languages. Explore Python syntax, data structures, algorithms, and libraries.",
+  },
+  {
+    title: "web development",
+    description:
+      "Learn the foundations of web development, including HTML, CSS, and JavaScript. Dive into front-end and back-end development, frameworks, and responsive design.",
+  },
+  {
+    title: "artificial intelligence",
+    description:
+      "Learn about AI and machine learning concepts and algorithms. Use Python libraries like TensorFlow and scikit-learn to build intelligent systems and predictive models.",
+  },
+  {
+    title: "DevOps",
+    description:
+      "Explore DevOps practices and tools for efficient software development and deployment. Learn about version control, continuous integration, and deployment strategies",
+  },
 ];
 
 export const OVERVIEW_DATA = [

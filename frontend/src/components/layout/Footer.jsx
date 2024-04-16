@@ -5,10 +5,7 @@ const Footer = () => {
   const location = useLocation();
   const [isMobileDashboard, setIsMobileDashboard] = useState(false);
 
-  
-
   useEffect(() => {
-
     const setMobileDashboard = () => {
       setIsMobileDashboard(
         location?.pathname?.split("/").includes("dashboard") &&
@@ -17,10 +14,6 @@ const Footer = () => {
     };
 
     setMobileDashboard();
-
-    window.addEventListener("resize", setMobileDashboard);
-
-    return () => window.removeEventListener("resize", setMobileDashboard);
   }, []);
 
   return (

@@ -147,3 +147,21 @@ body {
 .active::after {
   transform: translate(18%, -16px) rotate(35deg);
 }
+
+.swiper-pagination {
+  position: static;
+  margin-top: 30px;
+  margin-inline: auto;
+}
+.swiper-horizontal
+  > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic,
+.swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic {
+  transform: translateX(0);
+}
+.swiper-pagination-bullet {
+  background-color: #838894;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active {
+  background-color: rgb(255 214 10);
+}

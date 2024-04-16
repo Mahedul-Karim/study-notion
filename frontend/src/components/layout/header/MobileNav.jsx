@@ -4,10 +4,10 @@ import { FaChevronDown } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 const MobileNav = ({ showSidebar, setShowSidebar }) => {
-    const { user } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.profile);
   return (
     <div
-      className={`fixed left-0 top-0 h-full w-[180px] ${
+      className={`fixed left-0 top-0 h-full w-[200px] ${
         showSidebar ? "translate-x-0" : "-translate-x-[100%]"
       } transition-all duration-300 bg-richblack-800 border-r-[2px] border-solid border-richblack-700 z-[99999999] overflow-auto`}
     >
@@ -26,11 +26,11 @@ const MobileNav = ({ showSidebar, setShowSidebar }) => {
                   {NAV_CATEGORY.map((link, i) => (
                     <Link
                       key={i}
-                      to={""}
-                      className="inline-block  rounded-md transition-all duration-200"
+                      to={`/category/${link?.title.split(" ").join("-")}`}
+                      className="inline-block  rounded-md transition-all duration-200 first-letter:capitalize"
                       onClick={setShowSidebar.bind(null, false)}
                     >
-                      {link}
+                      {link.title}
                     </Link>
                   ))}
                 </div>
@@ -47,24 +47,25 @@ const MobileNav = ({ showSidebar, setShowSidebar }) => {
             )
           )}
         </ul>
-        {!user && <div className="flex flex-col gap-2 px-4 mb-6">
-        <Link
-          to={"/login"}
-          className="bg-yellow p-1 rounded-md border-2 border-solid border-yellow50 flex md:hidden text-black  items-center justify-center"
-          onClick={setShowSidebar.bind(null, false)}
-        >
-          Login
-        </Link>
-        <Link
-          to={"/signup"}
-          className="bg-yellow p-1 rounded-md border-2 border-solid border-yellow50 flex items-center justify-center md:hidden text-black"
-          onClick={setShowSidebar.bind(null, false)}
-        >
-          Signup
-        </Link>
-      </div>}
+        {!user && (
+          <div className="flex flex-col gap-2 px-4 mb-6">
+            <Link
+              to={"/login"}
+              className="bg-yellow p-1 rounded-md border-2 border-solid border-yellow50 flex md:hidden text-black  items-center justify-center"
+              onClick={setShowSidebar.bind(null, false)}
+            >
+              Login
+            </Link>
+            <Link
+              to={"/signup"}
+              className="bg-yellow p-1 rounded-md border-2 border-solid border-yellow50 flex items-center justify-center md:hidden text-black"
+              onClick={setShowSidebar.bind(null, false)}
+            >
+              Signup
+            </Link>
+          </div>
+        )}
       </nav>
-      
     </div>
   );
 };
