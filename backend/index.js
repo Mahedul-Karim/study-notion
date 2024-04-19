@@ -48,6 +48,6 @@ app.use("/api/v1/category", categoryRoute);
 const PORT = process.env.PORT || 4000;
 
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-server.listen(PORT, () => console.log(`server is running at ${PORT}`));
+app.listen(PORT, () => console.log(`server is running at ${PORT}`));

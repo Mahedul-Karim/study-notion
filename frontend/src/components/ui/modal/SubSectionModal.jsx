@@ -71,7 +71,7 @@ const SubSectionModal = ({
 
   return (
     <Modal>
-      <div className="w-full 400px:w-11/12 max-w-[650px] rounded-md text-white border border-solid border-richblack-500 relative  hideScrollbar h-[350px] 400px:h-[600px] overflow-auto hideScrollbar">
+      <div className="w-full 400px:w-11/12 max-w-[650px] rounded-md text-white border border-solid border-richblack-500 relative  hideScrollbar h-[80vh] overflow-auto hideScrollbar">
         <div className="bg-richblack-700 px-6 py-3 text-[22px] font-semibold flex items-center justify-between">
           <h2>Adding Lecture</h2>
           <button type="button" onClick={() => setShowModal(false)}>

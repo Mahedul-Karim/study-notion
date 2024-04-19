@@ -45,6 +45,10 @@ const Home = () => {
               btn1={BTN_1}
               btn2={BTN_2}
               text={TYPE_STRING_2}
+              title={<>
+               Start <HighlightText blue> coding in seconds</HighlightText>
+              </>}
+              paragraph={"Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."}
             />
           </div>
         </Container>

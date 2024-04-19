@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Card = () => {
   return (
-    <Link to={""} className="flex flex-col border border-solid border-richblack-700 rounded-md cursor-pointer overflow-clip">
+    <Link to={`/course/python-development`} className="flex flex-col border border-solid border-richblack-700 rounded-md cursor-pointer overflow-clip">
       <img
         className="w-full aspect-video object-cover"
         src="https://res.cloudinary.com/dbr73rpz9/image/upload/v1688631640/images/1106091-Python_iw6fih.jpg"
