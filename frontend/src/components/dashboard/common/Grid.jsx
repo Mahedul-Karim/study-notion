@@ -1,9 +1,13 @@
 import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import ProgressBar from "../../ui/ProgressBar";
+import { useNavigate } from "react-router-dom";
 const Grid = () => {
+
+  const navigate = useNavigate()
+
   return (
-    <div className="min-w-[930px] grid grid-cols-[1.3fr_0.8fr_0.7fr_0.3fr] px-4 py-3 text-[15px]">
+    <div className="min-w-[930px] grid grid-cols-[1.3fr_0.8fr_0.7fr_0.3fr] px-4 py-3 text-[15px] cursor-pointer" onClick={()=>navigate('/view-course?courseId=123')}>
       <div className="flex items-center gap-3">
         <img
           src="https://api.dicebear.com/5.x/initials/svg?seed=Test User"

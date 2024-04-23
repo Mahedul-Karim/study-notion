@@ -13,6 +13,7 @@ import {
   TYPE_STRING_2,
 } from "../components/util/data";
 import AboutSection from "../components/home/AboutSection";
+import VideoPlayer from "../components/ui/VideoPlayer";
 
 
 const Home = () => {

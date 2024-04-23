@@ -55,7 +55,7 @@ const Header = () => {
               <div className="relative">
                 <DotMenu open={open} extraClass="top-[25px]">
                   <Link
-                    to={"/dashboard/instructor"}
+                    to={"/dashboard/user"}
                     className="flex items-center gap-1"
                     onClick={setOpen.bind(null, false)}
                   >

@@ -18,6 +18,9 @@ const subSectionSchema = new mongoose.Schema({
       type:String
     }
   },
+  completed:{
+    type:Number
+  }
 });
 
 module.exports = mongoose.model("SubSection", subSectionSchema);
