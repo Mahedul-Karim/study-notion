@@ -1,8 +1,15 @@
 import React from "react";
 import { IoMdCloudUpload } from "react-icons/io";
 import Label from "./Label";
+import VideoPlayer from "../../../../ui/VideoPlayer";
 
-const Upload = ({ label,thumbnail, previewFunction, onCancel, isVideo = false }) => {
+const Upload = ({
+  label,
+  thumbnail,
+  previewFunction,
+  onCancel,
+  isVideo = false,
+}) => {
   return (
     <div>
       <Label>{label}</Label>
@@ -26,13 +33,7 @@ const Upload = ({ label,thumbnail, previewFunction, onCancel, isVideo = false })
         {thumbnail ? (
           <div className="flex flex-col p-6">
             {isVideo ? (
-              <video
-                controls
-                autoPlay={false}
-                className="h-full w-full rounded-md"
-              >
-                <source src={thumbnail} />
-              </video>
+              <VideoPlayer src={thumbnail} />
             ) : (
               <img
                 src={thumbnail}

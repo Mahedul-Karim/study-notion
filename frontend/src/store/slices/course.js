@@ -49,7 +49,7 @@ const courseSlice = createSlice({
       existingSection.subSection.splice(index,1)
     },
     addSubSection(state, action) {
-      const { sectionName, title, description, videoUrl } = action.payload;
+      const { sectionName, title, description, videoUrl,_id } = action.payload;
 
       const existingSection = state.newCourse.courseContents.find(
         (sec) => sec.sectionName === sectionName
@@ -60,6 +60,7 @@ const courseSlice = createSlice({
           title,
           description,
           videoUrl,
+          _id
         });
       }
     },

@@ -21,6 +21,7 @@ import Analytics from "../components/dashboard/instructor/analytics/Analytics";
 import Course from "../pages/course/Course";
 import CourseDetailsPage from "../pages/course/CourseDetailsPage";
 import ViewCoursePage from "../pages/course/ViewCoursePage";
+import EditCoursePage from "../pages/course/EditCoursePage";
 
 export const routes = createBrowserRouter([
   {
@@ -88,6 +89,10 @@ export const routes = createBrowserRouter([
           {
             path: "/dashboard/instructor/my-courses",
             element: <MyCourses />,
+          },
+          {
+            path: "/dashboard/instructor/edit-course",
+            element: <EditCoursePage />,
           },
           {
             path: "/dashboard/instructor/add-course",

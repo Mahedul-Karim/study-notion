@@ -5,8 +5,13 @@ import { RxDropdownMenu } from "react-icons/rx";
 import NestedSections from "./NestedSections";
 import { FaPlus } from "react-icons/fa";
 import SubSectionModal from "../../../ui/modal/SubSectionModal";
+import ConfirmationModal from "../../../ui/modal/ConfirmationModal";
+import { useApi } from "../../../../hooks/useApi";
+import toast from "react-hot-toast";
+
 
 const Sections = ({
+  sectionId,
   sectionName,
   subSection,
   isSectionEditing,
@@ -14,6 +19,7 @@ const Sections = ({
   setSectionToEdit,
   index,
   removeSection,
+  courseId,
 }) => {
   const [showSubSection, setShowSubSection] = useState(false);
 
@@ -21,9 +27,35 @@ const Sections = ({
   const [isViewing, setIsViewing] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  const [subSectionToEdit,setSubSectionToEdit]=useState(null);
+  const [subSectionToEdit, setSubSectionToEdit] = useState(null);
 
-  
+  const [openModal, setOpenModal] = useState(false);
+
+  const { mutate, isPending } = useApi({
+    success: (data) => {
+      setOpenModal(false);
+      toast.success(data.message);
+      removeSection(index);
+    },
+    error: (err) => {
+      toast.error(err);
+      setOpenModal(false);
+    },
+
+  });
+
+  const removeSectionHandler = () => {
+    const options = {
+      method: "DELETE",
+      data: {
+        courseId,
+        sectionId,
+      },
+    };
+
+    mutate({ endpoint: "section", options });
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between py-3 border-b-[2px] border-solid border-richblack-500">
@@ -46,7 +78,7 @@ const Sections = ({
           </button>
           <button
             className="px-2 border-r-[2px] border-solid border-richblack-500"
-            onClick={removeSection.bind(null, index)}
+            onClick={setOpenModal.bind(null, true)}
           >
             <FaTrash size={14} />
           </button>
@@ -74,6 +106,7 @@ const Sections = ({
                 setSubSectionToEdit={setSubSectionToEdit}
                 index={i}
                 sectionName={sectionName}
+                id={sec._id}
               />
             ))}
         </div>
@@ -90,6 +123,7 @@ const Sections = ({
           setShowModal={setIsAdding}
           sectionName={sectionName}
           setShowSubSection={setShowSubSection}
+          sectionId={sectionId}
         />
       )}
       {isEditing && (
@@ -100,6 +134,7 @@ const Sections = ({
           setShowSubSection={setShowSubSection}
           subSectionData={subSection[subSectionToEdit]}
           subSectionToEdit={subSectionToEdit}
+          sectionId={sectionId}
         />
       )}
       {isViewing && (
@@ -110,6 +145,16 @@ const Sections = ({
           setShowSubSection={setShowSubSection}
           subSectionData={subSection[subSectionToEdit]}
           subSectionToEdit={subSectionToEdit}
+        />
+      )}
+      {openModal && (
+        <ConfirmationModal
+          heading={"Are you sure?"}
+          paragraph={"This action can not be undone"}
+          btn1text={"Delete"}
+          onClick2={setOpenModal.bind(null, false)}
+          onClick1={removeSectionHandler}
+          isPending={isPending}
         />
       )}
     </div>

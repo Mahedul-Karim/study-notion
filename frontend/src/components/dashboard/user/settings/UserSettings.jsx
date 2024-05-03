@@ -10,15 +10,15 @@ const UserSettings = () => {
   return (
     <>
       <Heading>Edit Profile</Heading>
-      <Section extraClass="flex gap-2 400px:gap-4 flex-col 400px:flex-row">
+      <Section extraClass="flex gap-2 400px:gap-4 flex-col 400px:flex-row 400px:items-center">
         <Upload />
       </Section>
-      <form >
+      <div>
         <UserInformation />
-      </form>
-      <form>
+      </div>
+      <div>
         <ChangePassword />
-      </form>
+      </div>
     </>
   );
 };

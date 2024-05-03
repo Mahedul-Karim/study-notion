@@ -6,7 +6,7 @@ import Container from "../layout/Container";
 import toast from "react-hot-toast";
 import Spinner from "../ui/Spinner";
 import { useApi } from "../../hooks/useApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/slices/profile";
 import Label from "../dashboard/common/form/inputs/Label";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
@@ -15,6 +15,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const { user } = useSelector(state => state.profile)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,6 +42,10 @@ const Login = () => {
 
     mutate({ endpoint: "user/login", options });
   };
+
+  if(user){
+    return navigate('/')
+  }
 
   return (
     <div className="bg-richblack-900 min-h-[calc(100vh_-_70px)] py-10 text-richblack-25">

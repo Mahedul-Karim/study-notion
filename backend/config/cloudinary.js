@@ -8,7 +8,12 @@ exports.configCloudinary = () => {
   });
 };
 
-exports.uploadToCloudinary = async (file, folder="avatars", height, quality) => {
+exports.uploadToCloudinary = async (
+  file,
+  folder = "avatars",
+  height,
+  quality
+) => {
   const options = { folder };
 
   if (height) {
@@ -22,4 +27,10 @@ exports.uploadToCloudinary = async (file, folder="avatars", height, quality) => 
   options.resource_type = "auto";
 
   return await cloudinary.v2.uploader.upload(file, options);
+};
+
+exports.deleteFromCloudinary = async (publicId, type) => {
+  return await cloudinary.v2.uploader.destroy(publicId, {
+    resource_type: type,
+  });
 };

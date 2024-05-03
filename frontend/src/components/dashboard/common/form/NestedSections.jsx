@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiSolidPencil } from "react-icons/bi";
 import { FaTrash } from "react-icons/fa";
 import { RxDropdownMenu } from "react-icons/rx";
 import { removeSubSection } from "../../../../store/slices/course";
 import { useDispatch } from "react-redux";
+import ConfirmationModal from "../../../ui/modal/ConfirmationModal";
+import { useApi } from "../../../../hooks/useApi";
+import toast from "react-hot-toast";
 
 const NestedSections = ({
   setIsViewing,
@@ -12,11 +15,31 @@ const NestedSections = ({
   setSubSectionToEdit,
   index,
   sectionName,
+  id
 }) => {
   const dispatch = useDispatch();
 
+  const [openModal,setOpenModal]=useState(false)
+
+  const { mutate,isPending } = useApi({
+    success:(data)=>{
+      setOpenModal(false);
+      toast.success(data.message);
+      dispatch(removeSubSection({ index, sectionName }));
+    },
+    error:(err)=>{
+      toast.error(err)
+    }
+  })
+
   const deleteSubSection = () => {
-    dispatch(removeSubSection({ index, sectionName }));
+    const options ={
+      method:'DELETE',
+      data:{
+        id,sectionName
+      }
+    }
+    mutate({endpoint:'subSection',options}) 
   };
 
   return (
@@ -46,10 +69,20 @@ const NestedSections = ({
         >
           <BiSolidPencil size={18} />
         </button>
-        <button className="px-2" onClick={deleteSubSection}>
+        <button className="px-2" onClick={setOpenModal.bind(null,true)}>
           <FaTrash size={14} />
         </button>
       </div>
+      {openModal && (
+        <ConfirmationModal
+          heading={"Are you sure?"}
+          paragraph={"This action can not be undone"}
+          btn1text={"Delete"}
+          onClick2={setOpenModal.bind(null, false)}
+          onClick1={deleteSubSection}
+          isPending={isPending}
+        />
+      )}
     </div>
   );
 };

@@ -10,8 +10,11 @@ import {
   addSection,
   editSection,
   deleteSection,
+  addNewCourse,
 } from "../../../../store/slices/course";
 import { toast } from "react-hot-toast";
+import { useApi } from "../../../../hooks/useApi";
+import SpinnerModal from "../../../ui/modal/SpinnerModal";
 
 const CourseBuilder = ({ setActive, setIsEditing }) => {
   const [sectionName, setSectionName] = useState("");
@@ -21,6 +24,25 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
   const dispatch = useDispatch();
 
   const { newCourse } = useSelector((state) => state.course);
+
+  const { mutate, isPending } = useApi({
+    success: (data) => {
+      toast.success(data.message);
+      if (isSectionEditing) {
+        dispatch(
+          editSection({ index: sectionToEdit, name: data.section.sectionName })
+        );
+        setIsSectionEditing(false);
+        setSectionToEdit(null);
+        setSectionName("");
+      } else {
+        dispatch(addNewCourse(data.updatedCourse));
+      }
+    },
+    error: (err) => {
+      toast.error(err);
+    },
+  });
 
   useEffect(() => {
     if (isSectionEditing) {
@@ -33,13 +55,30 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
       return toast.error("Section Name is required!");
     }
     if (isSectionEditing) {
-      dispatch(editSection({ index: sectionToEdit, name: sectionName }));
-      setIsSectionEditing(false);
-      setSectionToEdit(null);
-      setSectionName("");
+      const sectionId = newCourse.courseContents[sectionToEdit]._id;
+
+      const options = {
+        method: "PATCH",
+        data: {
+          sectionId,
+          sectionName,
+        },
+      };
+
+      mutate({ endpoint: "section", options });
+
+
       return;
     }
-    dispatch(addSection({ sectionName, subSection: [] }));
+
+    const options = {
+      method: "POST",
+      data: {
+        sectionName,
+        courseId: newCourse._id,
+      },
+    };
+    mutate({ endpoint: "section", options });
     setSectionName("");
   };
 
@@ -112,6 +151,8 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
               setSectionToEdit={setSectionToEdit}
               index={i}
               removeSection={removeSection}
+              sectionId={sec._id}
+              courseId={newCourse?._id}
             />
           ))}
       </div>
@@ -129,6 +170,7 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
           Next
         </FormButton>
       </div>
+      {isPending && <SpinnerModal />}
     </div>
   );
 };

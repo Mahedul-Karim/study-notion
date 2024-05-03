@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import FormButton from "../../ui/inputs/FormButton";
 import { FaRegShareSquare } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import PaymentModal from "../../ui/modal/PaymentModal";
 
 const Action = () => {
-
-  
+  const [showModal, setShowModal] = useState(false);
 
   const copyToClipboard = () => {
     navigator.clipboard
@@ -23,7 +23,7 @@ const Action = () => {
         src="https://res.cloudinary.com/dbr73rpz9/image/upload/v1688631640/images/1106091-Python_iw6fih.jpg"
       />
       <h4 className="font-bold text-2xl">$999</h4>
-      <FormButton extraClass="!mt-0">Buy Now</FormButton>
+      <FormButton extraClass="!mt-0" onClick={setShowModal.bind(null,true)}>Buy Now</FormButton>
       <button className="rounded-lg bg-richblack-800 py-[6px] 400px:py-[8px] px-[8px] 400px:px-[12px] font-medium text-richblack-25 text-[14px] 400px:text-base">
         Add to Cart
       </button>
@@ -54,6 +54,7 @@ const Action = () => {
         <FaRegShareSquare />
         Share
       </button>
+      {showModal && <PaymentModal setShowModal={setShowModal}/>}
     </aside>
   );
 };

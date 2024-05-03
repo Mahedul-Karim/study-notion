@@ -4,12 +4,13 @@ import Container from "../../layout/Container";
 import { NAV_CATEGORY } from "../../util/data";
 import Card from "../Card";
 import CourseSlider from "../CourseSlider";
+import { useData } from "../../../hooks/useData";
+import Spinner from "../../ui/Spinner";
 
 const CategoryCourse = () => {
   const { categoryName } = useParams();
   const [selectedCategory, setSelectedCategory] = useState();
   const [active, setActive] = useState(0);
- 
 
   useEffect(() => {
     const cat = NAV_CATEGORY.find(
@@ -17,6 +18,13 @@ const CategoryCourse = () => {
     );
     setSelectedCategory(cat);
   }, [categoryName]);
+
+  const categoryNameLower = categoryName?.replace("-", " ")?.toLowerCase();
+
+  const { data, isPending } = useData({
+    key: ["categoryCourses", categoryNameLower],
+    endpoint: `course/category/${categoryNameLower}`,
+  });
 
   return (
     <>
@@ -55,21 +63,24 @@ const CategoryCourse = () => {
             New
           </button>
         </div>
-        <div className="grid 400px:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </div>
+        {isPending ? (
+          <div className="flex items-center justify-center my-16">
+            <Spinner />
+          </div>
+        ) : !data?.courses || data?.courses?.length === 0 ? (
+          <p className="text-center text-xl font-semibold my-6">
+            No Courses Found!Try a different category
+          </p>
+        ) : (
+          <div className="grid 400px:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+            {data?.courses.map((course) => (
+              <Card key={course?._id} course={course} />
+            ))}
+          </div>
+        )}
+
         <div className="mt-6">
           <CourseSlider />
-          
         </div>
       </Container>
     </>

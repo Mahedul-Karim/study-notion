@@ -9,6 +9,10 @@ import FormButton from "../inputs/FormButton";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addSubSection, editSubSection } from "../../../store/slices/course";
+import { useThumbnail } from "../../../hooks/useThumbnail";
+import { useApi } from "../../../hooks/useApi";
+import toast from "react-hot-toast";
+import Spinner from "../Spinner";
 
 const SubSectionModal = ({
   setShowModal,
@@ -19,6 +23,7 @@ const SubSectionModal = ({
   setShowSubSection,
   subSectionToEdit,
   subSectionData,
+  sectionId,
 }) => {
   const [video, setVideo] = useState("");
 
@@ -28,45 +33,67 @@ const SubSectionModal = ({
 
   const dispatch = useDispatch();
 
+  const { showThumbnailPreview } = useThumbnail(setVideo);
+
+  const { mutate, isPending } = useApi({
+    success: (data) => {
+      setShowModal(false);
+      setShowSubSection(true);
+      toast.success(data.message);
+      if (data.subSection) {
+        dispatch(
+          editSubSection({
+            ...data.subSection,
+            index: subSectionToEdit,
+            sectionName,
+          })
+        );
+      } else {
+        dispatch(addSubSection({ ...data.subSectionDetails, sectionName }));
+      }
+      setVideo("");
+      reset();
+    },
+    error: (err) => {
+      setShowModal(false);
+      toast.error(err);
+      setVideo("");
+    }
+  });
+
   useEffect(() => {
     if (isViewing || isEditing) {
-      setVideo(subSectionData.videoUrl);
+      setVideo(subSectionData.videoUrl.url);
     }
   }, [isViewing, isEditing]);
 
-  const showVideoPreview = (file) => {
-    if (!file || !isAdding) {
-      return;
-    }
-
-    const fileReader = new FileReader();
-
-    fileReader.onload = () => {
-      setVideo(fileReader.result);
-    };
-
-    fileReader.readAsDataURL(file);
-  };
-
   const onSubmit = (data) => {
+    
     if (isViewing) {
       return;
     }
     if (isEditing) {
-      dispatch(
-        editSubSection({
+      const options = {
+        method: "PATCH",
+        data: {
           ...data,
-          videoUrl: video,
-          index: subSectionToEdit,
-          sectionName,
-        })
-      );
+          video,
+          id: subSectionData?._id,
+        },
+      };
+      mutate({endpoint:'subSection',options})
     } else {
-      dispatch(addSubSection({ ...data, sectionName, videoUrl: video }));
+      const options = {
+        method: "POST",
+        data: {
+          ...data,
+          video,
+          sectionId,
+        },
+      };
+      mutate({ endpoint: "subSection", options });
     }
-    reset();
-    setShowModal(false);
-    setShowSubSection(true);
+    
   };
 
   return (
@@ -86,7 +113,7 @@ const SubSectionModal = ({
             label={"Lecture Video"}
             isVideo
             thumbnail={video}
-            previewFunction={showVideoPreview}
+            previewFunction={showThumbnailPreview}
             onCancel={setVideo.bind(null, "")}
           />
           <div>
@@ -97,6 +124,7 @@ const SubSectionModal = ({
               register={register("title", {
                 required: true,
               })}
+              disabled={isViewing}
             />
           </div>
           <div>
@@ -110,8 +138,14 @@ const SubSectionModal = ({
           </div>
           {!isViewing && (
             <div className="self-end">
-              <FormButton extraClass="!mt-0" type="submit">
-                {isEditing ? "Save Changes" : "Save"}
+              <FormButton extraClass="!mt-0" type="submit" disabled={isPending}>
+                {isPending ? (
+                  <Spinner button />
+                ) : isEditing ? (
+                  "Save Changes"
+                ) : (
+                  "Save"
+                )}
               </FormButton>
             </div>
           )}

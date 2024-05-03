@@ -2,6 +2,8 @@ import React from "react";
 import Modal from "./Modal";
 import FormButton from "../inputs/FormButton";
 import Cancel from "../../dashboard/common/CancelButton";
+import Spinner from '../../ui/Spinner'
+
 
 const ConfirmationModal = ({
   heading,
@@ -9,6 +11,7 @@ const ConfirmationModal = ({
   btn1text,
   onClick1,
   onClick2,
+  isPending
 }) => {
   return (
     <Modal>
@@ -16,8 +19,8 @@ const ConfirmationModal = ({
         <h3 className="text-2xl font-bold text-richblack-25">{heading}</h3>
         <p className="text-richblack-300">{paragraph}</p>
         <div className="flex items-center gap-2 mt-2">
-          <FormButton extraClass="!mt-0" onClick={onClick1}>
-            {btn1text}
+          <FormButton extraClass="!mt-0" onClick={onClick1} disabled={isPending}>
+            {isPending ? <Spinner button/> :  btn1text}
           </FormButton>
           <Cancel extraClass={"!text-richblack-25"} onClick={onClick2} />
         </div>

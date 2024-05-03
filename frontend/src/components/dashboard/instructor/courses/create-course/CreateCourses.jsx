@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../../../common/Heading";
 import Section from "../../../common/Section";
 import Tracking from "./Tracking";
@@ -7,13 +7,17 @@ import CourseForm from "../../../common/form/CourseForm";
 import CourseBuilder from "../../../common/form/CourseBuilder";
 import CoursePublish from "../../../common/form/CoursePublish";
 
-const CreateCourses = () => {
+const CreateCourses = ({ isEditing }) => {
   const [active, setActive] = useState(1);
   const [isFormEdit, setIsFormEdit] = useState(false);
 
+  useEffect(() => {
+    if (isEditing) setIsFormEdit(true);
+  }, []);
+
   return (
     <>
-      <Heading>Add Course</Heading>
+      <Heading>{isEditing ? "Edit Course" : "Add Course"} </Heading>
       <div className="max-w-[550px]">
         <div className="flex items-center mb-6 w-full justify-center">
           {TRCKING_BAR.map((track, i) => (
@@ -27,12 +31,13 @@ const CreateCourses = () => {
               setActive={setActive}
               isFormEdit={isFormEdit}
               setIsFormEdit={setIsFormEdit}
+              isEditing={isEditing}
             />
           )}
           {active === 2 && (
             <CourseBuilder setActive={setActive} setIsEditing={setIsFormEdit} />
           )}
-          {active === 3 && <CoursePublish setActive={setActive}/>}
+          {active === 3 && <CoursePublish setActive={setActive} />}
         </Section>
       </div>
     </>

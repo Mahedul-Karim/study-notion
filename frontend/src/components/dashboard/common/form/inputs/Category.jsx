@@ -12,7 +12,7 @@ const Category = ({ register, errors }) => {
       <Select register={register}>
         <option>Choose a category</option>
         {NAV_CATEGORY.map((cat, i) => (
-          <option key={i}>
+          <option key={i} className="capitalize">
             {cat.title}
           </option>
         ))}

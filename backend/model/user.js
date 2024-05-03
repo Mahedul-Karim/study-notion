@@ -70,7 +70,7 @@ userSchema.pre("save", async function (next) {
 
 userSchema.methods.getToken = function () {
   return jwt.sign({ ...this,password:null }, process.env.JWT_SECRET, {
-    expiresIn: "2h",
+    expiresIn: "3d",
   });
 };
 

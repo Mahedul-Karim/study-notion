@@ -1,9 +1,26 @@
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./routes/routes";
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
+
+import { useEffect } from "react";
+import { axiosInstance } from "./components/util/api";
+import { useDispatch } from "react-redux";
+import { setUser } from "./store/slices/profile";
 
 function App() {
-  
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async function () {
+      const data = await axiosInstance({
+        url: "user/me",
+        method: "GET",
+      });
+      if (!data.data.success) return;
+      dispatch(setUser(data?.data?.user));
+    })();
+  }, []);
+
   return (
     <>
       <RouterProvider router={routes} />
@@ -24,7 +41,7 @@ function App() {
             padding: "5px 8px",
             backgroundColor: "#fff",
             color: "#243757",
-            zIndex:99999999
+            zIndex: 99999999,
           },
         }}
       />

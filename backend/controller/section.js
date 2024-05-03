@@ -1,6 +1,10 @@
 const Section = require("../model/section");
 const Course = require("../model/course");
 const catchAsync = require("../util/catchAsync");
+const SubSection = require("../model/subSection");
+
+const { deleteFromCloudinary } = require("../config/cloudinary");
+
 exports.createSection = catchAsync(async (req, res) => {
   const { sectionName, courseId } = req.body;
 
@@ -11,7 +15,7 @@ exports.createSection = catchAsync(async (req, res) => {
     });
   }
 
-  const newSection = await Section.create({ sectionName });
+  const newSection = await Section.create({ sectionName, subSection: [] });
 
   const updatedCourse = await Course.findByIdAndUpdate(
     courseId,
@@ -23,12 +27,14 @@ exports.createSection = catchAsync(async (req, res) => {
     {
       new: true,
     }
-  ).populate({
-    path: "courseContents",
-    populate: {
-      path: "SubSection",
-    },
-  }).exec();
+  )
+    .populate({
+      path: "courseContents",
+      populate: {
+        path: "subSection",
+      },
+    })
+    .exec();
 
   res.status(201).json({
     success: true,
@@ -58,13 +64,26 @@ exports.updateSection = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "Section updated successfully!",
+    section,
   });
 });
 
 exports.deleteSection = catchAsync(async (req, res) => {
-  const { sectionId } = req.params;
+  
+  const { courseId,sectionId } = req.body;
 
-  await Section.findByIdAndDelete(sectionId);
+  await Course.findByIdAndUpdate(courseId, {
+    $pull: {
+      courseContents: sectionId,
+    },
+  });
+
+  const section = await Section.findByIdAndDelete(sectionId);
+
+  for (const subSections of section.subSection) {
+    const subSec = await SubSection.findByIdAndDelete(subSections);
+    await deleteFromCloudinary(subSec.videoUrl.public_id, "video");
+  }
 
   res.status(200).json({
     success: true,

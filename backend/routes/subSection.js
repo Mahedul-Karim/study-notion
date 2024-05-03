@@ -12,6 +12,8 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(userVerification, isInstructor, subSection.createSubSection);
+  .post(userVerification, isInstructor, subSection.createSubSection)
+  .patch(userVerification,isInstructor,subSection.editSubSection)
+  .delete(userVerification,isInstructor,subSection.deleteSubSection);
 
 module.exports = router;

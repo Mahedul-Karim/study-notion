@@ -134,7 +134,7 @@ const VideoPlayer = ({src,extraClass=""}) => {
         </div>
         <div className="flex items-center justify-between px-4 invisible opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
           <div className="flex items-center gap-2">
-            <button onClick={setVolume}>
+            <button onClick={setVolume} type="button">
               {highVolume ? (
                 <HiMiniSpeakerWave size={20} />
               ) : (
@@ -155,26 +155,26 @@ const VideoPlayer = ({src,extraClass=""}) => {
             </p>
           </div>
           <div className="flex items-center gap-2 text-base">
-            <button onClick={skipBackward} >
+            <button onClick={skipBackward}  type="button">
               <FaBackward  />
             </button>
-            <button onClick={playPasueVideo}>
+            <button onClick={playPasueVideo} type="button">
               {isPaused ? <FaPlay  /> : <FaPause  />}
             </button>
-            <button onClick={skipForward}>
+            <button onClick={skipForward} type="button">
               <FaForward  />
             </button>
           </div>
           <div className="flex items-center gap-2 text-xl">
             <div className="flex items-center">
-              <button>
+              <button type="button">
                 <MdSlowMotionVideo  />
               </button>
             </div>
-            <button>
+            <button type="button">
               <MdPictureInPictureAlt  />
             </button>
-            <button>
+            <button type="button">
               <FaExpand  />
             </button>
           </div>

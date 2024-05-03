@@ -12,8 +12,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, editCourse } from "../../../../store/slices/course";
 import CancelButton from "../CancelButton";
 import { toast } from "react-hot-toast";
+import { useApi } from "../../../../hooks/useApi";
+import SpinnerModal from "../../../ui/modal/SpinnerModal";
+import { useThumbnail } from "../../../../hooks/useThumbnail";
 
-const CourseForm = ({ active, setActive, isFormEdit, setIsFormEdit }) => {
+const CourseForm = ({
+  active,
+  setActive,
+  isFormEdit,
+  setIsFormEdit,
+  isEditing,
+}) => {
   const [thumbnail, setThumbnail] = useState("");
 
   const [instructions, setInstructions] = useState([]);
@@ -22,34 +31,35 @@ const CourseForm = ({ active, setActive, isFormEdit, setIsFormEdit }) => {
 
   const { newCourse } = useSelector((state) => state.course);
 
+  const { showThumbnailPreview } = useThumbnail(setThumbnail);
+
   const {
     register,
     formState: { errors, isDirty },
     handleSubmit,
   } = useForm({
-    defaultValues: isFormEdit ? newCourse : "",
+    defaultValues: isFormEdit || isEditing ? newCourse : "",
   });
 
   useEffect(() => {
     if (isFormEdit) {
       setInstructions(newCourse.instructions);
-      setThumbnail(newCourse.thumbnail);
+      setThumbnail(newCourse.thumbnail.url);
     }
   }, [isFormEdit]);
 
-  const showThumbnailPreview = (file) => {
-    if (!file) {
-      return;
-    }
-
-    const fileReader = new FileReader();
-
-    fileReader.onload = () => {
-      setThumbnail(fileReader.result);
-    };
-
-    fileReader.readAsDataURL(file);
-  };
+  const { mutate, isPending } = useApi({
+    success: (data) => {
+      if(isFormEdit){
+        toast.success(data.message)
+      }
+      dispatch(addNewCourse(data.course));
+      setActive(2);
+    },
+    error: (err) => {
+      toast.error(err);
+    },
+  });
 
   const onSubmit = (data) => {
     if (isFormEdit) {
@@ -63,79 +73,100 @@ const CourseForm = ({ active, setActive, isFormEdit, setIsFormEdit }) => {
         toast.error("Edit form first to save changes!");
         return;
       }
-      dispatch(editCourse({ ...data, thumbnail, instructions,isDrift:true }));
+      const options = {
+        method: "PATCH",
+        data: {
+          ...data,
+          thumbnail,
+          instructions,
+          courseId:newCourse?._id
+        },
+      };
+      mutate({ endpoint: `course`, options });
+      
     } else {
-      dispatch(
-        addNewCourse({ ...data, thumbnail, instructions, courseContents: [],isDrift:true })
-      );
+      const options = {
+        method: "POST",
+        data: {
+          ...data,
+          thumbnail,
+          instructions,
+        },
+      };
+      mutate({ endpoint: "course", options });
     }
-    setActive(2);
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-      <Title
-        register={register("courseName", {
-          required: "Course title is required!",
-        })}
-        errors={errors}
-      />
-      <Description
-        register={register("courseDescription", {
-          required: "Course Description is required!",
-        })}
-        errors={errors}
-      />
-      <Price
-        register={register("price", {
-          required: "Course Price is required!",
-          valueAsNumber: true,
-        })}
-        errors={errors}
-      />
-      <Category
-        register={register("category", {
-          required: "Course Category is required!",
-          validate: (value) => {
-            return (
-              value !== "Choose a category" || "Course Category is required!"
-            );
-          },
-        })}
-        errors={errors}
-      />
-      <Upload
-        thumbnail={thumbnail}
-        previewFunction={showThumbnailPreview}
-        onCancel={setThumbnail.bind(null, "")}
-        label={"Course Thumbnail"}
-      />
-      <Benefits
-        register={register("whatYouWillLearn", {
-          required: "Course Benefits are required!",
-        })}
-        errors={errors}
-      />
-      <Instructions
-        instructions={instructions}
-        setInstructions={setInstructions}
-      />
-      <div className="flex items-center gap-2 self-end">
-        {isFormEdit && (
-          <CancelButton
-            onClick={() => {
-              setActive(2);
-              setIsFormEdit(false);
-            }}
-          >
-            Continue without saving
-          </CancelButton>
-        )}
-        <FormButton type="submit" extraClass="!mt-0">
-          {isFormEdit ? "Save Changes" : "Next"}
-        </FormButton>
-      </div>
-    </form>
+    <>
+      <form
+        className="flex flex-col gap-4 relative"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Title
+          register={register("courseName", {
+            required: "Course title is required!",
+          })}
+          errors={errors}
+        />
+        <Description
+          register={register("courseDescription", {
+            required: "Course Description is required!",
+          })}
+          errors={errors}
+        />
+        <Price
+          register={register("price", {
+            required: "Course Price is required!",
+            valueAsNumber: true,
+          })}
+          errors={errors}
+        />
+        <Category
+          register={register("category", {
+            required: "Course Category is required!",
+            validate: (value) => {
+              return (
+                value !== "Choose a category" || "Course Category is required!"
+              );
+            },
+          })}
+          errors={errors}
+        />
+        <Upload
+          thumbnail={thumbnail}
+          previewFunction={showThumbnailPreview}
+          onCancel={setThumbnail.bind(null, "")}
+          label={"Course Thumbnail"}
+        />
+        <Benefits
+          register={register("whatYouWillLearn", {
+            required: "Course Benefits are required!",
+          })}
+          errors={errors}
+        />
+        <Instructions
+          instructions={instructions}
+          setInstructions={setInstructions}
+        />
+        <div className="flex items-center gap-2 self-end">
+          {isFormEdit && (
+            <CancelButton
+              onClick={() => {
+                setActive(2);
+                setIsFormEdit(false);
+              }}
+            >
+              Continue without saving
+            </CancelButton>
+          )}
+          <FormButton type="submit" extraClass="!mt-0" disabled={isPending}>
+            {isFormEdit ? "Save Changes" : "Next"}
+          </FormButton>
+        </div>
+      </form>
+      {isPending && <SpinnerModal />}
+    </>
   );
 };
 

@@ -6,12 +6,16 @@ import DotMenu from "../../ui/DotMenu";
 import { useSelector } from "react-redux";
 import { RxDashboard } from "react-icons/rx";
 import MobileNav from "./MobileNav";
+import ConfirmationModal from "../../ui/modal/ConfirmationModal";
+import { useLogout } from "../../../hooks/useLogout";
 
 const Header = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { user } = useSelector((state) => state.profile);
   const [showSidebar, setShowSidebar] = useState(false);
+
+  const { showModal, setShowModal, logoutHandler, isPending } = useLogout();
 
   return (
     <header
@@ -28,7 +32,7 @@ const Header = () => {
         />
         <NavBar extraClass="hidden md:flex" />
         <div className="flex items-center gap-2 md:gap-4 text-richblack-100 relative">
-          {user ? (
+          {!user ? (
             <>
               {" "}
               <Link
@@ -47,7 +51,7 @@ const Header = () => {
           ) : (
             <>
               <img
-                src="https://api.dicebear.com/5.x/initials/svg?seed=Test User"
+                src={user?.image}
                 alt=""
                 className="size-9 rounded-full cursor-pointer"
                 onClick={() => setOpen((prev) => !prev)}
@@ -55,13 +59,19 @@ const Header = () => {
               <div className="relative">
                 <DotMenu open={open} extraClass="top-[25px]">
                   <Link
-                    to={"/dashboard/user"}
+                    to={
+                      user?.accountType === "Student"
+                        ? "/dashboard/user"
+                        : "/dashboard/instructor"
+                    }
                     className="flex items-center gap-1"
                     onClick={setOpen.bind(null, false)}
                   >
                     <RxDashboard className="text-lg" /> <span>Dashboard</span>
                   </Link>
-                  <Link to={"/dashboard/user"}>Logout</Link>
+                  <button onClick={setShowModal.bind(null, true)}>
+                    Logout
+                  </button>
                 </DotMenu>
               </div>
               <div
@@ -74,7 +84,17 @@ const Header = () => {
           )}
         </div>
       </Container>
-      <MobileNav showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
+      <MobileNav showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+      {showModal && (
+        <ConfirmationModal
+          heading={"Are you sure?"}
+          paragraph={"You will be logged out of your account."}
+          btn1text={"Log Out"}
+          onClick2={setShowModal.bind(null, false)}
+          onClick1={logoutHandler}
+          isPending={isPending}
+        />
+      )}
     </header>
   );
 };
