@@ -15,7 +15,7 @@ exports.userVerification = catchAsync(async (req, res, next) => {
   }
 
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  
+
   if (!decodedToken._doc) {
     return res.status(401).json({
       success: false,
