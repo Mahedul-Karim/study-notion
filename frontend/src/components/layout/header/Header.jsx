@@ -74,14 +74,15 @@ const Header = () => {
                   </button>
                 </DotMenu>
               </div>
-              <div
+             
+            </>
+          )}
+           <div
                 className={`w-8 bg-white h-[1.5px] cursor-pointer navMenu relative before:absolute before:bg-white before:w-[20px] before:-top-[10px] before:left-0 before:h-[1.5px] after:absolute after:bg-white after:w-[20px] after:h-[1.5px] after:top-[10px] after:right-0 before:transition-all before:duration-300 after:transition-all after:duration-300 block md:hidden ${
                   showSidebar && "active"
                 }`}
                 onClick={() => setShowSidebar((prev) => !prev)}
               />
-            </>
-          )}
         </div>
       </Container>
       <MobileNav showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
