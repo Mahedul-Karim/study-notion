@@ -78,16 +78,17 @@ exports.getAllCourses = catchAsync(async (req, res) => {
 });
 
 exports.getCourseDetails = catchAsync(async (req, res) => {
-  const courseId = req.params;
+  const { courseName } = req.params;
 
-  const courseDetails = await Course.findById(courseId)
+  const courseDetails = await Course.findOne({
+    courseName,
+  })
     .populate({
       path: "instructor",
       populate: {
         path: "additionalDetails",
       },
     })
-    .populate("category")
     .populate("ratingAndReviews")
     .populate({
       path: "courseContents",
@@ -99,7 +100,7 @@ exports.getCourseDetails = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    data: courseDetails,
+    courseDetails,
   });
 });
 
@@ -230,7 +231,7 @@ exports.categoryCourses = catchAsync(async (req, res) => {
 
   const courses = await Course.find({
     category: categoryName,
-  }).populate('instructor')
+  }).populate("instructor");
 
   res.status(200).json({
     success: true,

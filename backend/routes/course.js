@@ -18,7 +18,7 @@ router
   .patch(userVerification, isInstructor, course.updateCourse);
 
 router
-  .route("/:courseId")
+  .route("/:courseName")
   .get(course.getCourseDetails)
   .delete(userVerification, isInstructor, course.deleteCourse);
 
