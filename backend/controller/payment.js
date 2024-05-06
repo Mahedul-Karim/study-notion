@@ -1,100 +1,57 @@
-// const { instance } = require("../config/razorpay");
-// const { enrollment } = require("../mail/enrollmentTemplate");
-// const { sendEmail } = require("../util/mailSender");
-// const catchAsync = require("../util/catchAsync");
+const Stripe = require("stripe");
+const CourseProgress = require("../model/courseProgress");
 
-// const Course = require("../model/course");
-// const User = require("../model/user");
+const x =
+  "sk_test_51NIsJcJslDAWGDHdA22nu6RQsgtIMHzngR0xqMEZcALpMmdN9tojjXYJi8B3VkoKsZoEouQgmsMMoksaDkphsg1400F2xwIxuv";
+const stripe = Stripe(x);
 
-// exports.capturePayment = catchAsync(async (req, res) => {
-//   const userId = req.user._id;
-//   const { courseId } = req.body;
+const catchAsync = require("../util/catchAsync");
 
-//   if (!courseId) {
-//     return res.json({
-//       success: false,
-//       message: "Please try again later!",
-//     });
-//   }
+const Course = require("../model/course");
+const User = require("../model/user");
 
-//   const course = await Course.findById(courseId);
+exports.getPayment = catchAsync(async (req, res) => {
+  const { amount } = req.body;
 
-//   if (course.studentsEnrolled.includes(userId)) {
-//     return res.json({
-//       success: false,
-//       message: "Student already enrolled!",
-//     });
-//   }
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: "usd",
+  });
 
-//   const paymentResponse = await instance.orders.create({
-//     amount: course.price * 100,
-//     currency: "INR",
-//     receipt: Math.random(Date.now()).toString(),
-//     notes: {
-//       courseId,
-//       userId,
-//     },
-//   });
+  res.status(201).json({
+    success: true,
+    clientSecret: paymentIntent.client_secret,
+  });
+});
 
-//   res.status(201).json({
-//     success: true,
-//     courseName: course.courseName,
-//     courseDescription: course.courseDescription,
-//     thumbnail: course.thumbnail,
-//     orderId: paymentResponse.id,
-//   });
-// });
+exports.enrollStudent = catchAsync(async (req, res) => {
+  const { courseId, userId } = req.body;
 
-// exports.verifySignature = catchAsync(async (req, res) => {
-//   const webhookSecret = "12345678";
+  const course = await Course.findByIdAndUpdate(courseId, {
+    $push: {
+      studentsEnrolled: userId,
+    },
+  });
 
-//   const signature = req.headers("x-razorpay-signature");
+  const user = await User.findByIdAndUpdate(
+    userId,
+    {
+      $push: {
+        courses: courseId,
+      },
+    },
+    {
+      new: true,
+    }
+  );
 
-//   const hmacObj = crypto.createHmac("sha256", webhookSecret);
-//   hmacObj.update(JSON.stringify(req.body));
-//   const digest = hmacObj.digest("hex");
+  await CourseProgress.create({
+    userId,
+    courseId: course._id,
+  });
 
-//   if (digest !== signature) {
-//     return res.json({
-//       success: false,
-//       message: "Something went wrong!",
-//     });
-//   }
-
-//   const { courseId, userId } = req.body.payload.payment.entity.notes;
-
-//   const enrolledCourse = await Course.findByIdAndUpdate(
-//     courseId,
-//     {
-//       $push: {
-//         studentsEnrolled: userId,
-//       },
-//     },
-//     {
-//       new: true,
-//     }
-//   );
-
-//   const enrolledStudent = await User.findByIdAndUpdate(
-//     userId,
-//     {
-//       $push: {
-//         courses: courseId,
-//       },
-//     },
-//     {
-//       new: true,
-//     }
-//   );
-
-//   await sendEmail(
-//     enrolledStudent.email,
-//     "Course Enrolled",
-//     "Course enrollment was successfull!"
-//   );
-
-//   res.status(200).json({
-//     success: true,
-//     message: "You have successfully enrolled to the course!",
-//   });
-// });
+  res.status(201).json({
+    success: true,
+    user,
+  });
+});

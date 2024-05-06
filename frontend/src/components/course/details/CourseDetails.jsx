@@ -124,6 +124,7 @@ const CourseDetails = () => {
           price={courseDetails?.price}
           instructorId={courseDetails?.instructor?._id}
           instructions={courseDetails?.instructions}
+          courseId={courseDetails?._id}
         />
       </Container>
     </div>

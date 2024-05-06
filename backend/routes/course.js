@@ -27,5 +27,14 @@ router
   .get(userVerification, isInstructor, course.instructorCourses);
 
 router.route("/category/:categoryName").get(course.categoryCourses);
+router
+  .route("/user/courses")
+  .get(userVerification, isStudent, course.getUserCourses);
+router
+  .route("/view/:courseName")
+  .get(userVerification, isStudent, course.getViewCourse);
 
+router
+  .route("/progress/save")
+  .patch(userVerification, isStudent, course.setCourseProgress);
 module.exports = router;

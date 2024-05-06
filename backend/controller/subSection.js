@@ -5,24 +5,19 @@ const {
   uploadToCloudinary,
   deleteFromCloudinary,
 } = require("../config/cloudinary");
-/**
- * "videoUrl": {
-                                "public_id": "avatars/ohanl0py32n4bxadnjxl",
-                                "url": "http://res.cloudinary.com/dleogo48u/video/upload/v1714645190/avatars/ohanl0py32n4bxadnjxl.mp4"
-                            },
- */
+
 exports.createSubSection = catchAsync(async (req, res) => {
   const { sectionId, title, description, timeDuration = "", video } = req.body;
 
-  // const uploadedVideo = await uploadToCloudinary(video);
+  const uploadedVideo = await uploadToCloudinary(video);
 
   const subSectionDetails = await SubSection.create({
     title,
     description,
     timeDuration,
     videoUrl: {
-      public_id: "avatars/ohanl0py32n4bxadnjxl",
-      url: "http://res.cloudinary.com/dleogo48u/video/upload/v1714645190/avatars/ohanl0py32n4bxadnjxl.mp4",
+      public_id: uploadedVideo.public_id,
+      url: uploadedVideo.url,
     },
   });
 

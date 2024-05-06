@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { FaChevronLeft, FaChevronDown } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import FormButton from "../../ui/inputs/FormButton";
 import ViewSection from "./ViewSection";
 
-const Sidebar = ({ showSidebar }) => {
-  const [selectedSection, setSelectedSection] = useState(false);
+import Spinner from "../../ui/Spinner";
+import { useSelector } from "react-redux";
+
+const Sidebar = ({ showSidebar, isPending,setShowSidebar }) => {
+  const { viewCourse } = useSelector((state) => state.course);
 
   const navigate = useNavigate();
+
+  const course = viewCourse?.course;
+
+  const courseProgress = viewCourse?.progress;
+
+  const courseContents = course?.courseContents?.map((c) => c);
+
+  const courseLectures = courseContents?.flatMap((c) => c?.subSection);
 
   return (
     <aside
@@ -25,27 +36,34 @@ const Sidebar = ({ showSidebar }) => {
         </button>
         <FormButton extraClass="mt-0">Review</FormButton>
       </div>
-      <div className="flex flex-col">
-        <h2 className="text-xl font-bold">My Courses</h2>
-        <p className="text-sm text-richblack-400 font-bold">
-          5 of 4 Lectures Completed
-        </p>
-      </div>
-      <hr className="text-richblack-500 mt-5 mb-2" />
-      <div className="flex flex-col gap-2">
-        <ViewSection
-          selectedSection={selectedSection}
-          setSelectedSection={setSelectedSection}
-        />
-        <ViewSection
-          selectedSection={selectedSection}
-          setSelectedSection={setSelectedSection}
-        />
-        <ViewSection
-          selectedSection={selectedSection}
-          setSelectedSection={setSelectedSection}
-        />
-      </div>
+      {isPending ? (
+        <div className="flex items-center justify-center py-6">
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          {" "}
+          <div className="flex flex-col">
+            <h2 className="text-xl font-bold">My Courses</h2>
+            <p className="text-sm text-richblack-400 font-bold">
+              {courseProgress?.completedVideos?.length} of{" "}
+              {courseLectures?.length} Lectures Completed
+            </p>
+          </div>
+          <hr className="text-richblack-500 mt-5 mb-2" />
+          <div className="flex flex-col gap-2">
+            {courseContents?.map((course, i) => (
+              <ViewSection
+                key={course._id}
+                sectionName={course?.sectionName}
+                subSection={course.subSection}
+                index={i}
+                setShowSidebar={setShowSidebar}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </aside>
   );
 };

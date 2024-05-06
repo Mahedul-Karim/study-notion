@@ -3,6 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   existingCourse: null,
   newCourse: null,
+  viewCourse:{
+    progress:null,
+    course:null,
+    selectedSection:0,
+    selectedSubSection:0
+  }
 };
 
 const courseSlice = createSlice({
@@ -64,6 +70,23 @@ const courseSlice = createSlice({
         });
       }
     },
+    setViewCourse(state,action){
+      const { progress,course } = action.payload;
+      state.viewCourse.progress = progress;
+      state.viewCourse.course = course;
+    },
+    setSection(state,action){
+      state.viewCourse.selectedSection = action.payload;
+    },
+    setSubSection(state,action){
+      state.viewCourse.selectedSubSection = action.payload;
+    },
+    setVideoProgress(state,action){
+      state.viewCourse.progress.completedVideos.push(action.payload);
+    },
+    setSectionProgress(state,action){
+      state.viewCourse.progress.completedSections.push(action.payload);
+    }
   },
 });
 
@@ -76,6 +99,11 @@ export const {
   editSection,
   deleteSection,
   editSubSection,
-  removeSubSection
+  removeSubSection,
+  setViewCourse,
+  setSection,
+  setSubSection,
+  setVideoProgress,
+  setSectionProgress
 } = courseSlice.actions;
 export default courseSlice.reducer;

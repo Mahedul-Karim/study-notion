@@ -1,14 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
 import { MdOutlineSlideshow } from "react-icons/md";
 import Main from "./Main";
 
+import { useApi } from "../../../hooks/useApi";
+
+import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
+
+import { setViewCourse, setSection } from "../../../store/slices/course";
+
 const Course = () => {
-  const [searchParam, setSearchParam] = useSearchParams();
+  const [searchParam] = useSearchParams();
 
   const [showSidebar, setShowSidebar] = useState(false);
+
+  const courseName = searchParam.get("course")?.replace("-", " ");
+
+  const dispatch = useDispatch();
+
+  const { mutate, isPending } = useApi({
+    success: (data) => {
+      dispatch(
+        setViewCourse({ course: data.course, progress: data.courseProgress })
+      );
+    },
+    error: (err) => {
+      toast.error(err);
+    },
+  });
+
+  useEffect(() => {
+    const options = {
+      method: "GET",
+    };
+
+    mutate({ endpoint: `course/view/${courseName}`, options });
+    dispatch(setSection(0));
+  }, []);
 
   return (
     <section className="grid lg:grid-cols-[400px_1fr] gap-4 relative">
@@ -20,8 +51,12 @@ const Course = () => {
       >
         <MdOutlineSlideshow size={30} />
       </button>
-      <Sidebar showSidebar={showSidebar} />
-      <Main />
+      <Sidebar
+        showSidebar={showSidebar}
+        isPending={isPending}
+        setShowSidebar={setShowSidebar}
+      />
+      <Main isPending={isPending} />
     </section>
   );
 };

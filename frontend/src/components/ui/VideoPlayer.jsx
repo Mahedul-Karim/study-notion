@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-
 import { HiMiniSpeakerWave, HiMiniSpeakerXMark } from "react-icons/hi2";
 import {
   FaBackward,
@@ -11,7 +10,13 @@ import {
 } from "react-icons/fa";
 import { MdSlowMotionVideo, MdPictureInPictureAlt } from "react-icons/md";
 
-const VideoPlayer = ({src,extraClass=""}) => {
+const VideoPlayer = ({
+  src,
+  extraClass = "",
+  key,
+  markAsComplete,
+  setIsEnded,
+}) => {
   const videoRef = useRef();
   const durationRef = useRef();
   const currentTimeRef = useRef();
@@ -24,10 +29,8 @@ const VideoPlayer = ({src,extraClass=""}) => {
   const playPasueVideo = () => {
     if (videoRef.current.paused) {
       videoRef.current.play();
-      setIsPaused(false);
     } else {
       videoRef.current.pause();
-      setIsPaused(true);
     }
   };
 
@@ -103,15 +106,31 @@ const VideoPlayer = ({src,extraClass=""}) => {
   };
 
   return (
-    <div className={`relative overflow-clip group text-white ${extraClass}`}>
+    <div
+      className={`relative overflow-clip group text-white ${extraClass}`}
+      key={key}
+    >
       <video
         ref={videoRef}
         onTimeUpdate={onTimeUpdate}
         onLoadedData={() => {
           durationRef.current.innerText = formatTime(videoRef.current.duration);
+          markAsComplete(videoRef);
+          if (setIsEnded) {
+            setIsEnded(false);
+          }
         }}
-        onEnded={()=>{
-          console.log('video ended!')
+        onEnded={() => {
+          if (!setIsEnded) {
+            return;
+          }
+          setIsEnded(true);
+        }}
+        onPlay={() => {
+          setIsPaused(false);
+        }}
+        onPause={() => {
+          setIsPaused(true);
         }}
       >
         <source src={src} />
@@ -155,27 +174,27 @@ const VideoPlayer = ({src,extraClass=""}) => {
             </p>
           </div>
           <div className="flex items-center gap-2 text-base">
-            <button onClick={skipBackward}  type="button">
-              <FaBackward  />
+            <button onClick={skipBackward} type="button">
+              <FaBackward />
             </button>
             <button onClick={playPasueVideo} type="button">
-              {isPaused ? <FaPlay  /> : <FaPause  />}
+              {isPaused ? <FaPlay /> : <FaPause />}
             </button>
             <button onClick={skipForward} type="button">
-              <FaForward  />
+              <FaForward />
             </button>
           </div>
           <div className="flex items-center gap-2 text-xl">
             <div className="flex items-center">
               <button type="button">
-                <MdSlowMotionVideo  />
+                <MdSlowMotionVideo />
               </button>
             </div>
             <button type="button">
-              <MdPictureInPictureAlt  />
+              <MdPictureInPictureAlt />
             </button>
             <button type="button">
-              <FaExpand  />
+              <FaExpand />
             </button>
           </div>
         </div>

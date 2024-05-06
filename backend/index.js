@@ -10,7 +10,7 @@ const { connect } = require("./config/db");
 
 const categoryRoute = require("./routes/category");
 const courseRoute = require("./routes/course");
-// const paymentRoute = require("./routes/payment");
+const paymentRoute = require("./routes/payment");
 const profileRoute = require("./routes/profile");
 const ratingRoute = require("./routes/rating");
 const sectionRoute = require("./routes/section");
@@ -39,7 +39,7 @@ app.use(cookieParser());
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/profile", profileRoute);
-// app.use("/api/v1/payment", paymentRoute);
+app.use("/api/v1/payment", paymentRoute);
 app.use("/api/v1/rating", ratingRoute);
 app.use("/api/v1/section", sectionRoute);
 app.use("/api/v1/subSection", subSecRoute);

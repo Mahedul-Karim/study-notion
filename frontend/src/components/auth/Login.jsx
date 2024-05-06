@@ -65,7 +65,7 @@ const Login = () => {
               <input
                 type="email"
                 className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
-                placeholder={"Enter your email address"}
+                placeholder={"test@gmail.com/test2@gmail.com"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isPending}
@@ -76,7 +76,7 @@ const Login = () => {
               <input
                 type={showPassword ? 'text' : 'password'}
                 className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
-                placeholder={"Enter your password"}
+                placeholder={"test1234"}
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

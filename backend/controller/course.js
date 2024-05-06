@@ -2,6 +2,7 @@ const Section = require("../model/section");
 const SubSection = require("../model/subSection");
 const Course = require("../model/course");
 const User = require("../model/user");
+const CourseProgress = require("../model/courseProgress");
 
 const {
   uploadToCloudinary,
@@ -236,5 +237,73 @@ exports.categoryCourses = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     courses,
+  });
+});
+
+exports.getUserCourses = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+
+  const courses = await Course.find({
+    studentsEnrolled: userId,
+  });
+
+  const courseProgress = await CourseProgress.find({
+    userId,
+  });
+
+  res.status(200).json({
+    success: true,
+    courses,
+    courseProgress,
+  });
+});
+
+exports.getViewCourse = catchAsync(async (req, res) => {
+  const { courseName } = req.params;
+  const userId = req.user._id;
+
+  const course = await Course.findOne({ courseName }).populate({
+    path: "courseContents",
+    populate: {
+      path: "subSection",
+    },
+  });
+
+  const courseProgress = await CourseProgress.findOne({
+    courseId: course._id,
+    userId,
+  });
+
+  res.status(200).json({
+    success: true,
+    course,
+    courseProgress,
+  });
+});
+
+exports.setCourseProgress = catchAsync(async (req, res) => {
+  const { sectionId, videoUrl, courseId } = req.body;
+  const userId = req.user._id;
+
+  const courseProgress = await CourseProgress.findOne({
+    courseId,
+    userId,
+  });
+
+  if (sectionId) {
+    courseProgress.completedSections.push(sectionId);
+  }
+
+  if (videoUrl) {
+    courseProgress.completedVideos.push(videoUrl);
+  }
+
+  
+
+  await courseProgress.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Course Progress updated successfully!",
   });
 });

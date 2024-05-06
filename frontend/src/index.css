@@ -165,3 +165,7 @@ body {
 .swiper-pagination-bullet-active {
   background-color: rgb(255 214 10);
 }
+
+input[type="number"]::-webkit-inner-spin-button{
+  display: none;
+}

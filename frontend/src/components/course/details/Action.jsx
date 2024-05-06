@@ -5,11 +5,15 @@ import { toast } from "react-hot-toast";
 import PaymentModal from "../../ui/modal/PaymentModal";
 import { formatCurrency } from "../../util/format";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import LoadStripe from "../../../routes/LoadStripe";
 
-const Action = ({ thumbnail, price, instructorId, instructions }) => {
+const Action = ({ thumbnail, price, instructorId, instructions, courseId }) => {
   const [showModal, setShowModal] = useState(false);
 
   const { user } = useSelector((state) => state.profile);
+
+  const navigate = useNavigate();
 
   const copyToClipboard = () => {
     navigator.clipboard
@@ -26,15 +30,27 @@ const Action = ({ thumbnail, price, instructorId, instructions }) => {
       <h4 className="font-bold text-2xl">{formatCurrency(price)}</h4>
       {user?._id !== instructorId && (
         <>
-          <FormButton
-            extraClass="!mt-0"
-            onClick={setShowModal.bind(null, true)}
-          >
-            Buy Now
-          </FormButton>
-          <button className="rounded-lg bg-richblack-800 py-[6px] 400px:py-[8px] px-[8px] 400px:px-[12px] font-medium text-richblack-25 text-[14px] 400px:text-base">
-            Add to Cart
-          </button>
+          {!user?.courses?.includes(courseId) ? (
+            <>
+              {" "}
+              <FormButton
+                extraClass="!mt-0"
+                onClick={setShowModal.bind(null, true)}
+              >
+                Buy Now
+              </FormButton>
+              <button className="rounded-lg bg-richblack-800 py-[6px] 400px:py-[8px] px-[8px] 400px:px-[12px] font-medium text-richblack-25 text-[14px] 400px:text-base">
+                Add to Cart
+              </button>{" "}
+            </>
+          ) : (
+            <FormButton
+              extraClass="mt-0"
+              onClick={() => navigate("/dashboard/user/enrolled-courses")}
+            >
+              Go To Course
+            </FormButton>
+          )}
         </>
       )}
 
@@ -59,7 +75,15 @@ const Action = ({ thumbnail, price, instructorId, instructions }) => {
         <FaRegShareSquare />
         Share
       </button>
-      {showModal && <PaymentModal setShowModal={setShowModal} />}
+      {showModal && (
+        <LoadStripe>
+          <PaymentModal
+            setShowModal={setShowModal}
+            price={price * 100}
+            courseId={courseId}
+          />
+        </LoadStripe>
+      )}
     </aside>
   );
 };
