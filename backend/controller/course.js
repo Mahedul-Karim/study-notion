@@ -90,7 +90,12 @@ exports.getCourseDetails = catchAsync(async (req, res) => {
         path: "additionalDetails",
       },
     })
-    .populate("ratingAndReviews")
+    .populate({
+      path:"ratingAndReviews",
+      populate:{
+        path:'user'
+      }
+    })
     .populate({
       path: "courseContents",
       populate: {

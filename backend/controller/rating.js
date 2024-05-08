@@ -50,7 +50,7 @@ exports.createRating = catchAsync(async (req, res) => {
 
   res.status(201).json({
     success: true,
-    message: "Review successfully created!",
+    message: "Review successfully posted",
   });
 });
 

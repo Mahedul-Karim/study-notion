@@ -2,6 +2,9 @@ import React from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import ProgressBar from "../../ui/ProgressBar";
 import { useNavigate } from "react-router-dom";
+import DotMenu from '../../ui/DotMenu'
+
+
 const Grid = ({thumbnail,name,description,progress,courseId,course}) => {
   const navigate = useNavigate();
 
@@ -32,7 +35,7 @@ const Grid = ({thumbnail,name,description,progress,courseId,course}) => {
         <p className="text-[14px]">Progress {Math.round(completedPercentage)}%</p>
         <ProgressBar width={Math.round(completedPercentage)} />
       </div>
-      <div className="justify-self-center self-center">
+      <div className="justify-self-center self-center relative">
         <button>
           <BsThreeDotsVertical fontSize={24} />{" "}
         </button>

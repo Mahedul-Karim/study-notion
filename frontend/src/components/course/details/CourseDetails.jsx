@@ -28,6 +28,11 @@ const CourseDetails = () => {
 
   if (courseDetails?.ratingAndReviews.length === 0) {
     totalReview = 0;
+  } else {
+    totalReview = courseDetails?.ratingAndReviews?.reduce(
+      (acc, item) => acc + item.rating,
+      0
+    );
   }
 
   const courseContents = courseDetails?.courseContents?.map((c) => c);
@@ -114,7 +119,14 @@ const CourseDetails = () => {
             </div>
             {courseDetails?.ratingAndReviews?.length > 0 && (
               <div className="flex flex-col gap-8">
-                <Reviews />
+                {courseDetails?.ratingAndReviews.map((rating) => (
+                  <Reviews
+                    key={rating._id}
+                    user={rating.user}
+                    review={rating.reviews}
+                    rating={rating.rating}
+                  />
+                ))}
               </div>
             )}
           </div>

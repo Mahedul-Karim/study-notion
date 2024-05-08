@@ -52,11 +52,11 @@ export const NAV_LINKS = [
     title: "About Us",
     to: "/about",
   },
-  {
-    isDropdown: false,
-    title: "Contact Us",
-    to: "/contact",
-  },
+  // {
+  //   isDropdown: false,
+  //   title: "Contact Us",
+  //   to: "/contact",
+  // },
 ];
 
 export const NAV_CATEGORY = [

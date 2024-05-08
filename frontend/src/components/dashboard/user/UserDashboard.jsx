@@ -20,12 +20,12 @@ const USER_DASHBOARD_LINKS = [
     title: "Enrolled Courses",
     icon: <FaGraduationCap fontSize={24} />,
   },
-  {
-    id: 3,
-    to: "/dashboard/user/cart",
-    title: "Cart",
-    icon: <IoCartOutline fontSize={24} />,
-  },
+  // {
+  //   id: 3,
+  //   to: "/dashboard/user/cart",
+  //   title: "Cart",
+  //   icon: <IoCartOutline fontSize={24} />,
+  // },
   {
     id: 4,
     to: "/dashboard/user/settings",

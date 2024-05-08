@@ -7,9 +7,12 @@ import ViewSection from "./ViewSection";
 
 import Spinner from "../../ui/Spinner";
 import { useSelector } from "react-redux";
+import ReviewModal from "../../ui/modal/ReviewModal";
 
-const Sidebar = ({ showSidebar, isPending,setShowSidebar }) => {
+const Sidebar = ({ showSidebar, isPending, setShowSidebar }) => {
   const { viewCourse } = useSelector((state) => state.course);
+
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,7 +37,9 @@ const Sidebar = ({ showSidebar, isPending,setShowSidebar }) => {
         >
           <FaChevronLeft />{" "}
         </button>
-        <FormButton extraClass="mt-0">Review</FormButton>
+        <FormButton extraClass="mt-0" onClick={setShowModal.bind(null, true)}>
+          Review
+        </FormButton>
       </div>
       {isPending ? (
         <div className="flex items-center justify-center py-6">
@@ -64,6 +69,7 @@ const Sidebar = ({ showSidebar, isPending,setShowSidebar }) => {
           </div>
         </>
       )}
+      {showModal && <ReviewModal setShowModal={setShowModal} />}
     </aside>
   );
 };

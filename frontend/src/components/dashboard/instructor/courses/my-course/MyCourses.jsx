@@ -3,17 +3,13 @@ import FormButton from "../../../../ui/inputs/FormButton";
 import { useNavigate } from "react-router-dom";
 import CourseTable from "./CourseTable";
 import { useData } from "../../../../../hooks/useData";
-import Spinner from '../../../../ui/Spinner'
+import Spinner from "../../../../ui/Spinner";
+import { useInsctructorCourses } from "../../../../../hooks/useInsctructorCourses";
 
 const MyCourses = () => {
   const navigate = useNavigate();
 
-  const { data, isPending } = useData({
-    key: ["instructorCourses"],
-    endpoint: "course/instructor/course",
-  });
-
- 
+  const { data, isPending } = useInsctructorCourses();
 
   return (
     <div className="flex flex-col gap-2">
@@ -32,15 +28,18 @@ const MyCourses = () => {
           <h4>Price</h4>
           <h4>Actions</h4>
         </div>
-        {isPending ? <div className="flex items-center justify-center p-6 text-2xl">
-          <Spinner />
-        </div>  :  data?.courses?.length === 0 ? (
+        {isPending ? (
+          <div className="flex items-center justify-center p-6 text-2xl">
+            <Spinner />
+          </div>
+        ) : data?.courses?.length === 0 ? (
           <div className="flex items-center justify-center p-6 text-2xl">
             No courses found
           </div>
         ) : (
-          data?.courses.map((course)=> <CourseTable key={course?._id} course={course}/>)
-          
+          data?.courses.map((course) => (
+            <CourseTable key={course?._id} course={course} />
+          ))
         )}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { Pie } from "react-chartjs-2";
 
 Chart.register(...registerables);
 
-const PieChart = () => {
+const PieChart = ({ pieType }) => {
   const getRandomColors = (numOfColors) => {
     const colors = [];
 
@@ -19,12 +19,32 @@ const PieChart = () => {
     return colors;
   };
 
-  const data = {
-    labels: ["Red", "Blue", "Yellow"],
+  const getRandomValues = (numOfValues) => {
+    const numbers = [];
+
+    for (let i = 0; i < numOfValues; i++) {
+      const value = Math.floor(Math.random() * 120);
+      numbers.push(value);
+    }
+
+    return numbers;
+  };
+
+  const data1 = {
+    labels: ["Python", "Web Development"],
     datasets: [
       {
-        data: [250, 50, 300],
-        backgroundColor: getRandomColors(3),
+        data: getRandomValues(2),
+        backgroundColor: getRandomColors(2),
+      },
+    ],
+  };
+  const data2 = {
+    labels: ["Python", "Web Development"],
+    datasets: [
+      {
+        data: getRandomValues(2),
+        backgroundColor: getRandomColors(2),
       },
     ],
   };
@@ -32,25 +52,25 @@ const PieChart = () => {
   return (
     <div className="max-w-[350px] mx-auto">
       <Pie
-        data={data}
+        data={pieType === "students" ? data1 : data2}
         options={{
           // aspectRatio: 1 | 2,
-          layout:{
-            autoPadding:false
+          layout: {
+            autoPadding: false,
           },
           responsive: true,
           // maintainAspectRatio:false,
           plugins: {
             legend: {
               position: "right",
-              
+
               labels: {
                 boxWidth: 10,
                 boxHeight: 10,
                 color: "#DBDDEA",
-                font:{
-                  size:16
-                }
+                font: {
+                  size: 16,
+                },
               },
             },
           },
