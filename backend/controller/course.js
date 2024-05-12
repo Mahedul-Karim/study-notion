@@ -136,6 +136,7 @@ exports.instructorCourses = catchAsync(async (req, res) => {
   const courses = await Course.find({
     instructor: _id,
   })
+  .populate('instructor')
     .populate({
       path: "courseContents",
       populate: {
