@@ -70,6 +70,7 @@ exports.getAllCourses = catchAsync(async (req, res) => {
     }
   )
     .populate("instructor")
+    .populate("ratingAndReviews")
     .exec();
 
   res.status(200).json({
@@ -91,10 +92,10 @@ exports.getCourseDetails = catchAsync(async (req, res) => {
       },
     })
     .populate({
-      path:"ratingAndReviews",
-      populate:{
-        path:'user'
-      }
+      path: "ratingAndReviews",
+      populate: {
+        path: "user",
+      },
     })
     .populate({
       path: "courseContents",
@@ -136,7 +137,7 @@ exports.instructorCourses = catchAsync(async (req, res) => {
   const courses = await Course.find({
     instructor: _id,
   })
-  .populate('instructor')
+    .populate("instructor")
     .populate({
       path: "courseContents",
       populate: {
@@ -303,8 +304,6 @@ exports.setCourseProgress = catchAsync(async (req, res) => {
   if (videoUrl) {
     courseProgress.completedVideos.push(videoUrl);
   }
-
-  
 
   await courseProgress.save();
 

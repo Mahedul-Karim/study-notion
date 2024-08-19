@@ -18,11 +18,11 @@ const Footer = () => {
 
   return (
     <footer
-      className={`bg-richblack-800 border-t border-solid border-richblack-700 py-3 flex items-center justify-center text-richblack-100 h-[70px] ${
+      className={`bg-white py-3 flex items-center justify-center text-richblack-700 h-[70px] ${
         isMobileDashboard && "mb-[80px]"
-      }`}
+      } border-t border-solid border-[#f1f2ff]`}
     >
-      CodeHelp © 2023 Studynotion
+       © Studynotion
     </footer>
   );
 };

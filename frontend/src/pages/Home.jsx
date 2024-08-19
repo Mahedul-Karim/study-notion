@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Hero from "../components/home/Hero";
 import Container from "../components/layout/Container";
-import Banner from "../components/home/Banner";
 import CodeBlock from "../components/home/CodeBlock";
 import HighlightText from "../components/ui/HighlightText";
-import LearnMoreSection from "../components/home/LearnMoreSection";
 import TimelineSection from "../components/home/TimelineSection";
 import {
   BTN_1,
@@ -13,23 +11,44 @@ import {
   TYPE_STRING_2,
 } from "../components/util/data";
 import AboutSection from "../components/home/AboutSection";
-import VideoPlayer from "../components/ui/VideoPlayer";
-
+import CourseWidget from "../components/home/CourseWidget";
+import useIntersectionObserver from "../hooks/useIntersectionObserver";
+import FeaturedSection from "../components/home/FeaturedSection";
+import Mentor from "../components/home/Mentor";
+import Testimonials from "../components/home/testimonials/Testimonials";
 
 const Home = () => {
+  const codeSection = useRef(null);
+
+  const { isIntersecting, observeSection } = useIntersectionObserver();
+
+  useEffect(() => {
+    observeSection(codeSection.current);
+  }, []);
+
   return (
     <>
-      <section className="bg-richblack-900">
+      <section className="min-h-screen sm:min-h-[calc(100vh_+_100px)] pb-10 bg-[url('/assets/banner.png')] bg-cover bg-no-repeat pt-16">
         <Container>
           <Hero />
-          <Banner />
-          <div className="px-4 400px:p-10 flex flex-col gap-8">
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <CourseWidget />
+          <div
+            className={`px-4 400px:p-10 flex flex-col gap-8 mt-4 ${
+              isIntersecting ? "slideUp" : "opacity-0"
+            } `}
+            ref={codeSection}
+          >
             <CodeBlock
-              order={[1, 2]}
+              blur={1}
               title={
                 <>
-                  Unlock your <HighlightText blue> coding potential</HighlightText>{" "}
-                  with our online courses.
+                  Unlock your{" "}
+                  <HighlightText blue> coding potential</HighlightText> with our
+                  online courses.
                 </>
               }
               paragraph={
@@ -37,34 +56,36 @@ const Home = () => {
               }
               btn1={BTN_1}
               btn2={BTN_2}
-              textColor={"text-yellow"}
+              textColor={"text-[#392C7D]"}
               text={TYPE_STRING_1}
             />
             <CodeBlock
-              order={[2, 1]}
-              textColor={"text-white"}
+              order1="order-1 md:order-2"
+              order2="order-2 md:order-1"
+              blur={2}
+              textColor={"text-[#392C7D]"}
               btn1={BTN_1}
               btn2={BTN_2}
               text={TYPE_STRING_2}
-              title={<>
-               Start <HighlightText blue> coding in seconds</HighlightText>
-              </>}
-              paragraph={"Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."}
+              title={
+                <>
+                  Start <HighlightText blue> coding in seconds</HighlightText>
+                </>
+              }
+              paragraph={
+                "Go ahead, give it a try. Our hands-on learning environment means you'll be writing real code from your very first lesson."
+              }
             />
           </div>
         </Container>
       </section>
-      <section className="bg-grey-5">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16">
-            <LearnMoreSection />
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-8 mt-20 justify-items-center">
-            <TimelineSection />
-          </div>
-          <AboutSection />
-        </Container>
-      </section>
+      <FeaturedSection />
+      <Container>
+        <TimelineSection />
+        <AboutSection />
+      </Container>
+      <Mentor />
+      <Testimonials />
     </>
   );
 };

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../ui/Button";
-import { TypeAnimation } from "react-type-animation";
+import Code from "./Code";
 const CodeBlock = ({
-  order,
+  order1 = "order-1",
+  order2 = "order-2",
+  blur,
   title,
   paragraph,
   btn1,
@@ -12,8 +14,8 @@ const CodeBlock = ({
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4 justify-items-center">
-      <div className={`flex flex-col gap-2`} style={{ order: order?.[0] }}>
-        <h2 className="text-white font-bold text-3xl 400px:text-4xl">
+      <div className={`flex flex-col gap-2 ${order1}`}>
+        <h2 className="text-richblack-500 font-bold text-3xl 400px:text-4xl">
           {title}
         </h2>
         <p className="text-richblack-300 font-bold mt-4">{paragraph}</p>
@@ -25,8 +27,7 @@ const CodeBlock = ({
         </div>
       </div>
       <div
-        className={`code-border w-full flex py-2 relative background__blur--${order?.[0]}`}
-        style={{ order: order?.[1] }}
+        className={`code-border w-full flex py-2 relative background__blur--${blur} ${order2}`}
       >
         <div className="hidden sm:flex flex-col text-richblack-400 basis-[10%] text-center">
           {Array.from({ length: 11 }).map((_, i) => (
@@ -34,15 +35,10 @@ const CodeBlock = ({
           ))}
         </div>
         <div
-          className={`${textColor} font-mono font-semibold text-[14px] leading-6 basis-[90%] shrink-0 pl-4 sm:pl-0 h-[290px] sm:h-auto`}
+          className={`${textColor} font-mono font-semibold text-[14px] leading-6 basis-[90%] shrink-0 pl-4 sm:pl-0 min-h-[290px] sm:min-h-fit`}
         >
-          <TypeAnimation
-            sequence={[text, 5000, ""]}
-            repeat={Infinity}
-            style={{ whiteSpace: "pre-line" }}
-            omitDeletionAnimation
-            cursor
-          />
+          <Code text={text} loop />
+          
         </div>
       </div>
     </div>

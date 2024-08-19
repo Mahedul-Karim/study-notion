@@ -105,7 +105,7 @@ export const routes = createBrowserRouter([
         ],
       },
       {
-        path: "/category/:categoryName",
+        path: "/course",
         element: <Course />,
       },
       {

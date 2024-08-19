@@ -7,33 +7,62 @@ const Card = ({ course }) => {
   const creatorName =
     course?.instructor?.firstName + course?.instructor?.lastName;
 
-  const link = course?.courseName?.replace(" ","-");
+  const instructorImage = course?.instructor?.image;
 
-  
+  const accountType = course?.instructor?.accountType;
+
+  const link = course?.courseName?.replace(" ", "-");
+
+  const totalReviews = course?.ratingAndReviews?.length;
+
+  const ratings = course?.ratingAndReviews?.reduce(
+    (acc, course) => acc + course?.rating,
+    0
+  );
+
+  const totalRatings = ratings / totalReviews;
 
   return (
     <Link
       to={`/course/${link}`}
-      className="flex flex-col border border-solid border-richblack-700 rounded-md cursor-pointer overflow-clip"
+      className="flex flex-col bg-white rounded-2xl cursor-pointer overflow-clip border border-solid border-[#e9ecef] p-3 sm:p-5 relative"
     >
       <img
-        className="w-full aspect-video object-cover"
+        className="w-full h-[100px] 400px:h-[150px] md:h-[220px] object-cover rounded-2xl"
         src={course?.thumbnail?.url}
       />
-      <h2 className="mt-3 text-[16px] md:text-lg font-semibold pl-2 text-richblack-25">
-        {course?.courseName?.length <=50 ? course?.courseName : course?.courseName?.substring(0,50)+"..."}
-      </h2>
-      <p className="text-richblack-25 pl-2 text-xs mt-1">
-        By <span className="text-yellow font-bold">{creatorName}</span>
-      </p>
-      <div className="flex items-center pl-2 gap-2 text-[15px] mt-1">
-        <span className="text-yellow">0</span>
-        <p className="flex items-center">
-          <Ratings size={16} rating={0} />{" "}
-        </p>
-        <p>{course?.ratingAndReviews?.length} ratings</p>
+      <div className="flex items-center mt-2">
+        <div className="flex items-center gap-2">
+          <img
+            src={instructorImage}
+            alt=""
+            className="size-8 400px:size-10 md:size-12 rounded-full object-cover"
+          />
+          <div className="flex flex-col">
+            <p className="text-richblack-600 font-semibold md:text-base text-xs 400px:text-sm">{creatorName}</p>
+            <p className="text-richblack-400 text-[10px] 400px:text-xs md:text-sm">{accountType}</p>
+          </div>
+        </div>
       </div>
-      <p className="pl-2 pb-3 text-base sm:text-[18px] mt-1">
+      <h2 className="mt-3 text-xs 400px:text-sm sm:text-[16px] line-clamp-2 md:text-lg font-semibold text-secondary">
+        {course?.courseName}
+      </h2>
+      
+      <div className="flex items-center gap-2 text-xs 400px:text-[15px] mt-1">
+        <p className="flex items-center">
+          <Ratings
+            rating={totalRatings}
+            extraClass={"400px:text-[16px] text-xs"}
+          />{" "}
+        </p>
+        <p className="flex items-center ">
+          <span className="text-secondary inline-block">
+            {totalRatings || 0}
+          </span>
+          ({course?.ratingAndReviews?.length})
+        </p>
+      </div>
+      <p className="text-sm 400px:text-base sm:text-[18px] mt-1 bg-white absolute top-4 400px:top-6 400px:right-8 right-4 400px:px-4 px-2 py-1 rounded-md text-primary">
         {formatCurrency(course?.price)}
       </p>
     </Link>

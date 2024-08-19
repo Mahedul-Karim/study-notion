@@ -1,31 +1,37 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { FaArrowRight } from "react-icons/fa6";
-import HighlightText from "../ui/HighlightText";
-import Button from "../ui/Button";
+import { IoSearch, IoChevronDown } from "react-icons/io5";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
-      <Link
-        to={"/signup"}
-        className="flex items-center gap-2 px-4 py-1 400px:px-6 400px:py-2 rounded-full bg-richblack-700 text-[14px] 400px:text-[16px] font-bold text-richblack-200 drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] transition-all hover:scale-95 hover:drop-shadow-none duration-200"
-      >
-        Become an Instructor <FaArrowRight />
-      </Link>
-      <h1 className="text-3xl 400px:text-4xl font-bold text-white mt-4 text-center">
-        Empower Your Future with<HighlightText blue>Coding Skills</HighlightText>{" "}
-      </h1>
-      <p className="text-richblack-300 font-bold max-w-[80%] text-center mt-4">
-        With our online coding courses, you can learn at your own pace, from
-        anywhere in the world, and get access to a wealth of resources,
-        including hands-on projects, quizzes, and personalized feedback from
-        instructors.
-      </p>
-      <div className="flex items-start 400px:items-center gap-4 mt-6 w-full 400px:w-auto">
-
-      <Button yellow to={"/about"}>Learn More</Button>
-      <Button to={"/login"}>Book a demo</Button>
+    <div className="grid sm:grid-cols-[1fr_1fr] gap-4 mt-10 slideUp">
+      <div className="flex flex-col justify-center gap-4">
+        <h2 className="md:text-xl text-richblack-500 font-medium">
+          The Leader in Online Learning
+        </h2>
+        <h1 className="text-3xl md:text-5xl font-bold max-w-[80%] md:max-w-[500px] !leading-[1.2] text-richblack-700">
+          Engaging & Accessible Online Courses For All
+        </h1>
+        <p className="md:text-xl text-richblack-500 font-medium">
+          Own your future learning new skills online
+        </p>
+        <div className="bg-white p-[4px] md:p-[5px] hidden 400px:flex items-center rounded-md 400px:rounded-full max-w-[100%] lg:max-w-[85%] w-full 400px:gap-3 mt-4 gap-1">
+          <div className="w-fit flex items-center justify-center bg-primary text-white md:px-6 px-3 md:py-3 py-2 md:text-base text-sm rounded-full font-[500] gap-1 cursor-pointer">
+            Category <IoChevronDown />
+          </div>
+          <input
+            type="text"
+            placeholder="Search Courses...."
+            className="grow-[1] shrink focus:outline-none text-richblack-700 bg-transparent"
+          />
+          <button className="self-start bg-primary text-white p-[5px] md:p-[15px] flex items-center justify-center rounded-full text-2xl">
+            <IoSearch />
+          </button>
+        </div>
+        <p className="md:text-xl text-richblack-500 font-medium max-w-[50%] leading-[1.7]">
+          Trusted by over 15K Users worldwide since 2024
+        </p>
+      </div>
+      <div>
+        <img src={"/assets/object.png"} alt="" className="w-full" />
       </div>
     </div>
   );

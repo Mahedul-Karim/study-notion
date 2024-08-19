@@ -1,10 +1,11 @@
-import React from 'react'
-import CategoryCourse from '../../components/course/category/CategoryCourse'
+import React from "react";
+import CategoryCourse from "../../components/course/category/CategoryCourse";
+import Container from "../../components/layout/Container";
 
 const Course = () => {
-  return (
-    <CategoryCourse />
-  )
-}
+  return <main className="py-20 bg-[#fafafa]">
+    <Container>Course</Container>
+  </main>;
+};
 
-export default Course
+export default Course;
