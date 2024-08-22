@@ -312,3 +312,97 @@ exports.setCourseProgress = catchAsync(async (req, res) => {
     message: "Course Progress updated successfully!",
   });
 });
+
+exports.searchCourses = catchAsync(async (req, res) => {
+  const { category, instructor, price, search, page = 1 } = req.query;
+
+  const query = {};
+
+  const limit = 4;
+
+  let countByCategory = "";
+
+  const skip = (page - 1) * limit;
+
+  if (category && category !== "all") {
+    query.category = new RegExp(category, "i");
+  }
+
+  if (price && price !== "all") {
+    query.price =
+      price === "free"
+        ? 0
+        : {
+            $gt: 0,
+          };
+  }
+
+  if (instructor && instructor !== "all") {
+    const firstName = instructor.split(" ")[0];
+    const lastName = instructor.split(" ")[1];
+
+    const user = await User.findOne({
+      firstName: {
+        $regex: firstName,
+        $options: "i",
+      },
+      lastName: {
+        $regex: lastName,
+        $options: "i",
+      },
+    });
+
+    query.instructor = user._id;
+  }
+
+  if (search) {
+    query.courseName = {
+      $regex: search,
+      $options: "i",
+    };
+  }
+
+  const courses = await Course.find(query)
+    .populate("instructor")
+    .skip(skip)
+    .limit(limit);
+
+  if (courses.length === 0) {
+    return res.status(404).json({
+      success: true,
+      courses: [],
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    courses,
+  });
+});
+
+exports.countCourse = catchAsync(async (req, res) => {
+  const { category, search } = req.query;
+
+  const query = {};
+
+  if (category && category !== "all") {
+    query.category = {
+      $regex: category,
+      $options: "i",
+    };
+  }
+
+  if (search) {
+    query.courseName = {
+      $regex: search,
+      $options: "i",
+    };
+  }
+
+  const totalDocuments = await Course.countDocuments(query);
+
+  res.status(200).json({
+    success: true,
+    totalDocuments,
+  });
+});

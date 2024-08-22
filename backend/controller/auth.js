@@ -2,6 +2,7 @@ const User = require("../model/user");
 const OTP = require("../model/otp");
 const catchAsync = require("../util/catchAsync");
 const Profile = require("../model/profile");
+const Course = require("../model/course");
 
 const otpGenerator = require("otp-generator");
 const sendEmail = require("../util/mailSender");
@@ -144,10 +145,9 @@ exports.login = catchAsync(async (req, res) => {
   const options = {
     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
     httpOnly: true,
-    sameSite:'none',
-    secure:true
+    sameSite: "none",
+    secure: true,
   };
-  
 
   res.cookie("token", token, options).status(200).json({
     success: true,
@@ -233,5 +233,16 @@ exports.logOut = catchAsync(async (req, res) => {
 
   res.cookie("token", null, options).json({
     success: true,
+  });
+});
+
+exports.getAllInstructors = catchAsync(async (req, res) => {
+  const allInstructor = await User.find({
+    accountType: "Instructor",
+  }).select("firstName lastName");
+
+  res.status(200).json({
+    success: true,
+    instructors: allInstructor,
   });
 });

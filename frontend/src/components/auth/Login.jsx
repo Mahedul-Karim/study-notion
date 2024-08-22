@@ -48,13 +48,13 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-richblack-900 min-h-[calc(100vh_-_70px)] py-10 text-richblack-25">
+    <div className="bg-white min-h-[calc(100vh_-_70px)] py-20 text-richblack-25">
       <Container extraClass={"grid md:grid-cols-2 place-items-center"}>
         <div className="flex flex-col gap-2 w-11/12 max-w-[450px]">
-          <h2 className="text-3xl font-semibold">Welcome back</h2>
-          <p className="text-richblack-300">
+          <h2 className="text-3xl font-semibold text-richblack-700">Welcome back</h2>
+          <p className="text-richblack-500">
             Build skills for today, tomorrow, and beyond.
-            <span className="italic text-blue-200 font-bold block">
+            <span className="italic text-[#FF725E] font-bold block">
               Education to future-proof your career.
             </span>
           </p>
@@ -64,7 +64,7 @@ const Login = () => {
               <Label>Email Address</Label>
               <input
                 type="email"
-                className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
                 placeholder={"test@gmail.com/test2@gmail.com"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -75,7 +75,7 @@ const Login = () => {
               <Label>Password</Label>
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
                 placeholder={"test1234"}
                 name="password"
                 value={password}
@@ -83,7 +83,7 @@ const Login = () => {
                 disabled={isPending}
               />
               <button
-                className="absolute top-[50%] right-[10px]"
+                className="absolute top-[50%] right-[10px] text-richblack-700"
                 onClick={() => setShowPassword((prev) => !prev)}
                 type="button"
               >
@@ -95,7 +95,7 @@ const Login = () => {
               </button>
               <Link
                 to={"/forgot-password"}
-                className="absolute top-[105%] right-0 text-blue-200 text-[13px]"
+                className="absolute top-[105%] right-0 text-secondary text-[13px]"
               >
                 Forget password
               </Link>
@@ -103,17 +103,18 @@ const Login = () => {
             <FormButton
               type="submit"
               extraClass={"flex items-center justify-center"}
+              disabled={isPending}
             >
-              {isPending ? <Spinner button /> : "Sign In"}{" "}
+              {isPending ? "Submitting..." : "Sign In"}{" "}
             </FormButton>
           </form>
         </div>
         <div
           className="hidden md:block w-11/12 max-w-[450px] relative z-[1]"
-          id="bg__frame"
+          
         >
           <img
-            src="/assets/login.webp"
+            src="/assets/login-img.png"
             className="w-full h-full object-cover"
           />
         </div>

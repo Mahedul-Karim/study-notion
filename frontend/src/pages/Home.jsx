@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <>
-      <section className="min-h-screen sm:min-h-[calc(100vh_+_100px)] pb-10 bg-[url('/assets/banner.png')] bg-cover bg-no-repeat pt-16">
+      <section className="min-h-screen pb-10 bg-[url('/assets/banner.png')] bg-cover bg-no-repeat pt-16">
         <Container>
           <Hero />
         </Container>

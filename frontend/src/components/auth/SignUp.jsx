@@ -48,27 +48,27 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-richblack-900 min-h-[calc(100vh_-_70px)] py-10 text-richblack-25">
+    <div className="bg-white py-20 min-h-[calc(100vh_-_70px)] ">
       <Container extraClass={"grid md:grid-cols-2 place-items-center"}>
         <div className="flex flex-col gap-2 w-11/12 max-w-[450px]">
-          <h2 className="text-3xl font-semibold">
+          <h2 className="text-3xl font-semibold text-richblack-700">
             Join the millions learning to code with StudyNotion for free
           </h2>
-          <p className="text-richblack-300">
+          <p className="text-richblack-500">
             Build skills for today, tomorrow, and beyond.
-            <span className="italic text-blue-200 font-bold block">
+            <span className="italic text-[#FF725E] font-bold block">
               Education to future-proof your career.
             </span>
           </p>
 
           <form className="flex flex-col gap-3" onSubmit={formSubmit}>
-            <div className="bg-richblack-800 w-max p-1 flex items-center gap-1 rounded-full">
+            <div className="bg-[#FF725E]/[0.2] w-max p-1 flex items-center gap-1 rounded-full">
               {BUTTON_VALUE.map((val, i) => (
                 <button
                   key={i}
                   type="button"
                   className={`${
-                    val === state.accountType && "bg-richblack-900"
+                    val === state.accountType && "bg-[#FF725E] text-white"
                   } px-4 py-2 rounded-full`}
                   onClick={() =>
                     dispatchFn({ type: "ACCOUNT_TYPE", payload: val })
@@ -83,7 +83,7 @@ const SignUp = () => {
                 <Label>First Name</Label>
                 <input
                   type="text"
-                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
                   disabled={isPending}
                   placeholder={"Enter first name"}
                   onChange={(e) =>
@@ -96,7 +96,7 @@ const SignUp = () => {
                 <Label>Last Name</Label>
                 <input
                   type="text"
-                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
                   placeholder={"Enter last name"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -110,7 +110,7 @@ const SignUp = () => {
               <Label>Email Address</Label>
               <input
                 type="text"
-                className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
                 placeholder={"Enter email address"}
                 disabled={isPending}
                 onChange={(e) =>
@@ -124,7 +124,7 @@ const SignUp = () => {
                 <Label>Create Password</Label>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
                   placeholder={"Enter Password"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -148,7 +148,7 @@ const SignUp = () => {
                 <Label>Confirm Password</Label>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
                   placeholder={"Confirm Password"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -175,17 +175,18 @@ const SignUp = () => {
             <FormButton
               extraClass={"!mt-4 flex items-center justify-center"}
               type="submit"
+              disabled={isPending}
             >
-              {isPending ? <Spinner button /> : "Sign Up"}
+              {isPending ? "Submitting..." : "Sign Up"}
             </FormButton>
           </form>
         </div>
         <div
           className="hidden md:block w-11/12 max-w-[450px] relative z-[1]"
-          id="bg__frame"
+       
         >
           <img
-            src="/assets/signup.webp"
+            src="/assets/login-img.png"
             className="w-full h-full object-cover"
           />
         </div>

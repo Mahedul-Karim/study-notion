@@ -3,14 +3,14 @@ import Container from "../layout/Container";
 import Heading from "../ui/Heading";
 import HighlightText from "../ui/HighlightText";
 import FoundingStory from "./founding-story/FoundingStory";
-import Overview from "./Overview";
+import { WIDGET_DATA } from '../util/data'
 import Methods from "./Methods";
-import ContactUs from "./ContactUs";
+import Widget from "../home/Widget";
 
 const About = () => {
   return (
-    <main>
-      <section className="bg-richblack-700 py-4 lg:py-8 relative">
+    <main className="bg-[#fafafa]">
+      <section className="bg-[url('/assets/banner.png')] py-16 relative">
         <Container
           extraClass={
             "flex flex-col md:items-center justify-center text-center gap-2"
@@ -19,6 +19,7 @@ const About = () => {
           <Heading
             title1={"Driving Innovation in Online Education for a"}
             title2={""}
+            textColor={"text-richblack-700"}
             highlightText={"Brighter Future"}
             extraClass={"lg:w-[70%]"}
           />
@@ -47,11 +48,20 @@ const About = () => {
       >
         <FoundingStory />
       </Container>
-      <section className="bg-richblack-700">
-        <Container extraClass={"grid grid-cols-2 gap-y-6 sm:grid-cols-4"}>
-          <Overview />
+      
+        <Container extraClass={"grid grid-cols-2 md:grid-cols-4 gap-4"}>
+        {WIDGET_DATA.map((data, index) => (
+        <Widget
+          key={index}
+          src={data.src}
+          text={data.text}
+          duration={data.duration}
+          unit={data.unit}
+          number={data.number}
+        />
+      ))}
         </Container>
-      </section>
+      
       <Container
         extraClass={
           "grid grid-cols-1 400px:grid-cols-2 gap-6 lg:gap-0 lg:grid-cols-4 !py-16"
@@ -59,9 +69,7 @@ const About = () => {
       >
         <Methods />
       </Container>
-      <Container extraClass={"flex flex-col items-center"}>
-        <ContactUs />
-      </Container>
+      
     </main>
   );
 };

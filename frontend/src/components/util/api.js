@@ -23,7 +23,7 @@ export const apiConnector = async (endpoint, options, getProgress) => {
         getProgress(percent);
       },
     });
-
+    
     if (!data.success) {
       throw new Error(data.message);
     }

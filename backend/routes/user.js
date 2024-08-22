@@ -8,6 +8,7 @@ const router = express.Router();
 router.route("/login").post(auth.login);
 router.route("/signup").post(auth.signUp);
 router.route("/otp").post(auth.sentOtp);
+router.route("/instructors").get(auth.getAllInstructors);
 router
   .route("/change/password")
   .post(authMiddleware.userVerification, auth.changePassword);

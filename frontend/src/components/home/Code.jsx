@@ -6,14 +6,16 @@ const Code = ({ text, loop }) => {
   const startWriting = () => {
     return new Promise((resolve) => {
       let i = 0;
-      if (!spanRef.current) {
-        resolve();
-        return;
-      }
+
       const interval = setInterval(() => {
         const span = spanRef.current;
 
-        span.textContent = text.substring(0, i);
+        if (!span) {
+          clearInterval(interval);
+          resolve();
+        }
+
+        span && (span.textContent = text.substring(0, i));
         i++;
         if (i > text.length) {
           clearInterval(interval);
@@ -34,20 +36,20 @@ const Code = ({ text, loop }) => {
 
   const deleteText = () => {
     return new Promise((resolve) => {
-      if (!spanRef.current) {
-        resolve();
-        return;
-      }
-
       const interval = setInterval(() => {
         const span = spanRef.current;
 
-        span.textContent = span.textContent.substring(
-          0,
-          span.textContent.length - 1
-        );
+        if (!span) {
+          clearInterval(interval);
+          resolve();
+        }
 
-        if (span.textContent.length === 0) {
+        span && (span.textContent = span?.textContent?.substring(
+          0,
+          span?.textContent?.length - 1
+        ));
+
+        if (span?.textContent?.length === 0) {
           clearInterval(interval);
           resolve();
         }
@@ -69,7 +71,10 @@ const Code = ({ text, loop }) => {
         func = queue.shift();
       }
     };
-    startTyping();
+
+    if (spanRef.current) {
+      startTyping();
+    }
   }, []);
 
   return (

@@ -1,9 +1,14 @@
 import React from "react";
 import Ratings from "../ui/Ratings";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { formatCurrency } from "../util/format";
+import { highlightText } from "../util/helpers";
 
 const Card = ({ course }) => {
+  const [searchParams] = useSearchParams();
+
+  const search = searchParams.get("search") || "";
+
   const creatorName =
     course?.instructor?.firstName + course?.instructor?.lastName;
 
@@ -36,19 +41,23 @@ const Card = ({ course }) => {
           <img
             src={instructorImage}
             alt=""
-            className="size-8 400px:size-10 md:size-12 rounded-full object-cover"
+            className="size-8 400px:size-10 rounded-full object-cover"
           />
           <div className="flex flex-col">
-            <p className="text-richblack-600 font-semibold md:text-base text-xs 400px:text-sm">{creatorName}</p>
-            <p className="text-richblack-400 text-[10px] 400px:text-xs md:text-sm">{accountType}</p>
+            <p className="text-richblack-600 font-semibold text-xs 400px:text-sm">
+              {creatorName}
+            </p>
+            <p className="text-richblack-400 text-[10px] 400px:text-xs">
+              {accountType}
+            </p>
           </div>
         </div>
       </div>
-      <h2 className="mt-3 text-xs 400px:text-sm sm:text-[16px] line-clamp-2 md:text-lg font-semibold text-secondary">
-        {course?.courseName}
+      <h2 className="mt-3 text-xs 400px:text-sm sm:text-[16px] line-clamp-2 font-semibold text-secondary">
+        {highlightText(course?.courseName, search)}
       </h2>
-      
-      <div className="flex items-center gap-2 text-xs 400px:text-[15px] mt-1">
+
+      <div className="flex items-center gap-2 text-xs 400px:text-[15px] mt-3">
         <p className="flex items-center">
           <Ratings
             rating={totalRatings}

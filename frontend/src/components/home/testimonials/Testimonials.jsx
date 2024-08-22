@@ -124,9 +124,9 @@ const Testimonials = () => {
 
     const movedValue = finalState - initialState;
 
-    if (movedValue <= -10) {
+    if (movedValue <= -40) {
       nextSlide();
-    } else if (movedValue > 10) {
+    } else if (movedValue >= 40) {
       prevSlide();
     } else {
       gotoSlide(containerRef.current, -initialState);

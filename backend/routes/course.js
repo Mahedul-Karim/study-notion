@@ -17,6 +17,9 @@ router
   .put(userVerification, isInstructor, course.publishCourse)
   .patch(userVerification, isInstructor, course.updateCourse);
 
+router.route('/filter').get(course.searchCourses)
+router.route('/count').get(course.countCourse)
+
 router
   .route("/:courseName")
   .get(course.getCourseDetails)

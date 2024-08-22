@@ -1,37 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Widget from "./Widget";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
-
-const WIDGET_DATA = [
-  {
-    src: "/assets/pencil-icon.svg",
-    text: "Online Courses",
-    duration: 100,
-    unit: "K",
-    number: 10,
-  },
-  {
-    src: "/assets/certificate-icon.svg",
-    text: "Expert Tutors",
-    duration: 10,
-    unit: "+",
-    number: 200,
-  },
-  {
-    src: "/assets/cources-icon.svg",
-    text: "Ceritified Courses",
-    duration: 100,
-    unit: "K+",
-    number: 6,
-  },
-  {
-    src: "/assets/gratuate-icon.svg",
-    text: "Online Students",
-    duration: 10,
-    unit: "K+",
-    number: 60,
-  },
-];
+import { WIDGET_DATA } from "../util/data";
 
 const CourseWidget = () => {
   const courseWidgetRef = useRef(null);
@@ -44,7 +14,7 @@ const CourseWidget = () => {
 
   return (
     <div
-      className={`grid grid-cols-2 md:grid-cols-4 gap-4 sm:-mt-[100px] ${
+      className={`grid grid-cols-2 md:grid-cols-4 gap-4 ${
         isIntersecting && "slideUp"
       } opacity-0`}
       ref={courseWidgetRef}
