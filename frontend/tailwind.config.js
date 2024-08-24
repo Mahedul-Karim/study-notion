@@ -46,6 +46,8 @@ export default {
       primary: "#FF4667",
       secondary:'#392C7D',
       tertiary:'#917CF6',
+      border:'#e9ecef',
+      background:'#fafafa',
       blue: {
         200: "#118ab2",
       },

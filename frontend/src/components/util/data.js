@@ -88,6 +88,76 @@ export const WIDGET_DATA = [
   },
 ];
 
+export const FAQ_CONTENT=[
+  {
+    id:1,
+    title:'Is there a 14-days trial?',
+    desc1:`Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.`,
+    desc2:`If several languages coalesce, the grammar of the resulting language
+          is more simple and regular than that of the individual languages. The
+          new common language will be more simple and regular than the existing
+          European languages.`
+  },
+  {
+    id:2,
+    title:'What is the benefit of the premium membership?',
+    desc1:`Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.`,
+    desc2:`If several languages coalesce, the grammar of the resulting language
+          is more simple and regular than that of the individual languages. The
+          new common language will be more simple and regular than the existing
+          European languages.`
+  },
+  {
+    id:3,
+    title:'How can I enroll in the courses?',
+    desc1:`Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.`,
+    desc2:`If several languages coalesce, the grammar of the resulting language
+          is more simple and regular than that of the individual languages. The
+          new common language will be more simple and regular than the existing
+          European languages.`
+  },
+  {
+    id:4,
+    title:'Are there any free course available?',
+    desc1:`Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.`,
+    desc2:`If several languages coalesce, the grammar of the resulting language
+          is more simple and regular than that of the individual languages. The
+          new common language will be more simple and regular than the existing
+          European languages.`
+  },
+  {
+    id:5,
+    title:'How can I cancel my subscription plan?',
+    desc1:`Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.`,
+    desc2:`If several languages coalesce, the grammar of the resulting language
+          is more simple and regular than that of the individual languages. The
+          new common language will be more simple and regular than the existing
+          European languages.`
+  },
+  {
+    id:6,
+    title:'Are there any support available after completing course?',
+    desc1:`Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.`,
+    desc2:`If several languages coalesce, the grammar of the resulting language
+          is more simple and regular than that of the individual languages. The
+          new common language will be more simple and regular than the existing
+          European languages.`
+  },
+]
+
+
 export const NAV_CATEGORY = [
   {
     title:'all'

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Container from "../Container";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import DotMenu from "../../ui/DotMenu";
 import { useSelector } from "react-redux";
@@ -10,9 +10,6 @@ import ConfirmationModal from "../../ui/modal/ConfirmationModal";
 import { useLogout } from "../../../hooks/useLogout";
 import Logo from "../../ui/Logo";
 
-import { FaRegHeart, FaUser } from "react-icons/fa";
-import Toggle from "../../ui/Toggle";
-
 const Header = () => {
   const [active, setActive] = useState(false);
 
@@ -21,6 +18,10 @@ const Header = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const { showModal, setShowModal, logoutHandler, isPending } = useLogout();
+
+  const location = useLocation();
+
+  const isCoursePage = location?.pathname?.split("/")?.includes("course");
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -38,7 +39,9 @@ const Header = () => {
     <header
       className={`${
         active ? "bg-white shadow-md" : "bg-none"
-      } fixed w-full transition-all duration-300 z-[11]`}
+      } fixed w-full transition-all duration-300 z-[11]
+      ${isCoursePage && "bg-white shadow-md"}
+      `}
     >
       <Container extraClass={"!py-3 flex items-center justify-between"}>
         <Logo />

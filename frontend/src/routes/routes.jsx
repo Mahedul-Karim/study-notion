@@ -22,6 +22,7 @@ import Course from "../pages/course/Course";
 import CourseDetailsPage from "../pages/course/CourseDetailsPage";
 import ViewCoursePage from "../pages/course/ViewCoursePage";
 import EditCoursePage from "../pages/course/EditCoursePage";
+import FAQPage from "../pages/FAQ";
 
 export const routes = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const routes = createBrowserRouter([
       {
         path: "/about",
         element: <AboutUsPage />,
+      },
+      {
+        path:'/faq',
+        element:<FAQPage />
       },
       {
         path: "/dashboard/user",

@@ -25,16 +25,16 @@ const Action = ({ thumbnail, price, instructorId, instructions, courseId }) => {
   };
 
   return (
-    <aside className="bg-richblack-700 rounded-md p-4 flex flex-col gap-2 h-max">
-      <img className="aspect-video object-cover rounded-md" src={thumbnail} />
-      <h4 className="font-bold text-2xl">{formatCurrency(price)}</h4>
+    <aside className="bg-white border border-solid border-border rounded-xl p-4 flex flex-col gap-2 h-max">
+      <img className="aspect-video object-cover rounded-xl" src={thumbnail} />
+      <h4 className="font-bold text-2xl text-secondary">{formatCurrency(price)}</h4>
       {user?._id !== instructorId && (
         <>
           {!user?.courses?.includes(courseId) ? (
             <>
               {" "}
               <FormButton
-                extraClass="!mt-0"
+                extraClass="!mt-0 bg-primary"
                 onClick={setShowModal.bind(null, true)}
               >
                 Buy Now
@@ -54,12 +54,12 @@ const Action = ({ thumbnail, price, instructorId, instructions, courseId }) => {
         </>
       )}
 
-      <p className="text-sm text-center text-richblack-100">
+      <p className="text-sm text-center text-richblack-700">
         30-Day Money-Back Guarantee
       </p>
       <div className="mt-4">
         <p className="text-xl font-bold">This course includes:</p>
-        <ul className="text-[rgb(6_214_160)] gap-1 text-sm mt-3 flex flex-col">
+        <ul className="text-secondary gap-1 text-sm mt-3 flex flex-col">
           {instructions.map((ins, index) => (
             <li className="flex items-center gap-2" key={index}>
               <span className="text-lg">✓</span>
@@ -69,7 +69,7 @@ const Action = ({ thumbnail, price, instructorId, instructions, courseId }) => {
         </ul>
       </div>
       <button
-        className="flex gap-2 items-center justify-center text-yellow"
+        className="flex gap-2 items-center justify-center text-tertiary"
         onClick={copyToClipboard}
       >
         <FaRegShareSquare />

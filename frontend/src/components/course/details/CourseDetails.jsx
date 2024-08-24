@@ -48,97 +48,106 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="relative before:absolute before:top-0 before:left-0 before:z-[-1] 400px:before:h-[400px] before:h-[500px] before:bg-richblack-800 before:w-full py-8">
-      <Container extraClass="grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-4 text-white">
-        <div>
-          <div className="flex flex-col gap-3 mb-10">
-            <h1 className="text-4xl text-white font-bold capitalize">
-              {courseTitle}
-            </h1>
-            <p className="text-richblack-300">
-              {courseDetails?.courseDescription}
-            </p>
-            <div className="flex flex-col 400px:flex-row 400px:items-center gap-2 text-[18px]">
-              <span className="text-yellow">{totalReview}</span>
-              <p className="flex items-center">
-                <Ratings size={20} rating={totalReview} />{" "}
-              </p>
-              <p className="text-white">
-                ({courseDetails?.ratingAndReviews?.length} ratings)
-              </p>
-              <p className="text-richblack-300">
-                {courseDetails?.studentsEnrolled?.length} students enrolled
-              </p>
-            </div>
-            <p className="text-lg">
-              Created by{" "}
-              <span className="text-yellow">
-                {courseDetails?.instructor?.firstName +
-                  " " +
-                  courseDetails?.instructor?.lastName}
-              </span>
-            </p>
-            <p className="text-richblack-100 text-lg">
-              Created at{" "}
-              <span>
-                {courseDetails?.createdAt
-                  ? formatDate(new Date(courseDetails?.createdAt))
-                  : formatDate(new Date())}
-              </span>
-            </p>
-          </div>
-          <div className="p-6 border border-solid border-richblack-200 mt-32">
-            <h2 className="text-3xl font-bold">What you&apos;ll learn</h2>
-            <p className="mt-4">{courseDetails?.whatYouWillLearn}</p>
-          </div>
-          <div className="mt-8 flex flex-col gap-3">
-            <h2 className="text-3xl font-bold">Course Content</h2>
-            <div>
-              <p>
-                {courseContents?.length} Section(s) {courseLectures?.length}{" "}
-                Lecture(s)
-              </p>
-            </div>
-            <div>
-              {courseContents?.map((course) => (
-                <CourseContents
-                  key={course._id}
-                  sectionName={course.sectionName}
-                  subSection={course.subSection}
+    <div>
+      <div className="py-[25px]" />
+      <div className="bg-background bg-[url('/assets/inner-banner.jpg')] bg-no-repeat before:bg-black/[0.76] before:absolute before:top-0 before:left-0 py-3 before:w-full before:h-full relative bg-cover z-[-1]">
+        <Container>
+          <div className="relative z-[1] w-full md:w-[65%]">
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex items-center gap-2">
+                <img
+                  src={courseDetails?.instructor?.image}
+                  alt=""
+                  className="size-10 400px:size-12 rounded-full object-cover border border-solid border-border"
                 />
-              ))}
+                <div className="flex flex-col">
+                  <p className="text-richblack-5 font-semibold 400px:text-base text-sm">
+                    {courseDetails?.instructor?.firstName +
+                      " " +
+                      courseDetails?.instructor?.lastName}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="flex items-center text-sm 400px:text-base">
+                      <Ratings rating={totalReview} />{" "}
+                    </p>
+                    <span className="text-yellow text-sm">{totalReview}</span>
+                    <p className="text-white text-sm hidden 400px:block">
+                      ({courseDetails?.ratingAndReviews?.length} ratings)
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="text-white capitalize bg-primary text-sm 400px:text-base px-4 py-1 rounded-2xl">
+                {courseDetails?.category}
+              </div>
             </div>
-          </div>
-          <div className="mt-8 flex flex-col gap-2 p-4 border border-solid border-richblack-200">
-            <h2 className="text-3xl font-bold">Reviews</h2>
-            <div className="flex items-center gap-2 mb-6">
-              <p className="text-2xl font-semibold">{totalReview}/5</p>
-              <p className="text-richblack-200 text-sm">
-                ({courseDetails?.ratingAndReviews?.length} ratings)
+            <div className="flex flex-col gap-3 ">
+              <h1 className="text-base 400px:text-xl sm:text-3xl text-white font-semibold capitalize">
+                {courseTitle}
+              </h1>
+              <p className="text-richblack-5 text-xs 400px:text-sm">
+                {courseDetails?.courseDescription}
               </p>
             </div>
-            {courseDetails?.ratingAndReviews?.length > 0 && (
-              <div className="flex flex-col gap-8">
-                {courseDetails?.ratingAndReviews.map((rating) => (
-                  <Reviews
-                    key={rating._id}
-                    user={rating.user}
-                    review={rating.reviews}
-                    rating={rating.rating}
+          </div>
+        </Container>
+      </div>
+      <div className="bg-background">
+        <Container extraClass="grid md:grid-cols-[1fr_300px] lg:grid-cols-[1fr_400px] gap-4">
+          <div>
+            <div className="p-4 400px:p-6 border border-solid border-border bg-white rounded-xl">
+              <h2 className="text-base 400px:text-lg font-bold text-secondary ">
+                What you&apos;ll learn
+              </h2>
+              <p className="mt-4 text-xs 400px:text-sm">{courseDetails?.whatYouWillLearn}</p>
+            </div>
+            <div className="bg-white mt-8 border border-border border-solid flex flex-col gap-3 p-4 400px:p-6 rounded-xl">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base 400px:text-lg text-secondary font-bold">
+                  Course Content
+                </h2>
+
+                <p className="text-xs 400px:text-sm font-semibold hidden 400px:block">
+                  {courseContents?.length} Section(s) {courseLectures?.length}{" "}
+                  Lecture(s)
+                </p>
+              </div>
+              <div className="flex flex-col gap-2">
+                {courseContents?.map((course) => (
+                  <CourseContents
+                    key={course._id}
+                    sectionName={course.sectionName}
+                    subSection={course.subSection}
                   />
                 ))}
               </div>
-            )}
+            </div>
+            <div className="mt-8 flex flex-col gap-2 p-4 border border-solid border-border bg-white rounded-xl">
+              <h2 className="text-lg text-secondary font-bold">Reviews</h2>
+              
+              {courseDetails?.ratingAndReviews?.length > 0 && (
+                <div className="flex flex-col gap-8">
+                  {courseDetails?.ratingAndReviews.map((rating) => (
+                    <Reviews
+                      key={rating._id}
+                      user={rating.user}
+                      review={rating.reviews}
+                      rating={rating.rating}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        <Action
-          thumbnail={courseDetails?.thumbnail?.url}
-          price={courseDetails?.price}
-          instructorId={courseDetails?.instructor?._id}
-          instructions={courseDetails?.instructions}
-          courseId={courseDetails?._id}
-        />
-      </Container>
+          <Action
+            thumbnail={courseDetails?.thumbnail?.url}
+            price={courseDetails?.price}
+            instructorId={courseDetails?.instructor?._id}
+            instructions={courseDetails?.instructions}
+            courseId={courseDetails?._id}
+          />
+        </Container>
+      </div>
     </div>
   );
 };

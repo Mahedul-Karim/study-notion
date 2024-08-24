@@ -6,19 +6,19 @@ const CourseContents = ({sectionName,subSection}) => {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className={`border border-solid border-richblack-600 ${
-        open ? "max-h-[1000px] overflow-visible" : "max-h-[65px] overflow-hidden"
-      } cursor-pointer transition-all duration-300`}
+      className={`${
+        open ? "max-h-[1000px]" : "max-h-[65px]"
+      } cursor-pointer transition-all duration-300 rounded-xl overflow-y-clip`}
       onClick={() => setOpen((prev) => !prev)}
     >
-      <div className="flex items-center justify-between bg-richblack-700 px-4 sm:px-7 py-5">
+      <div className="flex items-center justify-between bg-[#a1a9fd]/[0.12] px-4 sm:px-7 py-5 rounded-xl text-xs 400px:text-sm">
         <div className="flex items-center gap-2">
           <FaChevronDown />{" "}
-          <span className="text-base">{sectionName}</span>
+          <span className="font-semibold">{sectionName}</span>
         </div>
-        <p className="text-yellow text-base">{subSection.length} Lectures</p>
+        <p className="text-richblack-700">{subSection.length} Lectures</p>
       </div>
-      {subSection?.map(subSec=><SubSection key={subSec._id} title={subSec.title} />)}
+      {subSection?.map(subSec=><SubSection key={subSec._id} title={subSec.title} open={open}/>)}
       
       
     </div>

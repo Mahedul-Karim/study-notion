@@ -364,6 +364,7 @@ exports.searchCourses = catchAsync(async (req, res) => {
 
   const courses = await Course.find(query)
     .populate("instructor")
+    .populate("ratingAndReviews")
     .skip(skip)
     .limit(limit);
 

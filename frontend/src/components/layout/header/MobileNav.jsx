@@ -1,7 +1,6 @@
 import React from "react";
 import { NAV_LINKS } from "../../util/data";
-import { FaChevronDown } from "react-icons/fa";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 const MobileNav = ({ showSidebar, setShowSidebar }) => {
   const { user } = useSelector((state) => state.profile);

@@ -51,7 +51,7 @@ const Course = () => {
             )}
           </div>
 
-          <div className="order-2 md:order-3 md:col-start-2  flex items-center gap-2">
+          <div className="order-2 md:order-3 md:col-start-2  flex items-center gap-2 justify-center">
             <Pagination type={"course"} category={category} search={search}/>
           </div>
         </div>

@@ -1,20 +1,24 @@
 import React from "react";
 import { NAV_LINKS } from "../../util/data";
-import { NavLink } from "react-router-dom";
-import { FaChevronDown } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
 
 const NavBar = ({ extraClass = "" }) => {
+
+  const location = useLocation();
+
+  
+
   return (
     <nav>
       <ul className={`${extraClass} items-center gap-4 text-richblack-700`}>
         {NAV_LINKS.map((nav, index) => (
           <li key={index}>
-            <NavLink
+            <Link
               to={nav.to}
-              className={({ isActive }) => isActive && "text-primary"}
+              className={location.pathname === nav.to && 'text-primary'}
             >
               {nav.title}
-            </NavLink>
+            </Link>
           </li>
         ))}
       </ul>
