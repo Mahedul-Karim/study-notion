@@ -6,9 +6,16 @@ import { useEffect } from "react";
 import { axiosInstance } from "./components/util/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/slices/profile";
+import { socket } from "./components/util/helpers";
+
+
 
 function App() {
   const dispatch = useDispatch();
+
+  socket.on('hello',(soc)=>{
+    console.log(soc)
+  })
 
   useEffect(() => {
     (async function () {

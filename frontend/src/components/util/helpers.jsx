@@ -1,3 +1,5 @@
+import { io } from 'socket.io-client';
+
 export const highlightText = (fullText, textToHighlight) => {
   const textArray = fullText.split(new RegExp(`(${textToHighlight})`, "i"));
 
@@ -15,5 +17,9 @@ export const highlightText = (fullText, textToHighlight) => {
     </>
   );
 };
+
+export const socket = io(import.meta.env.VITE_SOCKET_URL,{
+  transports:['websocket']
+})
 
 export const ITEMS_PER_PAGE = 4;
