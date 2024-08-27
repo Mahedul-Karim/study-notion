@@ -9,15 +9,15 @@ const UserProfile = ({isInstructor=false}) => {
   return (
     <>
       <Heading>My Profile</Heading>
-      <Section extraClass="flex items-center justify-between mt-6">
+      <Section extraClass="flex items-center justify-between">
         <Profile />
         <SettingButton isInstructor={isInstructor}/>
       </Section>
-      <Section extraClass="flex items-center justify-between mt-4">
+      <Section extraClass="flex items-center justify-between">
         <About />
         <SettingButton isInstructor={isInstructor}/>
       </Section>
-      <Section extraClass="flex justify-between mt-4">
+      <Section extraClass="flex justify-between">
         <Details />
         <SettingButton isInstructor={isInstructor}/>
       </Section>

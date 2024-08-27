@@ -152,7 +152,7 @@ body {
   display: none;
 }
 .cart > *:not(:last-child) {
-  border-bottom: 1px solid #2c333f;
+  border-bottom: 1px solid #e9ecef;
 }
 
 .active::before {

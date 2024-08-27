@@ -11,7 +11,7 @@ const CourseContents = ({sectionName,subSection}) => {
       } cursor-pointer transition-all duration-300 rounded-xl overflow-y-clip`}
       onClick={() => setOpen((prev) => !prev)}
     >
-      <div className="flex items-center justify-between bg-[#a1a9fd]/[0.12] px-4 sm:px-7 py-5 rounded-xl text-xs 400px:text-sm">
+      <div className="flex items-center justify-between bg-blue-5 px-4 sm:px-7 py-5 rounded-xl text-xs 400px:text-sm">
         <div className="flex items-center gap-2">
           <FaChevronDown />{" "}
           <span className="font-semibold">{sectionName}</span>

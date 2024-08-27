@@ -6,12 +6,12 @@ const Tracking = ({ track, active }) => {
     <>
       {Number.isInteger(track.id) && (
         <div
-          className={`size-9  border border-solid  rounded-full ${
+          className={`size-9  border border-dashed  rounded-full ${
             active === track.number
-              ? "border-yellow bg-[rgb(37_20_0)] text-yellow"
-              : "bg-richblack-800 border-richblack-500 text-richblack-300"
+              ? "border-primary bg-primary text-white"
+              : "bg-transparent border-primary"
           } ${
-            active > track.number && "border-0 bg-[rgb(37_20_0)] text-yellow"
+            active > track.number && "border-0 bg-primary text-primary"
           } flex items-center justify-center `}
         >
           {active > track.number ? (
@@ -23,8 +23,8 @@ const Tracking = ({ track, active }) => {
       )}
       {!Number.isInteger(track.id) && (
         <div
-          className={`h-[0.25px] w-[33%] border border-dashed  ${
-            active > track.number ? "border-yellow" : "border-richblack-500"
+          className={`h-[0.25px] w-[25%] border border-dashed  ${
+            active > track.number ? "border-primary" : "border-richblack-300"
           }`}
         ></div>
       )}

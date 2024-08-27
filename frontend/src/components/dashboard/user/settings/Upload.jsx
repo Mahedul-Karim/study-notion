@@ -56,7 +56,7 @@ const Upload = () => {
         <div className="flex gap-2 items-center mt-1">
           <label
             htmlFor="imageUpload"
-            className="py-[7px] 400px:py-[8px] px-[8px] 400px:px-[12px] inline-block bg-richblack-700 rounded-lg cursor-pointer font-medium text-[14px] 400px:text-base"
+            className="py-[7px] 400px:py-[8px] px-[8px] 400px:px-[12px] inline-block bg-richblack-700 text-richblack-5 rounded-lg cursor-pointer font-medium text-[14px] 400px:text-base"
           >
             Select
           </label>
@@ -66,7 +66,7 @@ const Upload = () => {
             id="imageUpload"
             onChange={setImage}
           />
-          <FormButton extraClass="!mt-0 flex items-center gap-2" onClick={uploadImg}>
+          <FormButton extraClass="!mt-0 flex items-center gap-2 bg-primary" onClick={uploadImg}>
             Upload
             <span>
               <FiUpload />

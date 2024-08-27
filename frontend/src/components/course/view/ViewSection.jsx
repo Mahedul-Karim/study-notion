@@ -3,7 +3,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setSection, setSubSection } from "../../../store/slices/course";
 
-const ViewSection = ({ sectionName, subSection, index,setShowSidebar }) => {
+const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
   const { viewCourse } = useSelector((state) => state.course);
 
   const selectedSection = viewCourse?.selectedSection;
@@ -24,7 +24,7 @@ const ViewSection = ({ sectionName, subSection, index,setShowSidebar }) => {
 
   return (
     <div
-      className="overflow-clip transition-all duration-300"
+      className={`overflow-clip transition-all duration-300 rounded-xl`}
       style={{
         height:
           selectedSection === index
@@ -33,14 +33,14 @@ const ViewSection = ({ sectionName, subSection, index,setShowSidebar }) => {
       }}
     >
       <div
-        className="bg-richblack-600 flex items-center justify-between h-12 px-4 cursor-pointer"
+        className="bg-blue-5 flex items-center justify-between h-12 px-4 cursor-pointer"
         onClick={() => {
           if (selectedSection === index) {
             return;
           }
           dispatch(setSection(index));
           dispatch(setSubSection(0));
-          setShowSidebar(false)
+          setShowSidebar(false);
         }}
       >
         <p className="text-sm font-semibold">{sectionName}</p>
@@ -51,8 +51,12 @@ const ViewSection = ({ sectionName, subSection, index,setShowSidebar }) => {
       {subSection.map((subSec, i) => (
         <div
           className={`${
-            setActiveSubSection(i) ? "bg-yellow" : "bg-richblack-50"
-          }  text-richblack-800 flex items-center border-b border-solid border-richblack-600 px-4 cursor-pointer h-12`}
+            setActiveSubSection(i)
+              ? "bg-primary text-white"
+              : "bg-grey-5 text-richblack-600"
+          }  flex items-center  px-4 cursor-pointer h-12 ${
+            i !== subSection.length - 1 && "border-b border-solid border-border"
+          }`}
           key={subSec._id}
           onClick={() => {
             dispatch(setSubSection(i));
@@ -65,7 +69,7 @@ const ViewSection = ({ sectionName, subSection, index,setShowSidebar }) => {
               readOnly
               className="accent-green-300"
               checked={progress?.completedVideos?.includes(
-                subSec?.videoUrl?.url
+                subSec?._id
               )}
             />{" "}
             {subSec.title}

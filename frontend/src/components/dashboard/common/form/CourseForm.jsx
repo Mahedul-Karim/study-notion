@@ -160,7 +160,7 @@ const CourseForm = ({
               Continue without saving
             </CancelButton>
           )}
-          <FormButton type="submit" extraClass="!mt-0" disabled={isPending}>
+          <FormButton type="submit" extraClass="!mt-0 bg-primary" disabled={isPending}>
             {isFormEdit ? "Save Changes" : "Next"}
           </FormButton>
         </div>

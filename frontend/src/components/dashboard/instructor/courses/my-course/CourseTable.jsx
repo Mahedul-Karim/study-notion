@@ -49,7 +49,7 @@ const CourseTable = ({ course }) => {
 
   return (
     <div
-      className={`grid md:grid-cols-[1fr_80px_80px] px-4 py-4 border-b border-solid border-richblack-700`}
+      className={`grid md:grid-cols-[1fr_80px_80px] px-4 py-4 border-b border-solid border-border`}
     >
       <div className="flex sm:flex-row flex-col gap-2">
         <img
@@ -66,13 +66,13 @@ const CourseTable = ({ course }) => {
           </p>
           {course?.isDrift ? (
             <div
-              className={`bg-richblack-700 px-2 py-1 rounded-full w-max flex items-center text-pink-200 text-xs gap-1`}
+              className={`bg-primary/[0.15] px-2 py-1 rounded-full w-max flex items-center text-pink-200 text-xs gap-1`}
             >
               <FaClock /> Draft
             </div>
           ) : (
             <div
-              className={`bg-richblack-700 px-2 py-1 rounded-full w-max flex items-center text-yellow text-xs gap-1`}
+              className={`bg-green-300/[0.2] px-2 py-1 rounded-full w-max flex items-center text-green-700 text-xs gap-1`}
             >
               <FaCheckCircle /> Published
             </div>
@@ -81,7 +81,7 @@ const CourseTable = ({ course }) => {
       </div>
       <div className="text-sm text-richblack-100 grid grid-cols-2 md:block mt-4 md:mt-0">
         <p className="md:hidden block text-base font-semibold">Price</p>
-        <p>{formatCurrency(course?.price)}</p>
+        <p className="text-richblack-600">{formatCurrency(course?.price)}</p>
       </div>
       <div className="grid grid-cols-2 md:block mt-4 md:mt-0">
         <p className="md:hidden block text-base font-semibold text-richblack-100">

@@ -9,6 +9,7 @@ import MobileNav from "./MobileNav";
 import ConfirmationModal from "../../ui/modal/ConfirmationModal";
 import { useLogout } from "../../../hooks/useLogout";
 import Logo from "../../ui/Logo";
+import { VscSignOut } from "react-icons/vsc";
 
 const Header = () => {
   const [active, setActive] = useState(false);
@@ -21,7 +22,7 @@ const Header = () => {
 
   const location = useLocation();
 
-  const isCoursePage = location?.pathname?.split("/")?.includes("course");
+  const isHomePage = location?.pathname === "/";
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -39,8 +40,8 @@ const Header = () => {
     <header
       className={`${
         active ? "bg-white shadow-md" : "bg-none"
-      } fixed w-full transition-all duration-300 z-[11]
-      ${isCoursePage && "bg-white shadow-md"}
+      } fixed w-full transition-all duration-300 z-[12]
+      ${!isHomePage && "bg-white shadow-md"}
       `}
     >
       <Container extraClass={"!py-3 flex items-center justify-between"}>
@@ -84,7 +85,11 @@ const Header = () => {
                   >
                     <RxDashboard className="text-lg" /> <span>Dashboard</span>
                   </Link>
-                  <button onClick={setShowModal.bind(null, true)}>
+                  <button
+                    onClick={setShowModal.bind(null, true)}
+                    className="flex items-center gap-1"
+                  >
+                    <VscSignOut className="text-lg" />
                     Logout
                   </button>
                 </DotMenu>

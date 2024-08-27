@@ -57,7 +57,7 @@ const CoursePublish = ({ setActive }) => {
       <div className="flex gap-2 items-center">
         <input
           type="checkbox"
-          className="size-4 cursor-pointer accent-yellow focus:outline-none"
+          className="size-4 cursor-pointer accent-primary focus:outline-none"
           onChange={(e) => setIsChecked(e.target.checked)}
           id="publishId"
         />
@@ -77,11 +77,11 @@ const CoursePublish = ({ setActive }) => {
           Prev
         </CancelButton>
         <FormButton
-          extraClass="!mt-0"
+          extraClass="!mt-0 bg-primary"
           onClick={publishCourse}
           disabled={isPending}
         >
-          {isPending ? <Spinner button /> : "Save"}
+          {isPending ? "Publishing..." : "Save"}
         </FormButton>
       </div>
     </div>

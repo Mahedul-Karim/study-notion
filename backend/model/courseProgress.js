@@ -14,7 +14,7 @@ const courseProgressSchema = new mongoose.Schema({
       type: mongoose.Schema.ObjectId,
     },
   ],
-  completedVideos: [{ type: String }],
+  completedVideos: [{ type: mongoose.Schema.ObjectId }],
 });
 
 module.exports = mongoose.model("CourseProgress", courseProgressSchema);

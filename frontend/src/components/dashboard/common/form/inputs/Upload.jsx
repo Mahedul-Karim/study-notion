@@ -22,7 +22,7 @@ const Upload = ({
         }}
       />
       <label
-        className="min-h-[250px] bg-richblack-700 border border-dashed border-richblack-500 rounded-md flex items-center justify-center flex-col cursor-pointer gap-2 relative"
+        className="min-h-[250px] bg-white border border-dashed border-border rounded-md flex items-center justify-center flex-col cursor-pointer gap-2 relative"
         htmlFor="thumbnail"
         onDrop={(e) => {
           e.preventDefault();
@@ -57,7 +57,7 @@ const Upload = ({
             </p>
             <p className="text-richblack-200 text-[15px] w-[60%] 400px:w-[45%] text-center">
               Drag and Drop an {isVideo ? "video" : "image"} or click to{" "}
-              <span className="text-yellow">Browse</span> files
+              <span className="text-yellow50">Browse</span> files
             </p>
           </>
         )}

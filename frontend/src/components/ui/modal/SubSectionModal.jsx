@@ -98,15 +98,15 @@ const SubSectionModal = ({
 
   return (
     <Modal>
-      <div className="w-full 400px:w-11/12 max-w-[650px] rounded-md text-white border border-solid border-richblack-500 relative  hideScrollbar h-[80vh] overflow-auto hideScrollbar">
-        <div className="bg-richblack-700 px-6 py-3 text-[22px] font-semibold flex items-center justify-between">
+      <div className="w-full 400px:w-11/12 max-w-[650px] rounded-md text-white border border-solid border-border bg-white relative  hideScrollbar h-[80vh] overflow-auto hideScrollbar">
+        <div className="bg-background px-6 py-3 text-[22px] font-semibold flex items-center justify-between text-richblack-600">
           <h2>Adding Lecture</h2>
           <button type="button" onClick={() => setShowModal(false)}>
             <RxCross1 />{" "}
           </button>
         </div>
         <form
-          className="p-6 bg-richblack-800 flex flex-col gap-3"
+          className="p-6 bg-white flex flex-col gap-3"
           onSubmit={handleSubmit(onSubmit)}
         >
           <Upload
@@ -138,9 +138,9 @@ const SubSectionModal = ({
           </div>
           {!isViewing && (
             <div className="self-end">
-              <FormButton extraClass="!mt-0" type="submit" disabled={isPending}>
+              <FormButton extraClass="!mt-0 bg-primary" type="submit" disabled={isPending}>
                 {isPending ? (
-                  <Spinner button />
+                  "Saving..."
                 ) : isEditing ? (
                   "Save Changes"
                 ) : (

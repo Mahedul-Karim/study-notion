@@ -44,7 +44,7 @@ const NestedSections = ({
 
   return (
     <div
-      className={`items-center justify-between py-3 border-b-[2px] border-solid border-richblack-500 flex`}
+      className={`items-center justify-between py-3 border-b-[2px] border-solid border-border flex`}
     >
       <div className="flex items-center gap-2">
         <button>

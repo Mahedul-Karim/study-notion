@@ -60,6 +60,11 @@ const Main = ({ isPending }) => {
     const completedVideos = progress.completedVideos;
     const completedSections = progress.completedSections;
 
+    if(completedVideos.includes(id)){
+      toast.success('Video is already marked as completed!');
+      return;
+    }
+
     const options = {
       method: "PATCH",
       data: {
@@ -78,11 +83,11 @@ const Main = ({ isPending }) => {
       };
     }
 
-    if (!completedVideos.includes(videoUrl)) {
-      dispatch(setVideoProgress(videoUrl));
+    if (!completedVideos.includes(id)) {
+      dispatch(setVideoProgress(id));
       options.data = {
         ...options.data,
-        videoUrl,
+        videoUrl:id,
       };
     }
 
@@ -116,7 +121,7 @@ const Main = ({ isPending }) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 py-6 w-11/12 mx-auto max-w-[1000px] text-richblack-25">
+    <div className="flex flex-col gap-2 py-4 text-richblack-600 bg-white px-2 400px:px-4 rounded-xl border border-solid border-border">
       {isPending ? (
         <div className="flex items-center justify-center py-6">
           <Spinner />
@@ -125,7 +130,7 @@ const Main = ({ isPending }) => {
         <>
           <div className="lg:min-h-[400px] flex flex-col gap-3">
             <FormButton
-              extraClass="mt-0 self-end"
+              extraClass="!mt-0 self-end bg-primary"
               onClick={completeVideoHandler}
             >
               Mark as Complete
@@ -133,18 +138,18 @@ const Main = ({ isPending }) => {
             <div className="relative">
               <VideoPlayer
                 src={videoUrl}
-                key={id}
+                key={videoUrl}
                 markAsComplete={markAsComplete}
                 setIsEnded={setIsEnded}
               />
               {isEnded && (
                 <div className="absolute inset-0 w-full h-full z-10 bg-richblack-800/[0.25] backdrop-blur-[2px] flex items-center justify-center">
                   <div className="flex flex-col gap-4">
-                    <FormButton extraClass="mt-0" onClick={nextVideoHandler}>
+                    <FormButton extraClass="!mt-0 bg-primary" onClick={nextVideoHandler}>
                       Next
                     </FormButton>
                     <button
-                      className="rounded-lg bg-richblack-700 py-[6px] 400px:py-[8px] px-[8px] 400px:px-[12px] font-medium text-richblack-25 text-[14px] 400px:text-base"
+                      className="rounded-lg bg-tertiary py-[6px] 400px:py-[8px] px-[8px] 400px:px-[12px] font-medium text-richblack-25 text-[14px] 400px:text-base"
                       onClick={rewatchHandler}
                     >
                       Rewatch

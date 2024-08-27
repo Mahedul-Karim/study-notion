@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 
 import { setViewCourse, setSection } from "../../../store/slices/course";
+import Container from "../../layout/Container";
 
 const Course = () => {
   const [searchParam] = useSearchParams();
@@ -42,9 +43,10 @@ const Course = () => {
   }, []);
 
   return (
-    <section className="grid lg:grid-cols-[400px_1fr] gap-4 relative">
+    <div className="py-20 bg-background">
+    <Container extraClass="grid lg:grid-cols-[300px_1fr] gap-6 relative">
       <button
-        className={`flex lg:hidden text-white bg-richblack-800 size-10  items-center justify-center border border-solid border-richblack-700 transition-all duration-300 ${
+        className={`flex lg:hidden text-secondary bg-blue-5 size-10  items-center justify-center border border-solid border-border transition-all duration-300 ${
           showSidebar ? "translate-x-[250px]" : "translate-x-0"
         }`}
         onClick={() => setShowSidebar((prev) => !prev)}
@@ -57,7 +59,8 @@ const Course = () => {
         setShowSidebar={setShowSidebar}
       />
       <Main isPending={isPending} />
-    </section>
+    </Container>
+    </div>
   );
 };
 

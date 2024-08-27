@@ -13,7 +13,6 @@ import { MdSlowMotionVideo, MdPictureInPictureAlt } from "react-icons/md";
 const VideoPlayer = ({
   src,
   extraClass = "",
-  key,
   markAsComplete,
   setIsEnded,
 }) => {
@@ -108,7 +107,6 @@ const VideoPlayer = ({
   return (
     <div
       className={`relative overflow-clip group text-white ${extraClass}`}
-      key={key}
     >
       <video
         ref={videoRef}
@@ -137,17 +135,18 @@ const VideoPlayer = ({
       </video>
       <div className="absolute -bottom-[32px] group-hover:bottom-3 transition-all duration-300 w-full flex flex-col gap-3 z-10">
         <div
-          className="w-full relative bg-richblack-700 h-[4px] cursor-pointer"
+          className="w-full relative bg-richblack-300 h-[4px] cursor-pointer"
           onClick={timelineClick}
         >
           <div
-            className={`absolute h-full bg-yellow  cursor-pointer`}
+            className={`absolute h-full bg-primary  cursor-pointer`}
             style={{
               width: `${timeline}%`,
             }}
           >
             <div
-              className={`absolute size-4 bg-yellow  right-0 before:rounded-full bottom-[50%] translate-y-[50%] cursor-pointer transition-all duration-300 group-hover:scale-100  scale-0 origin-center rounded-full`}
+              className={`absolute size-4 bg-primary  right-0 before:rounded-full bottom-[50%] translate-y-[50%] cursor-pointer transition-all duration-300 group-hover:scale-100  scale-0 origin-center rounded-full`}
+              
             />
           </div>
         </div>
@@ -162,7 +161,7 @@ const VideoPlayer = ({
             </button>
             <input
               type="range"
-              className="h-[4px] hidden 400px:inline-block 400px:w-[50px] sm:w-[75px] text-[10px] accent-yellow cursor-pointer"
+              className="h-[4px] hidden 400px:inline-block 400px:w-[50px] sm:w-[75px] text-[10px] accent-primary cursor-pointer outline-none"
               min="0"
               max="1"
               step="any"

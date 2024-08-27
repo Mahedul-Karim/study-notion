@@ -8,6 +8,8 @@ import { BsGear } from "react-icons/bs";
 import { VscSignOut } from "react-icons/vsc";
 import Sidebar from "../common/Sidebar";
 import { RiComputerLine } from "react-icons/ri";
+import Container from "../../layout/Container";
+import { IoChatbubbleOutline } from "react-icons/io5";
 
 const INSTRUCTOR_DASHBOARD_LINKS = [
   {
@@ -21,6 +23,12 @@ const INSTRUCTOR_DASHBOARD_LINKS = [
     to: "/dashboard/instructor/analytics",
     title: "Dashboard",
     icon: <RxDashboard fontSize={20} />,
+  },
+  {
+    id: 2.5,
+    to: "/dashboard/instructor/chats",
+    title: "Chat",
+    icon: <IoChatbubbleOutline fontSize={20} />,
   },
   {
     id: 3,
@@ -50,13 +58,16 @@ const INSTRUCTOR_DASHBOARD_LINKS = [
 
 const InstructorDashboard = () => {
   return (
-    <div className="min-h-[calc(100vh_-_70px)] grid  lg:grid-cols-[250px_1fr]">
+    <div className="py-20 bg-background">
+      <Container extraClass="grid lg:grid-cols-[250px_1fr] gap-6">
+
       <Sidebar dashboardLinks={INSTRUCTOR_DASHBOARD_LINKS} />
-      <div className="py-5 400px:py-8 overflow-x-scroll w-full hideScrollbar">
-        <div className="text-richblack-25 flex flex-col gap-4 w-11/12 mx-auto max-w-[1000px]">
+      <div className="overflow-x-scroll w-full hideScrollbar bg-white rounded-xl border border-solid border-border p-4 lg:p-6">
+        <div className="text-richblack-700 flex flex-col gap-6">
           <Outlet />
         </div>
       </div>
+      </Container>
     </div>
   );
 };

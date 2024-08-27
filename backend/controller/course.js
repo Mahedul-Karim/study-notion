@@ -3,6 +3,7 @@ const SubSection = require("../model/subSection");
 const Course = require("../model/course");
 const User = require("../model/user");
 const CourseProgress = require("../model/courseProgress");
+const Cart = require("../model/cart");
 
 const {
   uploadToCloudinary,
@@ -320,8 +321,6 @@ exports.searchCourses = catchAsync(async (req, res) => {
 
   const limit = 4;
 
-  let countByCategory = "";
-
   const skip = (page - 1) * limit;
 
   if (category && category !== "all") {
@@ -405,5 +404,75 @@ exports.countCourse = catchAsync(async (req, res) => {
   res.status(200).json({
     success: true,
     totalDocuments,
+  });
+});
+
+exports.addToCart = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+
+  const { courseId } = req.body;
+
+  if (!userId) {
+    return res.status(401).json({
+      success: false,
+      message: "Login first to add to cart",
+    });
+  }
+
+  const existingCart = await Cart.findOne({ courseId, userId });
+
+  if (existingCart) {
+    return res.status(403).json({
+      success: false,
+      message: "Course is already in wishlist",
+    });
+  }
+
+  await Cart.create({
+    courseId,
+    userId,
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "Course was added to wishlist",
+  });
+});
+
+exports.getCarts = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+
+  const carts = await Cart.find({ userId }).populate({
+    path: "courseId",
+    populate: {
+      path: "ratingAndReviews",
+    },
+  });
+
+  if (carts.length === 0) {
+    return res.status(200).json({
+      success: true,
+      carts: [],
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    carts,
+  });
+});
+
+exports.removeFromCart = catchAsync(async (req, res) => {
+  const userId = req.user._id;
+
+  const courseId = req.params.courseId;
+
+  await Cart.findOneAndDelete({
+    userId,
+    courseId,
+  });
+
+  res.status(200).json({
+    success: true,
   });
 });

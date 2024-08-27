@@ -17,8 +17,10 @@ router
   .put(userVerification, isInstructor, course.publishCourse)
   .patch(userVerification, isInstructor, course.updateCourse);
 
-router.route('/filter').get(course.searchCourses)
-router.route('/count').get(course.countCourse)
+router.route("/filter").get(course.searchCourses);
+router.route("/count").get(course.countCourse);
+router.route("/cart").post(userVerification, course.addToCart).get(userVerification,course.getCarts);
+router.route('/cart/:courseId').delete(userVerification,course.removeFromCart)
 
 router
   .route("/:courseName")

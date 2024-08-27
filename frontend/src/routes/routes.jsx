@@ -23,6 +23,8 @@ import CourseDetailsPage from "../pages/course/CourseDetailsPage";
 import ViewCoursePage from "../pages/course/ViewCoursePage";
 import EditCoursePage from "../pages/course/EditCoursePage";
 import FAQPage from "../pages/FAQ";
+import Chat from "../components/dashboard/user/chat/Chat";
+import InstructorChat from "../components/dashboard/instructor/chat/Chat";
 
 export const routes = createBrowserRouter([
   {
@@ -70,7 +72,11 @@ export const routes = createBrowserRouter([
             element: <EnrolledCourses />,
           },
           {
-            path: "/dashboard/user/cart",
+            path: "/dashboard/user/chats",
+            element: <Chat />,
+          },
+          {
+            path: "/dashboard/user/wishlist",
             element: <Cart />,
           },
           {
@@ -94,6 +100,10 @@ export const routes = createBrowserRouter([
           {
             path: "/dashboard/instructor/my-courses",
             element: <MyCourses />,
+          },
+          {
+            path: "/dashboard/instructor/chats",
+            element: <InstructorChat />,
           },
           {
             path: "/dashboard/instructor/edit-course",

@@ -103,7 +103,7 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
         <div>
           <Label>Section Name</Label>
           <input
-            className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+            className="bg-white text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 border border-solid border-border"
             placeholder="Add a section to build your course"
             type="text"
             value={sectionName}
@@ -112,7 +112,7 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
         </div>
         <div className="flex gap-2">
           <button
-            className="border border-solid border-yellow mt-4 px-4 py-2 rounded-md text-yellow flex items-center gap-2"
+            className="border border-solid border-secondary mt-4 px-4 py-2 rounded-md text-secondary flex items-center gap-2"
             onClick={onClick}
           >
             {isSectionEditing ? "Save changes" : "Create Section"}
@@ -135,7 +135,7 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
         </div>
       </div>
       <div
-        className="bg-richblack-700 px-6 py-5 rounded-md mt-5"
+        className="bg-white border border-solid border-border rounded-xl px-6 py-5 mt-5"
         style={{
           display: newCourse?.courseContents?.length > 0 ? "block" : "none",
         }}
@@ -166,7 +166,7 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
         >
           Prev
         </CancelButton>
-        <FormButton extraClass="!mt-0" onClick={nextForm}>
+        <FormButton extraClass="!mt-0 bg-primary" onClick={nextForm}>
           Next
         </FormButton>
       </div>

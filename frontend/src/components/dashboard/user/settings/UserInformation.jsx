@@ -91,7 +91,7 @@ const UserInformation = () => {
               />
             </div>
             <div className="basis-[50%]">
-              <label className="text-[15px] text-richblack-5 mb-1">
+              <label className="text-[15px] text-richblack-700 mb-1">
                 Gender
               </label>
               <Select register={register("gender")}>
@@ -110,7 +110,7 @@ const UserInformation = () => {
             />
           </div>
           <div>
-            <label className="text-[15px] text-richblack-5 mb-1">About</label>
+            <label className="text-[15px] text-richblack-700 mb-1">About</label>
             <TextArea
               placeholder={"Enter Bio Details"}
               register={register("about")}
@@ -118,7 +118,7 @@ const UserInformation = () => {
           </div>
           <div className="flex gap-4 justify-end items-center mt-4">
             <CancelButton />
-            <FormButton extraClass="!mt-0" type="submit">
+            <FormButton extraClass="!mt-0 bg-primary" type="submit">
               Save
             </FormButton>
           </div>

@@ -58,7 +58,7 @@ const Sections = ({
 
   return (
     <div>
-      <div className="flex items-center justify-between py-3 border-b-[2px] border-solid border-richblack-500">
+      <div className="flex items-center justify-between py-3 border-b-[2px] border-solid border-border">
         <div className="flex items-center gap-2">
           <button>
             <RxDropdownMenu size={22} />
@@ -111,7 +111,7 @@ const Sections = ({
             ))}
         </div>
         <button
-          className="flex items-center gap-2 text-yellow text-base py-3"
+          className="flex items-center gap-2 text-secondary text-base py-3"
           onClick={() => setIsAdding(true)}
         >
           <FaPlus size={16} /> Add Lecture{" "}

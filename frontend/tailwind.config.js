@@ -49,6 +49,7 @@ export default {
       border:'#e9ecef',
       background:'#fafafa',
       blue: {
+        5:'rgba(161,169,253,0.12)',
         200: "#118ab2",
       },
       grey: {

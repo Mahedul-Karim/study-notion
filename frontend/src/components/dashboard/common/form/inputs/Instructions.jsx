@@ -10,13 +10,13 @@ const Instructions = ({ instructions, setInstructions }) => {
 
   return (
     <div>
-      <label className="text-[15px] text-richblack-5 mb-1">
+      <label className="text-[15px] text-richblack-600 mb-1">
         Instructions/Requirements
         <sup className="text-pink-200 ml-[2px] top-[-2px] text-base">*</sup>
       </label>
       <input
         type={"text"}
-        className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+        className="bg-white text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 border border-solid border-border"
         disabled={false}
         onChange={(e) => setInstruction(e.target.value)}
         value={instruction}
@@ -24,7 +24,7 @@ const Instructions = ({ instructions, setInstructions }) => {
 
       <button
         type="button"
-        className="text-yellow font-semibold mt-1"
+        className="text-white bg-tertiary px-4 rounded-md py-1 font-semibold mt-1"
         onClick={() => {
           setInstructions((prev) => [...prev, instruction]);
           setInstruction("");

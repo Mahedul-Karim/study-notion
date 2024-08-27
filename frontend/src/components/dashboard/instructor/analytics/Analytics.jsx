@@ -6,11 +6,15 @@ import { useInsctructorCourses } from "../../../../hooks/useInsctructorCourses";
 import Card from "../../../course/Card";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../../ui/Spinner";
+import { useSelector } from 'react-redux'
+import Heading from "../../common/Heading";
 
 const Analytics = () => {
   const [pieType, setPieType] = useState("students");
 
   const { data, isPending } = useInsctructorCourses();
+
+  const { user } = useSelector(state => state.profile)
 
   const navigate = useNavigate();
 
@@ -40,19 +44,19 @@ const Analytics = () => {
   }
 
   return (
-    <main className="text-richblack-25">
-      <h2 className="text-2xl font-semibold">Hi Himanshu</h2>
+    <main className="text-richblack-700">
+      <Heading>Hi, {user?.firstName}!</Heading>
       <p className="text-sm text-richblack-300 my-1">
         Let&apos;s start something new
       </p>
       <div className="grid md:grid-cols-[1fr_0.4fr] gap-4 my-4">
-        <div className="bg-richblack-800 rounded-md p-4">
+        <div className="bg-background border border-solid border-border rounded-md p-4">
           <div className="flex items-center justify-between">
-            <p className="font-bold text-lg">Visualize</p>
+            <p className="font-bold text-lg text-richblack-600">Visualize</p>
             <div className="flex items-center gap-2">
               <button
                 className={`${
-                  pieType === "students" ? "bg-richblack-900 text-yellow" : ""
+                  pieType === "students" ? "bg-primary text-white" : ""
                 }  px-3 py-2 rounded-md`}
                 onClick={setPieType.bind(null, "students")}
               >
@@ -60,7 +64,7 @@ const Analytics = () => {
               </button>
               <button
                 className={`${
-                  pieType === "revenue" ? "bg-richblack-900 text-yellow" : ""
+                  pieType === "revenue" ? "bg-primary text-white" : ""
                 }  px-3 py-2 rounded-md`}
                 onClick={setPieType.bind(null, "revenue")}
               >
@@ -70,13 +74,13 @@ const Analytics = () => {
           </div>
           <PieChart pieType={pieType} />
         </div>
-        <div className="bg-richblack-800 rounded-md p-4">
+        <div className="bg-background border border-solid border-border rounded-md p-4">
           <h4 className="font-bold text-lg">Statistics</h4>
           <div className="flex flex-col gap-2 mt-4">
             {stats?.map((stat, index) => (
               <div key={index}>
-                <p className="text-lg text-richblack-300">{stat.label}</p>
-                <p className="text-richblack-25 font-bold text-2xl">
+                <p className="text-lg text-richblack-600">{stat.label}</p>
+                <p className="text-richblack-500 font-bold text-2xl">
                   {stat.data}
                 </p>
               </div>
@@ -84,11 +88,11 @@ const Analytics = () => {
           </div>
         </div>
       </div>
-      <div className="bg-richblack-800 mt-4 p-6 rounded-md">
+      <div className="bg-background border border-solid border-border mt-4 p-6 rounded-md">
         <div className="flex items-center mb-4 justify-between">
-          <h4 className="text-lg font-bold text-richblack-5">Your Courses</h4>
+          <h4 className="text-lg font-bold text-richblack-600">Your Courses</h4>
           <button
-            className="text-yellow text-xs"
+            className="text-secondary text-xs"
             onClick={() => navigate("/dashboard/instructor/my-courses")}
           >
             View All

@@ -1,12 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-import { IoCartOutline } from "react-icons/io5";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { FaGraduationCap } from "react-icons/fa";
 import { BsGear } from "react-icons/bs";
 import { VscSignOut } from "react-icons/vsc";
 import Sidebar from "../common/Sidebar";
+import Container from "../../layout/Container";
+import { FaRegHeart } from "react-icons/fa";
+import { IoChatbubbleOutline } from "react-icons/io5";
+
+
 const USER_DASHBOARD_LINKS = [
   {
     id: 1,
@@ -20,12 +24,18 @@ const USER_DASHBOARD_LINKS = [
     title: "Enrolled Courses",
     icon: <FaGraduationCap fontSize={24} />,
   },
-  // {
-  //   id: 3,
-  //   to: "/dashboard/user/cart",
-  //   title: "Cart",
-  //   icon: <IoCartOutline fontSize={24} />,
-  // },
+  {
+    id: 3,
+    to: "/dashboard/user/wishlist",
+    title: "Wishlist",
+    icon: <FaRegHeart fontSize={20} />,
+  },
+  {
+    id: 3.5,
+    to: "/dashboard/user/chats",
+    title: "Chat",
+    icon: <IoChatbubbleOutline fontSize={20} />,
+  },
   {
     id: 4,
     to: "/dashboard/user/settings",
@@ -41,13 +51,15 @@ const USER_DASHBOARD_LINKS = [
 
 const UserDashboard = () => {
   return (
-    <div className="min-h-[calc(100vh_-_70px)] grid  lg:grid-cols-[250px_1fr]">
-      <Sidebar dashboardLinks={USER_DASHBOARD_LINKS} />
-      <div className="py-5 400px:py-8 overflow-x-scroll w-full hideScrollbar">
-        <div className="text-richblack-25 flex flex-col gap-4 w-11/12 mx-auto max-w-[1000px]">
-          <Outlet />
+    <div className="py-20 bg-background">
+      <Container extraClass="grid lg:grid-cols-[250px_1fr] gap-6">
+        <Sidebar dashboardLinks={USER_DASHBOARD_LINKS} />
+        <div className="overflow-x-scroll w-full hideScrollbar bg-white rounded-xl border border-solid border-border p-4 lg:p-6">
+          <div className="text-richblack-700 flex flex-col gap-6">
+            <Outlet />
+          </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

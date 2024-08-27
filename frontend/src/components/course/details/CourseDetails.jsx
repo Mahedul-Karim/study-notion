@@ -122,10 +122,10 @@ const CourseDetails = () => {
                 ))}
               </div>
             </div>
-            <div className="mt-8 flex flex-col gap-2 p-4 border border-solid border-border bg-white rounded-xl">
+            {courseDetails?.ratingAndReviews?.length > 0 && <div className="mt-8 flex flex-col gap-2 p-4 border border-solid border-border bg-white rounded-xl">
               <h2 className="text-lg text-secondary font-bold">Reviews</h2>
               
-              {courseDetails?.ratingAndReviews?.length > 0 && (
+              { (
                 <div className="flex flex-col gap-8">
                   {courseDetails?.ratingAndReviews.map((rating) => (
                     <Reviews
@@ -137,7 +137,7 @@ const CourseDetails = () => {
                   ))}
                 </div>
               )}
-            </div>
+            </div>}
           </div>
           <Action
             thumbnail={courseDetails?.thumbnail?.url}

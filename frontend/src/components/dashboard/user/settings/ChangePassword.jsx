@@ -29,7 +29,7 @@ const ChangePassword = () => {
       </Section>
       <div className="flex gap-4 justify-end items-center mt-4">
         <CancelButton />
-        <FormButton extraClass="!mt-0">Update</FormButton>
+        <FormButton extraClass="!mt-0 bg-primary">Update</FormButton>
       </div>
     </>
   );

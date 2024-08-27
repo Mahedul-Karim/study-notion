@@ -6,7 +6,7 @@ export const useData = ({ key, endpoint }) => {
   const { data, isPending } = useQuery({
     queryFn: () => apiConnector(endpoint, { method: "GET" }),
     queryKey:key,
-    retry:false
+    retry:false,
   });
 
   return {data,isPending}

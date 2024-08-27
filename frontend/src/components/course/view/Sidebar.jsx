@@ -26,18 +26,18 @@ const Sidebar = ({ showSidebar, isPending, setShowSidebar }) => {
 
   return (
     <aside
-      className={`transition-all duration-300 z-20  w-[250px] absolute  lg:w-auto lg:static flex flex-col gap-2 px-4 bg-richblack-800 border-r border-richblack-700 border-solid py-6 text-richblack-5 ${
-        showSidebar ? "translate-x-0" : "-translate-x-[100%]"
-      } lg:translate-x-0`}
+      className={`transition-all duration-300  w-[250px] absolute  lg:w-auto lg:static flex flex-col gap-2 px-4 bg-white border border-solid border-border py-6 text-richblack-600 rounded-xl z-[11] ${
+        showSidebar ? "translate-x-0" : "-translate-x-[200%]"
+      } lg:translate-x-0 `}
     >
       <div className="flex items-center justify-between">
         <button
-          className="text-richblack-700 bg-richblack-100 size-8 text-xl rounded-full flex items-center justify-center"
+          className="text-white bg-primary size-8 text-xl rounded-full flex items-center justify-center"
           onClick={navigate.bind(null, -1)}
         >
           <FaChevronLeft />{" "}
         </button>
-        <FormButton extraClass="mt-0" onClick={setShowModal.bind(null, true)}>
+        <FormButton extraClass="!mt-0 bg-primary" onClick={setShowModal.bind(null, true)}>
           Review
         </FormButton>
       </div>
@@ -55,7 +55,7 @@ const Sidebar = ({ showSidebar, isPending, setShowSidebar }) => {
               {courseLectures?.length} Lectures Completed
             </p>
           </div>
-          <hr className="text-richblack-500 mt-5 mb-2" />
+          <hr className="text-border mt-5 mb-2" />
           <div className="flex flex-col gap-2">
             {courseContents?.map((course, i) => (
               <ViewSection

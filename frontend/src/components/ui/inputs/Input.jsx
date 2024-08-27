@@ -29,7 +29,7 @@ const Input = ({
  
   return (
     <>
-      <label className="text-[15px] text-richblack-5 mb-1">
+      <label className="text-[15px] text-richblack-700 mb-1">
         {label}
         {required && (
           <sup className="text-pink-200 ml-[2px] top-[-2px] text-base">*</sup>
@@ -38,7 +38,7 @@ const Input = ({
       <input
         type={returnType()}
         required={required}
-        className="bg-richblack-700 text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-richblack-500 disabled:cursor-not-allowed text-richblack-25"
+        className="bg-white text-base p-3 focus:outline-none rounded-lg w-full drop-shadow-[0_1px_rgba(255,255,255,0.5)] relative disabled:bg-border disabled:cursor-not-allowed text-richblack-700 border border-solid border-border"
         placeholder={placeholder}
         disabled={disabled}
         {...register}

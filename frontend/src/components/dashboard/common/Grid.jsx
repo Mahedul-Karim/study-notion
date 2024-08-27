@@ -35,11 +35,7 @@ const Grid = ({thumbnail,name,description,progress,courseId,course}) => {
         <p className="text-[14px]">Progress {Math.round(completedPercentage)}%</p>
         <ProgressBar width={Math.round(completedPercentage)} />
       </div>
-      <div className="justify-self-center self-center relative">
-        <button>
-          <BsThreeDotsVertical fontSize={24} />{" "}
-        </button>
-      </div>
+      
     </div>
   );
 };

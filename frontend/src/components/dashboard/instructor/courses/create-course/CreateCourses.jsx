@@ -19,7 +19,7 @@ const CreateCourses = ({ isEditing }) => {
     <>
       <Heading>{isEditing ? "Edit Course" : "Add Course"} </Heading>
       <div className="max-w-[550px]">
-        <div className="flex items-center mb-6 w-full justify-center">
+        <div className="flex items-center mb-6 w-full justify-center gap-2">
           {TRCKING_BAR.map((track, i) => (
             <Tracking track={track} key={i} active={active} />
           ))}
