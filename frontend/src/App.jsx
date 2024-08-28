@@ -8,12 +8,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "./store/slices/profile";
 import { socket } from "./components/util/helpers";
 
-
-
 function App() {
   const dispatch = useDispatch();
-
-
 
   useEffect(() => {
     (async function () {
@@ -23,6 +19,10 @@ function App() {
       });
       if (!data.data.success) return;
       dispatch(setUser(data?.data?.user));
+      socket.emit("setUser", data?.data?.user._id);
+      socket.on("getUsers", (user) => {
+        console.log(user);
+      });
     })();
   }, []);
 

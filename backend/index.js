@@ -2,8 +2,8 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const http = require('http');
-const { Server } = require('socket.io')
+const http = require("http");
+const { Server } = require("socket.io");
 
 const { configCloudinary } = require("./config/cloudinary");
 
@@ -49,13 +49,6 @@ app.use("/api/v1/category", categoryRoute);
 const PORT = process.env.PORT || 4000;
 
 
-const server = http.createServer(app);
-
-const io = new Server(server);
-
-io.on('connection',(socket)=>{
- console.log('User connected')
-})
 
 
-server.listen(PORT, () => console.log(`server is running at ${PORT}`));
+app.listen(PORT, () => console.log(`server is running at ${PORT}`));
