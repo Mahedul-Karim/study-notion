@@ -54,9 +54,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on('connection',(socket)=>{
-  socket.emit('hello',{
-    id:socket.id
-  })
+ console.log('User connected')
 })
 
 

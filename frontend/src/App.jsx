@@ -13,9 +13,7 @@ import { socket } from "./components/util/helpers";
 function App() {
   const dispatch = useDispatch();
 
-  socket.on('hello',(soc)=>{
-    console.log(soc)
-  })
+
 
   useEffect(() => {
     (async function () {
