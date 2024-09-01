@@ -2,11 +2,13 @@ import { combineReducers } from "@reduxjs/toolkit";
 import auth from "../slices/auth";
 import profile from "../slices/profile";
 import course from '../slices/course'
+import chat from '../slices/chat'
 
 export const rootReducer = combineReducers({
   auth,
   profile,
-  course
+  course,
+  chat
 });
 
 export const signupReducer = (state, action) => {

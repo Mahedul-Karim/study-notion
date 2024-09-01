@@ -9,7 +9,7 @@ body {
   overflow-x: clip;
 }
 .code-border {
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid #f1f2ff;
   backdrop-filter: blur(5px);
 }
@@ -68,21 +68,25 @@ body {
   width: 100%;
   height: 100%;
   transform: scale(1.01);
-  background-color: #392C7D;
+  background-color: #392c7d;
   position: absolute;
   z-index: -1;
   filter: blur(10px);
 }
 
-
 .loader {
-  --c1: #392C7D;
-  --c2: #917CF6;
-  width: 40px;
-  height: 80px;
+  --c1: #392c7d;
+  --c2: #917cf6;
+  
   border-top: 4px solid var(--c1);
   border-bottom: 4px solid var(--c1);
-  background: linear-gradient(90deg, var(--c1) 2px, var(--c2) 0 5px,var(--c1) 0) 50%/7px 8px no-repeat;
+  background: linear-gradient(
+      90deg,
+      var(--c1) 2px,
+      var(--c2) 0 5px,
+      var(--c1) 0
+    )
+    50%/7px 8px no-repeat;
   display: grid;
   overflow: hidden;
   animation: l5-0 2s infinite linear;
@@ -103,7 +107,8 @@ body {
     linear-gradient(#000 0 0);
   -webkit-mask-composite: destination-out;
   mask-composite: exclude;
-  background: linear-gradient(var(--d,0deg),var(--c2) 50%,#0000 0) bottom /100% 205%,
+  background: linear-gradient(var(--d, 0deg), var(--c2) 50%, #0000 0) bottom /
+      100% 205%,
     linear-gradient(var(--c2) 0 0) center/0 100%;
   background-repeat: no-repeat;
   animation: inherit;
@@ -119,21 +124,23 @@ body {
 
 @keyframes l5-0 {
   80% {
-    transform: rotate(0)
+    transform: rotate(0);
   }
 
   100% {
-    transform: rotate(0.5turn)
+    transform: rotate(0.5turn);
   }
 }
 
 @keyframes l5-1 {
-  10%,70% {
-    background-size: 100% 205%,var(--s,0) 100%
+  10%,
+  70% {
+    background-size: 100% 205%, var(--s, 0) 100%;
   }
 
-  70%,100% {
-    background-position: top,center
+  70%,
+  100% {
+    background-position: top, center;
   }
 }
 
@@ -155,14 +162,25 @@ body {
   border-bottom: 1px solid #e9ecef;
 }
 
+.showScrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.showScrollbar::-webkit-scrollbar-track {
+  background-color: rgba(161, 169, 253, 0.3);
+}
+
+.showScrollbar::-webkit-scrollbar-thumb {
+  background-color: #392c7d;
+  border-radius: 10px;
+}
+
 .active::before {
   transform: translate(75%, 15px) rotate(-35deg);
 }
 .active::after {
   transform: translate(18%, -16px) rotate(35deg);
 }
-
-
 
 input[type="number"]::-webkit-inner-spin-button {
   display: none;
@@ -226,15 +244,15 @@ input:checked + .slider:before {
   animation: slidingRight 2s forwards;
 }
 
-.img1{
+.img1 {
   animation: slidingLeft 0.4s forwards;
   animation-delay: 2s;
 }
-.img2{
+.img2 {
   animation: slidingLeft 0.4s forwards;
   animation-delay: 2.4s;
 }
-.img3{
+.img3 {
   animation: slidingLeft 0.4s forwards;
   animation-delay: 2.8s;
 }
@@ -249,8 +267,6 @@ input:checked + .slider:before {
     opacity: 1;
   }
 }
-
-
 
 @keyframes slidingRight {
   0% {
@@ -274,23 +290,23 @@ input:checked + .slider:before {
   }
 }
 
-.cursorAnimation::after{
-  content: '';
+.cursorAnimation::after {
+  content: "";
   width: 2px;
   height: 14px;
-  background-color: #392C7D;
+  background-color: #392c7d;
   display: inline-block;
   transform-origin: center;
   animation: scaleUp 1.5s infinite linear;
 }
-@keyframes scaleUp{
-  0%{
+@keyframes scaleUp {
+  0% {
     transform: scale(0);
   }
-  50%{
+  50% {
     transform: scale(1);
   }
-  100%{
+  100% {
     transform: scale(0);
   }
 }

@@ -17,6 +17,7 @@ const ratingRoute = require("./routes/rating");
 const sectionRoute = require("./routes/section");
 const subSecRoute = require("./routes/subSection");
 const userRoute = require("./routes/user");
+const conversationRoute = require("./routes/conversation");
 
 dotenv.config({
   path: "/.env",
@@ -45,6 +46,7 @@ app.use("/api/v1/rating", ratingRoute);
 app.use("/api/v1/section", sectionRoute);
 app.use("/api/v1/subSection", subSecRoute);
 app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/conversation", conversationRoute);
 
 const PORT = process.env.PORT || 4000;
 

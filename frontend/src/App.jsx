@@ -7,6 +7,7 @@ import { axiosInstance } from "./components/util/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/slices/profile";
 import { socket } from "./components/util/helpers";
+import { setOnlineUsers } from "./store/slices/chat";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function App() {
       dispatch(setUser(data?.data?.user));
       socket.emit("setUser", data?.data?.user._id);
       socket.on("getUsers", (user) => {
-        console.log(user);
+        dispatch(setOnlineUsers(user));
       });
     })();
   }, []);

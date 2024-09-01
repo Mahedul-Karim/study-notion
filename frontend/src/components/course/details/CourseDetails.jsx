@@ -1,5 +1,5 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Container from "../../layout/Container";
 import Ratings from "../../ui/Ratings";
 import CourseContents from "./CourseContents";
@@ -9,11 +9,24 @@ import Action from "./Action";
 import Reviews from "./Reviews";
 
 import { useData } from "../../../hooks/useData";
-
-import { formatDate } from "../../util/format";
+import { BsChatDotsFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { setSelectedChat } from "../../../store/slices/chat";
+import Modal from "../../ui/modal/Modal";
+import Messages from "../../dashboard/common/chat/Messages";
+import ConversationModal from "../../ui/modal/ConversationModal";
 
 const CourseDetails = () => {
   const { courseName } = useParams();
+
+  const navigate = useNavigate();
+
+  const [open, setOpen] = useState(false);
+
+  const { user } = useSelector((state) => state.profile);
+
+  const dispatch = useDispatch();
 
   const courseTitle = courseName?.replace("-", " ");
 
@@ -39,6 +52,24 @@ const CourseDetails = () => {
 
   const courseLectures = courseContents?.flatMap((c) => c?.subSection);
 
+  const conversationHandler = () => {
+    if (!user) {
+      toast.error("Login first to message the instructor");
+      return;
+    }
+    dispatch(
+      setSelectedChat({
+        chatObject: {
+          creatorId: user,
+          recieverId: courseDetails?.instructor,
+          lastMessageSender: user._id,
+          lastMessage: "",
+        },
+      })
+    );
+    setOpen(true);
+  };
+
   if (isPending) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
@@ -49,6 +80,14 @@ const CourseDetails = () => {
 
   return (
     <div>
+      <div className="fixed bottom-4 right-4">
+        <button
+          className="bg-primary text-white  rounded-full p-3 text-lg"
+          onClick={conversationHandler}
+        >
+          <BsChatDotsFill />
+        </button>
+      </div>
       <div className="py-[25px]" />
       <div className="bg-background bg-[url('/assets/inner-banner.jpg')] bg-no-repeat before:bg-black/[0.76] before:absolute before:top-0 before:left-0 py-3 before:w-full before:h-full relative bg-cover z-[-1]">
         <Container>
@@ -59,6 +98,7 @@ const CourseDetails = () => {
                   src={courseDetails?.instructor?.image}
                   alt=""
                   className="size-10 400px:size-12 rounded-full object-cover border border-solid border-border"
+                  title="Message instructor"
                 />
                 <div className="flex flex-col">
                   <p className="text-richblack-5 font-semibold 400px:text-base text-sm">
@@ -99,7 +139,9 @@ const CourseDetails = () => {
               <h2 className="text-base 400px:text-lg font-bold text-secondary ">
                 What you&apos;ll learn
               </h2>
-              <p className="mt-4 text-xs 400px:text-sm">{courseDetails?.whatYouWillLearn}</p>
+              <p className="mt-4 text-xs 400px:text-sm">
+                {courseDetails?.whatYouWillLearn}
+              </p>
             </div>
             <div className="bg-white mt-8 border border-border border-solid flex flex-col gap-3 p-4 400px:p-6 rounded-xl">
               <div className="flex items-center justify-between">
@@ -122,22 +164,24 @@ const CourseDetails = () => {
                 ))}
               </div>
             </div>
-            {courseDetails?.ratingAndReviews?.length > 0 && <div className="mt-8 flex flex-col gap-2 p-4 border border-solid border-border bg-white rounded-xl">
-              <h2 className="text-lg text-secondary font-bold">Reviews</h2>
-              
-              { (
-                <div className="flex flex-col gap-8">
-                  {courseDetails?.ratingAndReviews.map((rating) => (
-                    <Reviews
-                      key={rating._id}
-                      user={rating.user}
-                      review={rating.reviews}
-                      rating={rating.rating}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>}
+            {courseDetails?.ratingAndReviews?.length > 0 && (
+              <div className="mt-8 flex flex-col gap-2 p-4 border border-solid border-border bg-white rounded-xl">
+                <h2 className="text-lg text-secondary font-bold">Reviews</h2>
+
+                {
+                  <div className="flex flex-col gap-8">
+                    {courseDetails?.ratingAndReviews.map((rating) => (
+                      <Reviews
+                        key={rating._id}
+                        user={rating.user}
+                        review={rating.reviews}
+                        rating={rating.rating}
+                      />
+                    ))}
+                  </div>
+                }
+              </div>
+            )}
           </div>
           <Action
             thumbnail={courseDetails?.thumbnail?.url}
@@ -148,6 +192,7 @@ const CourseDetails = () => {
           />
         </Container>
       </div>
+      {open && <ConversationModal open={open} setOpen={setOpen} />}
     </div>
   );
 };

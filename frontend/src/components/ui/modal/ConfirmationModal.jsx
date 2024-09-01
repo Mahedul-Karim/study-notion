@@ -20,7 +20,7 @@ const ConfirmationModal = ({
         <p className="text-richblack-700">{paragraph}</p>
         <div className="flex items-center gap-2 mt-2">
           <FormButton extraClass="!mt-0 bg-tertiary" onClick={onClick1} disabled={isPending}>
-            {isPending ? <Spinner button/> :  btn1text}
+            {isPending ? "Processing..." :  btn1text}
           </FormButton>
           <Cancel extraClass={"!text-richblack-25"} onClick={onClick2} />
         </div>
