@@ -1,35 +1,70 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../pages/Main";
-import Home from "../pages/Home";
-import SignUp from "../pages/SignUp";
-import Login from "../pages/Login";
-import VerifyEmail from "../pages/VerifyEmail";
-import ForgotPasswordPage from "../pages/ForgotPassword";
-import AboutUsPage from "../pages/AboutUs";
-import Error from "../pages/Error";
-import UserDashboardPage from "../pages/dashboard/user/UserDashboardPage";
-import UserProfile from "../components/dashboard/user/profile/UserProfile";
-import EnrolledCourses from "../components/dashboard/user/enrolled-courses/EnrolledCourses";
-import Cart from "../components/dashboard/user/cart/Cart";
-import UserSettings from "../components/dashboard/user/settings/UserSettings";
-import InstructorDashboardPage from "../pages/dashboard/instructor/InstructorDashboardPage";
-import InstructorProfile from "../components/dashboard/instructor/profile/InstructorProfile";
-import InstructorSettings from "../components/dashboard/instructor/settings/InstructorSettings";
-import MyCourses from "../components/dashboard/instructor/courses/my-course/MyCourses";
-import CreateCourses from "../components/dashboard/instructor/courses/create-course/CreateCourses";
-import Analytics from "../components/dashboard/instructor/analytics/Analytics";
-import Course from "../pages/course/Course";
-import CourseDetailsPage from "../pages/course/CourseDetailsPage";
-import ViewCoursePage from "../pages/course/ViewCoursePage";
-import EditCoursePage from "../pages/course/EditCoursePage";
-import FAQPage from "../pages/FAQ";
-import Chat from "../components/dashboard/user/chat/Chat";
-import InstructorChat from "../components/dashboard/instructor/chat/Chat";
+import { lazy } from "react";
+
+import Fallback from "./Fallback";
+
+const Main = lazy(() => import("../pages/Main"));
+const Home = lazy(() => import("../pages/Home"));
+const SignUp = lazy(() => import("../pages/SignUp"));
+const Login = lazy(() => import("../pages/Login"));
+const VerifyEmail = lazy(() => import("../pages/VerifyEmail"));
+const ForgotPasswordPage = lazy(() => import("../pages/ForgotPassword"));
+const AboutUsPage = lazy(() => import("../pages/AboutUs"));
+const FAQPage = lazy(() => import("../pages/FAQ"));
+const UserDashboardPage = lazy(() =>
+  import("../pages/dashboard/user/UserDashboardPage")
+);
+const UserProfile = lazy(() =>
+  import("../components/dashboard/user/profile/UserProfile")
+);
+const EnrolledCourses = lazy(() =>
+  import("../components/dashboard/user/enrolled-courses/EnrolledCourses")
+);
+const Chat = lazy(() => import("../components/dashboard/user/chat/Chat"));
+const Error = lazy(() => import("../pages/Error"));
+const Cart = lazy(() => import("../components/dashboard/user/cart/Cart"));
+const UserSettings = lazy(() =>
+  import("../components/dashboard/user/settings/UserSettings")
+);
+const InstructorDashboardPage = lazy(() =>
+  import("../pages/dashboard/instructor/InstructorDashboardPage")
+);
+const InstructorProfile = lazy(() =>
+  import("../components/dashboard/instructor/profile/InstructorProfile")
+);
+const InstructorSettings = lazy(() =>
+  import("../components/dashboard/instructor/settings/InstructorSettings")
+);
+const MyCourses = lazy(() =>
+  import("../components/dashboard/instructor/courses/my-course/MyCourses")
+);
+const CreateCourses = lazy(() =>
+  import(
+    "../components/dashboard/instructor/courses/create-course/CreateCourses"
+  )
+);
+const Analytics = lazy(() =>
+  import("../components/dashboard/instructor/analytics/Analytics")
+);
+const Course = lazy(() => import("../pages/course/Course"));
+const CourseDetailsPage = lazy(() =>
+  import("../pages/course/CourseDetailsPage")
+);
+const ViewCoursePage = lazy(() => import("../pages/course/ViewCoursePage"));
+const EditCoursePage = lazy(() => import("../pages/course/EditCoursePage"));
+const InstructorChat = lazy(() =>
+  import("../components/dashboard/instructor/chat/Chat")
+);
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: (
+      <Fallback>
+        {" "}
+        <Main />
+      </Fallback>
+    ),
     children: [
       {
         index: true,
@@ -56,8 +91,8 @@ export const routes = createBrowserRouter([
         element: <AboutUsPage />,
       },
       {
-        path:'/faq',
-        element:<FAQPage />
+        path: "/faq",
+        element: <FAQPage />,
       },
       {
         path: "/dashboard/user",

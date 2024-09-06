@@ -10,6 +10,7 @@ import Sidebar from "../common/Sidebar";
 import { RiComputerLine } from "react-icons/ri";
 import Container from "../../layout/Container";
 import { IoChatbubbleOutline } from "react-icons/io5";
+import Fallback from '../../../routes/Fallback'
 
 const INSTRUCTOR_DASHBOARD_LINKS = [
   {
@@ -64,7 +65,10 @@ const InstructorDashboard = () => {
       <Sidebar dashboardLinks={INSTRUCTOR_DASHBOARD_LINKS} />
       <div className="overflow-x-scroll w-full hideScrollbar bg-white rounded-xl border border-solid border-border p-4 lg:p-6">
         <div className="text-richblack-700 flex flex-col gap-6">
+          <Fallback>
+
           <Outlet />
+          </Fallback>
         </div>
       </div>
       </Container>

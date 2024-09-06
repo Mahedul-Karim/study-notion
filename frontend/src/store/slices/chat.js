@@ -20,8 +20,9 @@ const chatSlice = createSlice({
       const { index, chatObject } = action.payload;
 
       if (index) {
-        state.activeChat = index;
-        state.selectedChat = state.conversations[index];
+        state.activeChat = +index;
+        state.selectedChat = state.conversations[+index];
+        
       } else {
         state.selectedChat = chatObject;
       }

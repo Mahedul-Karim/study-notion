@@ -7,7 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import SubSectionModal from "../../../ui/modal/SubSectionModal";
 import ConfirmationModal from "../../../ui/modal/ConfirmationModal";
 import { useApi } from "../../../../hooks/useApi";
-import toast from "react-hot-toast";
+import { useToast } from "../../../../hooks/useToast";
 
 
 const Sections = ({
@@ -23,6 +23,8 @@ const Sections = ({
 }) => {
   const [showSubSection, setShowSubSection] = useState(false);
 
+  const { success, error, warning } = useToast();
+
   const [isAdding, setIsAdding] = useState(false);
   const [isViewing, setIsViewing] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -34,11 +36,11 @@ const Sections = ({
   const { mutate, isPending } = useApi({
     success: (data) => {
       setOpenModal(false);
-      toast.success(data.message);
+      success(data.message);
       removeSection(index);
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
       setOpenModal(false);
     },
 

@@ -6,20 +6,22 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { useMutation } from "@tanstack/react-query";
 import { apiConnector } from "../util/api";
 import Spinner from "../ui/Spinner";
-import toast from "react-hot-toast";
+import { useToast } from '../../hooks/useToast'
 
 const ForgotPassword = () => {
   const [tokenSent, setTokenSent] = useState(false);
   const [email, setEmail] = useState("");
 
+  const { success, error, warning } = useToast();
+
   const { mutate, isPending } = useMutation({
     mutationFn: ({ endpoint, options }) => apiConnector(endpoint, options),
     onSuccess:(data)=>{
-        toast.success(data.message);
+        success(data.message);
         setTokenSent(true)
     },
     onError:(error)=>{
-        toast.error(error.message)
+        error(error.message)
     }
   });
 

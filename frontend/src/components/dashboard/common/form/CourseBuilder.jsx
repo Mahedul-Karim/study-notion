@@ -12,8 +12,8 @@ import {
   deleteSection,
   addNewCourse,
 } from "../../../../store/slices/course";
-import { toast } from "react-hot-toast";
 import { useApi } from "../../../../hooks/useApi";
+import { useToast } from "../../../../hooks/useToast";
 import SpinnerModal from "../../../ui/modal/SpinnerModal";
 
 const CourseBuilder = ({ setActive, setIsEditing }) => {
@@ -21,13 +21,15 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
   const [isSectionEditing, setIsSectionEditing] = useState(false);
   const [sectionToEdit, setSectionToEdit] = useState(null);
 
+  const { success, error, warning } = useToast();
+
   const dispatch = useDispatch();
 
   const { newCourse } = useSelector((state) => state.course);
 
   const { mutate, isPending } = useApi({
     success: (data) => {
-      toast.success(data.message);
+      success(data.message);
       if (isSectionEditing) {
         dispatch(
           editSection({ index: sectionToEdit, name: data.section.sectionName })
@@ -40,7 +42,7 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
       }
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 
@@ -52,7 +54,8 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
 
   const onClick = () => {
     if (!sectionName) {
-      return toast.error("Section Name is required!");
+       warning("Section Name is required!");
+       return;
     }
     if (isSectionEditing) {
       const sectionId = newCourse.courseContents[sectionToEdit]._id;
@@ -91,7 +94,7 @@ const CourseBuilder = ({ setActive, setIsEditing }) => {
       newCourse.courseContents.length === 0 ||
       newCourse.courseContents[0].subSection.length === 0
     ) {
-      return toast.error("One section and one sub section is required!");
+      return error("One section and one sub section is required!");
     }
     setActive(3);
   };

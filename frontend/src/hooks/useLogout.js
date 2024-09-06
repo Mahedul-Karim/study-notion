@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useApi } from "./useApi";
-import toast from "react-hot-toast";
 import { setUser } from "../store/slices/profile";
 import { socket } from '../components/util/helpers'
 import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "./useToast";
 
 export const useLogout = () => {
   const [showModal, setShowModal] = useState(false);
+
+  const { success, error, warning } = useToast();
 
   const dispatch = useDispatch();
 
@@ -19,13 +21,14 @@ export const useLogout = () => {
   const { mutate, isPending } = useApi({
     success: () => {
       socket.emit('logout')
-      toast.success("Logged Out successfully!");
+      success("Logged Out successfully!");
       dispatch(setUser(null));
+      localStorage.removeItem('token')
       navigate("/");
       queryClient.invalidateQueries();
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 

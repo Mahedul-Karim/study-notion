@@ -22,8 +22,15 @@ export const apiConnector = async (endpoint, options, getProgress) => {
 
         getProgress(percent);
       },
+      headers: {
+        Authorization: `Bearer ${
+          localStorage.getItem("token")
+            ? JSON.parse(localStorage.getItem("token"))
+            : null
+        }`,
+      },
     });
-    
+
     if (!data.success) {
       throw new Error(data.message);
     }

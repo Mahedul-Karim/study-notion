@@ -8,10 +8,10 @@ import Main from "./Main";
 import { useApi } from "../../../hooks/useApi";
 
 import { useDispatch } from "react-redux";
-import { toast } from "react-hot-toast";
 
 import { setViewCourse, setSection } from "../../../store/slices/course";
 import Container from "../../layout/Container";
+import { useToast } from "../../../hooks/useToast";
 
 const Course = () => {
   const [searchParam] = useSearchParams();
@@ -19,6 +19,8 @@ const Course = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const courseName = searchParam.get("course")?.replace("-", " ");
+
+  const { success, error, warning } = useToast();
 
   const dispatch = useDispatch();
 
@@ -29,7 +31,7 @@ const Course = () => {
       );
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 

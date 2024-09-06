@@ -5,12 +5,14 @@ import { FiUpload } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import ProgressBar from "../../../ui/ProgressBar";
 import { useApi } from "../../../../hooks/useApi";
-import { toast } from "react-hot-toast";
 import { setUser } from "../../../../store/slices/profile";
+import { useToast } from "../../../../hooks/useToast";
 
 const Upload = () => {
   const [uploadImage, setUploadImage] = useState(null);
   const [progress, setProgress] = useState(0);
+
+  const { success, error, warning } = useToast();
 
   const { user } = useSelector((state) => state.profile);
 
@@ -18,12 +20,12 @@ const Upload = () => {
 
   const { mutate, isPending } = useApi({
     success: (data) => {
-      toast.success("User photo uploaded successfully!");
+      success("User photo uploaded successfully!");
       dispatch(setUser(data.user));
       setProgress(0)
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
       setProgress(0);
     },
     getProgress: (prog) => {

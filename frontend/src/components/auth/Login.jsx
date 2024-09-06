@@ -3,18 +3,19 @@ import React, { useState } from "react";
 import FormButton from "../ui/inputs/FormButton";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "../layout/Container";
-import toast from "react-hot-toast";
-import Spinner from "../ui/Spinner";
 import { useApi } from "../../hooks/useApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../store/slices/profile";
 import Label from "../dashboard/common/form/inputs/Label";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { useToast } from "../../hooks/useToast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const { success, error, warning } = useToast();
 
   const { user } = useSelector(state => state.profile)
 
@@ -23,12 +24,13 @@ const Login = () => {
 
   const { mutate, isPending } = useApi({
     success: (data) => {
-      toast.success("Login success");
+      success("Login success");
       navigate("/dashboard/user");
+      localStorage.setItem('token',JSON.stringify(data?.token))
       dispatch(setUser(data.user));
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 

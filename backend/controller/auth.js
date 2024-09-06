@@ -47,6 +47,8 @@ exports.signUp = catchAsync(async (req, res) => {
     otp,
   } = req.body;
 
+  
+
   if (
     !firstName ||
     !lastName ||
@@ -152,6 +154,7 @@ exports.login = catchAsync(async (req, res) => {
   res.cookie("token", token, options).status(200).json({
     success: true,
     user,
+    token
   });
 });
 

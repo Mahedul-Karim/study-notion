@@ -11,11 +11,9 @@ import Reviews from "./Reviews";
 import { useData } from "../../../hooks/useData";
 import { BsChatDotsFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
 import { setSelectedChat } from "../../../store/slices/chat";
-import Modal from "../../ui/modal/Modal";
-import Messages from "../../dashboard/common/chat/Messages";
 import ConversationModal from "../../ui/modal/ConversationModal";
+import { useToast } from "../../../hooks/useToast";
 
 const CourseDetails = () => {
   const { courseName } = useParams();
@@ -23,6 +21,8 @@ const CourseDetails = () => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
+
+  const { success, error, warning } = useToast();
 
   const { user } = useSelector((state) => state.profile);
 
@@ -54,7 +54,7 @@ const CourseDetails = () => {
 
   const conversationHandler = () => {
     if (!user) {
-      toast.error("Login first to message the instructor");
+      warning("Login first to message the instructor");
       return;
     }
     dispatch(
@@ -80,14 +80,14 @@ const CourseDetails = () => {
 
   return (
     <div>
-      <div className="fixed bottom-4 right-4">
+      {user?._id !== courseDetails?.instructor?._id && <div className="fixed bottom-4 right-4">
         <button
           className="bg-primary text-white  rounded-full p-3 text-lg"
           onClick={conversationHandler}
         >
           <BsChatDotsFill />
         </button>
-      </div>
+      </div>}
       <div className="py-[25px]" />
       <div className="bg-background bg-[url('/assets/inner-banner.jpg')] bg-no-repeat before:bg-black/[0.76] before:absolute before:top-0 before:left-0 py-3 before:w-full before:h-full relative bg-cover z-[-1]">
         <Container>

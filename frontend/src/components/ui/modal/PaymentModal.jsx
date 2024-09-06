@@ -10,16 +10,18 @@ import {
 } from "@stripe/react-stripe-js";
 import FormButton from "../inputs/FormButton";
 import CancelButton from "../../dashboard/common/CancelButton";
-import toast from "react-hot-toast";
 import { apiConnector } from "../../util/api";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { setUser } from "../../../store/slices/profile";
+import { useToast } from "../../../hooks/useToast";
 
 const PaymentModal = ({ setShowModal, price, courseId }) => {
   const stripe = useStripe();
   const elements = useElements();
+
+  const { success, error, warning } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,6 +30,11 @@ const PaymentModal = ({ setShowModal, price, courseId }) => {
   const dispatch = useDispatch();
 
   const handlePayment = async () => {
+    if (!user) {
+      warning("Login first to enroll in a course!");
+      return;
+    }
+
     try {
       setIsLoading(true);
 
@@ -63,11 +70,11 @@ const PaymentModal = ({ setShowModal, price, courseId }) => {
       const enrollStudent = await apiConnector("payment", enrollOptions);
 
       setShowModal(false);
-      toast.success("You have successfully enrolled to the course!");
+      success("You have successfully enrolled to the course!");
       dispatch(setUser(enrollStudent.user));
     } catch (err) {
       setShowModal(false);
-      toast.error(err);
+      error(err);
     } finally {
       setIsLoading(false);
     }

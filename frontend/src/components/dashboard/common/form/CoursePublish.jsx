@@ -3,16 +3,17 @@ import CancelButton from "../CancelButton";
 import FormButton from "../../../ui/inputs/FormButton";
 import { useDispatch, useSelector } from "react-redux";
 import { editCourse, addNewCourse } from "../../../../store/slices/course";
-import { toast } from "react-hot-toast";
 import { useApi } from "../../../../hooks/useApi";
 import { useNavigate } from "react-router-dom";
-import Spinner from "../../../ui/Spinner";
 import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "../../../../hooks/useToast";
 
 const CoursePublish = ({ setActive }) => {
   const dispatch = useDispatch();
 
   const [checked, setIsChecked] = useState(false);
+
+  const { success, error, warning } = useToast();
 
   const navigate = useNavigate();
 
@@ -22,12 +23,12 @@ const CoursePublish = ({ setActive }) => {
 
   const { mutate, isPending } = useApi({
     success: (data) => {
-      toast.success("Course published successfully");
+      success("Course published successfully");
       navigate("/dashboard/instructor/my-courses");
       dispatch(addNewCourse(null));
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 
@@ -42,7 +43,7 @@ const CoursePublish = ({ setActive }) => {
     if (checked) {
       mutate({ endpoint: "course", options });
     } else {
-      toast.success("Course was saved as draft");
+      success("Course was saved as draft");
       navigate("/dashboard/instructor/my-courses");
     }
     queryClient.invalidateQueries({

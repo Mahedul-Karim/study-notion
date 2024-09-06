@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import FormButton from "../../ui/inputs/FormButton";
 import { FaRegShareSquare } from "react-icons/fa";
-import { toast } from "react-hot-toast";
 import PaymentModal from "../../ui/modal/PaymentModal";
 import { formatCurrency } from "../../util/format";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LoadStripe from "../../../routes/LoadStripe";
 import { useApi } from "../../../hooks/useApi";
+import { useToast } from "../../../hooks/useToast";
+
 
 const Action = ({ thumbnail, price, instructorId, instructions, courseId }) => {
   const [showModal, setShowModal] = useState(false);
@@ -16,12 +17,14 @@ const Action = ({ thumbnail, price, instructorId, instructions, courseId }) => {
 
   const navigate = useNavigate();
 
+  const { success, error, warning } = useToast();
+
   const { mutate, isPending } = useApi({
     success: (data) => {
-      toast.success(data?.message);
+      success(data?.message);
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 
@@ -29,16 +32,16 @@ const Action = ({ thumbnail, price, instructorId, instructions, courseId }) => {
     navigator.clipboard
       .writeText(window.location.href)
       .then(() => {
-        toast.success("URL copied to clipboard");
+        success("URL copied to clipboard");
       })
-      .catch(() => toast.error("Something went wrong!"));
+      .catch(() => error("Something went wrong!"));
   };
 
   const handleAddToCart = () => {
     const userId = user?._id;
 
     if (!userId) {
-      toast.error("Login first to add to wishlist");
+      warning("Login first to add to wishlist");
       return;
     }
 

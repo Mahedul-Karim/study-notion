@@ -11,8 +11,8 @@ import { useDispatch } from "react-redux";
 import { addSubSection, editSubSection } from "../../../store/slices/course";
 import { useThumbnail } from "../../../hooks/useThumbnail";
 import { useApi } from "../../../hooks/useApi";
-import toast from "react-hot-toast";
 import Spinner from "../Spinner";
+import { useToast } from "../../../hooks/useToast";
 
 const SubSectionModal = ({
   setShowModal,
@@ -31,6 +31,8 @@ const SubSectionModal = ({
     defaultValues: isViewing || isEditing ? subSectionData : "",
   });
 
+  const { success, error, warning } = useToast();
+
   const dispatch = useDispatch();
 
   const { showThumbnailPreview } = useThumbnail(setVideo);
@@ -39,7 +41,7 @@ const SubSectionModal = ({
     success: (data) => {
       setShowModal(false);
       setShowSubSection(true);
-      toast.success(data.message);
+      success(data.message);
       if (data.subSection) {
         dispatch(
           editSubSection({
@@ -56,7 +58,7 @@ const SubSectionModal = ({
     },
     error: (err) => {
       setShowModal(false);
-      toast.error(err);
+      error(err);
       setVideo("");
     }
   });

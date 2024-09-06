@@ -1,15 +1,19 @@
 import React from "react";
 import Image from "./Image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedChat } from "../../../../store/slices/chat";
 
-const Inbox = ({ onClick, conversation,index }) => {
+const Inbox = ({ onClick, conversation, index }) => {
   const { user } = useSelector((state) => state.profile);
-  const { onlineUsers,activeChat } = useSelector((state) => state.chat);
+  const { onlineUsers, activeChat } = useSelector((state) => state.chat);
+
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     if (document.body.clientWidth <= 640) {
       onClick();
     }
+    dispatch(setSelectedChat({ index:index.toString() }));
   };
 
   const recieverDetails =
@@ -19,7 +23,9 @@ const Inbox = ({ onClick, conversation,index }) => {
 
   return (
     <div
-      className={`flex items-center justify-between p-3 hover:bg-background cursor-pointer ${index === activeChat && 'sm:bg-background'}`}
+      className={`flex items-center justify-between p-3 hover:bg-background cursor-pointer ${
+        index === activeChat && "sm:bg-background"
+      }`}
       onClick={handleClick}
     >
       <div className="flex gap-2">
@@ -28,9 +34,13 @@ const Inbox = ({ onClick, conversation,index }) => {
           isActive={onlineUsers?.includes(recieverDetails?._id)}
         />
         <div className="flex flex-col">
-          <p className="font-semibold text-[15px]">{recieverDetails?.firstName+" "+recieverDetails?.lastName}</p>
+          <p className="font-semibold text-[15px]">
+            {recieverDetails?.firstName + " " + recieverDetails?.lastName}
+          </p>
           <p className="text-[13px] text-richblack-400 line-clamp-1">
-            {conversation?.lastMessageSender === recieverDetails?._id ? conversation?.lastMessage : `You:${conversation?.lastMessage}`}
+            {conversation?.lastMessageSender === recieverDetails?._id
+              ? conversation?.lastMessage
+              : `You:${conversation?.lastMessage}`}
           </p>
         </div>
       </div>

@@ -6,15 +6,15 @@ import { useInsctructorCourses } from "../../../../hooks/useInsctructorCourses";
 import Card from "../../../course/Card";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../../ui/Spinner";
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import Heading from "../../common/Heading";
+import Sales from "./Sales";
 
 const Analytics = () => {
-  const [pieType, setPieType] = useState("students");
 
   const { data, isPending } = useInsctructorCourses();
 
-  const { user } = useSelector(state => state.profile)
+  const { user } = useSelector((state) => state.profile);
 
   const navigate = useNavigate();
 
@@ -37,10 +37,12 @@ const Analytics = () => {
     },
   ];
 
-  if(isPending){
-    return <div className="flex items-center justify-center h-full">
-      <Spinner />
-    </div>
+  if (isPending) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -49,30 +51,11 @@ const Analytics = () => {
       <p className="text-sm text-richblack-300 my-1">
         Let&apos;s start something new
       </p>
+      
       <div className="grid md:grid-cols-[1fr_0.4fr] gap-4 my-4">
         <div className="bg-background border border-solid border-border rounded-md p-4">
-          <div className="flex items-center justify-between">
-            <p className="font-bold text-lg text-richblack-600">Visualize</p>
-            <div className="flex items-center gap-2">
-              <button
-                className={`${
-                  pieType === "students" ? "bg-primary text-white" : ""
-                }  px-3 py-2 rounded-md`}
-                onClick={setPieType.bind(null, "students")}
-              >
-                Students
-              </button>
-              <button
-                className={`${
-                  pieType === "revenue" ? "bg-primary text-white" : ""
-                }  px-3 py-2 rounded-md`}
-                onClick={setPieType.bind(null, "revenue")}
-              >
-                Revenue
-              </button>
-            </div>
-          </div>
-          <PieChart pieType={pieType} />
+        <p className="font-bold text-lg text-richblack-600">Visualize</p>
+          <PieChart />
         </div>
         <div className="bg-background border border-solid border-border rounded-md p-4">
           <h4 className="font-bold text-lg">Statistics</h4>
@@ -88,7 +71,11 @@ const Analytics = () => {
           </div>
         </div>
       </div>
-      <div className="bg-background border border-solid border-border mt-4 p-6 rounded-md">
+      <div className="bg-background border border-solid border-border mt-4 p-4 rounded-md">
+      <p className="font-bold text-lg text-richblack-600 mb-4">Overview</p>
+        <Sales />
+      </div>
+      <div className="bg-background border border-solid border-border mt-4 p-4 rounded-md">
         <div className="flex items-center mb-4 justify-between">
           <h4 className="text-lg font-bold text-richblack-600">Your Courses</h4>
           <button

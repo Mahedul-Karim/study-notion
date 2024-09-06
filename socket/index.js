@@ -55,8 +55,6 @@ io.on("connection", (socket) => {
   socket.on("getMessage", (message) => {
     const { recieverId, text, senderId } = message;
 
-    
-
     const activeReciever = allUsers.find((user) => user.userId === recieverId);
 
     if (!activeReciever) {
@@ -68,6 +66,7 @@ io.on("connection", (socket) => {
 
   socket.on("logout", () => {
     removeUser(socket.id);
+    setOnlineUsers(socket, true);
   });
 
   socket.on("disconnect", () => {

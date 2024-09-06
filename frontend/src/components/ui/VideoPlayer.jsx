@@ -9,13 +9,9 @@ import {
   FaExpand,
 } from "react-icons/fa";
 import { MdSlowMotionVideo, MdPictureInPictureAlt } from "react-icons/md";
+import Spinner from "../ui/Spinner";
 
-const VideoPlayer = ({
-  src,
-  extraClass = "",
-  markAsComplete,
-  setIsEnded,
-}) => {
+const VideoPlayer = ({ src, extraClass = "", markAsComplete, setIsEnded }) => {
   const videoRef = useRef();
   const durationRef = useRef();
   const currentTimeRef = useRef();
@@ -24,6 +20,7 @@ const VideoPlayer = ({
   const [highVolume, setHighVolume] = useState(true);
   const [isPaused, setIsPaused] = useState(true);
   const [timeline, setTimeline] = useState(0);
+  const [isWaiting, setIsWaiting] = useState(true);
 
   const playPasueVideo = () => {
     if (videoRef.current.paused) {
@@ -31,15 +28,6 @@ const VideoPlayer = ({
     } else {
       videoRef.current.pause();
     }
-  };
-
-  const draggableTimelime = (e) => {
-    const clientWidth = e.target.clientWidth;
-
-    const offsetX = e.offsetX;
-
-    videoRef.current.currentTime =
-      (offsetX / clientWidth) * videoRef.current.duration;
   };
 
   const formatTime = (time) => {
@@ -99,21 +87,28 @@ const VideoPlayer = ({
     const clientWidth = e.target.clientWidth;
 
     const offsetX = e.nativeEvent.offsetX;
+    const currentTime = (offsetX / clientWidth) * videoRef.current.duration;
 
-    videoRef.current.currentTime =
-      (offsetX / clientWidth) * videoRef.current.duration;
+    videoRef.current.currentTime = currentTime;
+    setTimeline((currentTime / videoRef.current.duration) * 100);
+    currentTimeRef.current.innerText = formatTime(currentTime);
   };
 
   return (
     <div
-      className={`relative overflow-clip group text-white ${extraClass}`}
+      className={`relative overflow-clip group text-white aspect-video ${extraClass}`}
     >
+      {isWaiting && (
+        <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+          <Spinner />
+        </div>
+      )}
       <video
         ref={videoRef}
         onTimeUpdate={onTimeUpdate}
         onLoadedData={() => {
           durationRef.current.innerText = formatTime(videoRef.current.duration);
-          markAsComplete(videoRef);
+          markAsComplete && markAsComplete(videoRef);
           if (setIsEnded) {
             setIsEnded(false);
           }
@@ -130,6 +125,8 @@ const VideoPlayer = ({
         onPause={() => {
           setIsPaused(true);
         }}
+        onWaiting={() => setIsWaiting(true)}
+        onCanPlay={() => setIsWaiting(false)}
       >
         <source src={src} />
       </video>
@@ -139,14 +136,13 @@ const VideoPlayer = ({
           onClick={timelineClick}
         >
           <div
-            className={`absolute h-full bg-primary  cursor-pointer`}
+            className={`absolute h-full bg-primary  cursor-pointer pointer-events-none`}
             style={{
               width: `${timeline}%`,
             }}
           >
             <div
               className={`absolute size-4 bg-primary  right-0 before:rounded-full bottom-[50%] translate-y-[50%] cursor-pointer transition-all duration-300 group-hover:scale-100  scale-0 origin-center rounded-full`}
-              
             />
           </div>
         </div>
@@ -161,7 +157,7 @@ const VideoPlayer = ({
             </button>
             <input
               type="range"
-              className="h-[4px] hidden 400px:inline-block 400px:w-[50px] sm:w-[75px] text-[10px] accent-primary cursor-pointer outline-none"
+              className="h-[4px] hidden 400px:inline-block 400px:w-[50px] sm:w-[75px] text-[10px] accent-primary cursor-pointer outline-none border-none"
               min="0"
               max="1"
               step="any"

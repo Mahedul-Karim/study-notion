@@ -9,12 +9,14 @@ import Select from "../../../ui/inputs/Select";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useApi } from "../../../../hooks/useApi";
-import { toast } from "react-hot-toast";
+import { useToast } from "../../../../hooks/useToast";
 import SpinnerModal from "../../../ui/modal/SpinnerModal";
 import { setUser } from "../../../../store/slices/profile";
 
 const UserInformation = () => {
   const { user } = useSelector((state) => state.profile);
+
+  const { success, error, warning } = useToast();
 
   const {
     register,
@@ -29,11 +31,11 @@ const UserInformation = () => {
 
   const { mutate, isPending } = useApi({
     success: (data) => {
-      toast.success("User information updated successfully!");
+      success("User information updated successfully!");
       dispatch(setUser(data.user));
     },
     error: function (err) {
-      toast.error(err);
+      error(err);
     },
   });
 

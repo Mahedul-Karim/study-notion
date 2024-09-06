@@ -2,10 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { apiConnector } from "../components/util/api";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { useToast } from "./useToast";
 
 export const useOtp = (isOtpInput = false) => {
   const navigate = useNavigate();
+
+  const { success, error, warning } = useToast();
 
   const { mutate, isPending,isSuccess } = useMutation({
     mutationFn: ({ endpoint, options }) => apiConnector(endpoint, options),
@@ -13,10 +15,10 @@ export const useOtp = (isOtpInput = false) => {
       if (!isOtpInput) {
         navigate("/verify-email");
       }
-      toast.success(data.message);
+      success(data.message);
     },
     onError: (err) => {
-      toast.error(err.message);
+      error(err.message);
     },
   });
 

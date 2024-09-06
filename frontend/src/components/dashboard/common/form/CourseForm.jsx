@@ -11,10 +11,10 @@ import Instructions from "./inputs/Instructions";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewCourse, editCourse } from "../../../../store/slices/course";
 import CancelButton from "../CancelButton";
-import { toast } from "react-hot-toast";
 import { useApi } from "../../../../hooks/useApi";
 import SpinnerModal from "../../../ui/modal/SpinnerModal";
 import { useThumbnail } from "../../../../hooks/useThumbnail";
+import { useToast } from "../../../../hooks/useToast";
 
 const CourseForm = ({
   active,
@@ -26,6 +26,8 @@ const CourseForm = ({
   const [thumbnail, setThumbnail] = useState("");
 
   const [instructions, setInstructions] = useState([]);
+
+  const { success, error, warning } = useToast();
 
   const dispatch = useDispatch();
 
@@ -51,13 +53,13 @@ const CourseForm = ({
   const { mutate, isPending } = useApi({
     success: (data) => {
       if(isFormEdit){
-        toast.success(data.message)
+        success(data.message)
       }
       dispatch(addNewCourse(data.course));
       setActive(2);
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 
@@ -70,7 +72,7 @@ const CourseForm = ({
         previousInstructions.length === instructions.length &&
         thumbnail === newCourse.thumbnail
       ) {
-        toast.error("Edit form first to save changes!");
+        warning("Edit form first to save changes!");
         return;
       }
       const options = {

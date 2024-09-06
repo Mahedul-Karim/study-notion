@@ -3,17 +3,11 @@ import Input from "../ui/inputs/Input";
 import FormButton from "../ui/inputs/FormButton";
 import { signupReducer } from "../../store/reducer/reducer";
 import { signUpData } from "../../store/slices/auth";
-import { useMutation } from "@tanstack/react-query";
-import { apiConnector } from "../util/api";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import Spinner from "../ui/Spinner";
 import { useDispatch } from "react-redux";
 import { useOtp } from "../../hooks/useOtp";
 import Container from "../layout/Container";
 import Label from "../dashboard/common/form/inputs/Label";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-
 const BUTTON_VALUE = ["Student", "Instructor"];
 
 const initialState = {
@@ -29,6 +23,7 @@ const SignUp = () => {
   const [state, dispatchFn] = useReducer(signupReducer, initialState);
   const [showPassword, setShowPassword] = useState(false);
   const reduxDispatch = useDispatch();
+
 
   const { mutate, isPending } = useOtp();
 

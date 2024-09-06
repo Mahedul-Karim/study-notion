@@ -6,7 +6,7 @@ import { removeSubSection } from "../../../../store/slices/course";
 import { useDispatch } from "react-redux";
 import ConfirmationModal from "../../../ui/modal/ConfirmationModal";
 import { useApi } from "../../../../hooks/useApi";
-import toast from "react-hot-toast";
+import { useToast } from "../../../../hooks/useToast";
 
 const NestedSections = ({
   setIsViewing,
@@ -19,16 +19,18 @@ const NestedSections = ({
 }) => {
   const dispatch = useDispatch();
 
+  const { success, error, warning } = useToast();
+
   const [openModal,setOpenModal]=useState(false)
 
   const { mutate,isPending } = useApi({
     success:(data)=>{
       setOpenModal(false);
-      toast.success(data.message);
+      success(data.message);
       dispatch(removeSubSection({ index, sectionName }));
     },
     error:(err)=>{
-      toast.error(err)
+      error(err)
     }
   })
 

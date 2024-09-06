@@ -3,13 +3,15 @@ import { NAV_CATEGORY } from "../util/data";
 import { useState } from "react";
 import Dropdown from "./search/Dropdown";
 
-import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../../hooks/useToast";
 
 const Hero = () => {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState("category");
   const [searchText, setSearchText] = useState("");
+
+  const { success, error, warning } = useToast();
 
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ const Hero = () => {
 
   const handleSearchClick = () => {
     if (category === "category") {
-      toast.error("Please select a category");
+      warning("Please select a category");
       return;
     }
 

@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
 import FormButton from "../inputs/FormButton";
-import Spinner from "../Spinner";
 import CancelButton from "../../dashboard/common/CancelButton";
 import { IoIosStarHalf, IoIosStar } from "react-icons/io";
 import Label from "../../dashboard/common/form/inputs/Label";
 import { useApi } from '../../../hooks/useApi'
-import { toast } from 'react-hot-toast'
 import { useSelector } from "react-redux";
+import { useToast } from "../../../hooks/useToast";
 
 
 const ReviewModal = ({ setShowModal }) => {
@@ -17,6 +16,8 @@ const ReviewModal = ({ setShowModal }) => {
   const [mouseOver, setMouseOver] = useState(0);
   const [reviews,setReview]=useState("");
 
+  const { success, error, warning } = useToast();
+
   const { viewCourse } = useSelector(state => state.course);
 
   const courseId = viewCourse?.course?._id;
@@ -24,11 +25,11 @@ const ReviewModal = ({ setShowModal }) => {
   const {mutate,isPending}=useApi({
     success:(data)=>{
         setShowModal(false);
-        toast.success(data.message)
+        success(data.message)
     },
     error:(err)=>{
         setShowModal(false);
-        toast.error(err)
+        error(err)
     }
   });
 

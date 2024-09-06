@@ -1,84 +1,41 @@
 import React from "react";
-import { Chart, registerables } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  Legend,
+} from "recharts";
 
-Chart.register(...registerables);
-
-const PieChart = ({ pieType }) => {
-  const getRandomColors = (numOfColors) => {
-    const colors = [];
-
-    for (let i = 0; i < numOfColors; i++) {
-      const color = `rgb(${Math.floor(Math.random() * 256)},${Math.floor(
-        Math.random() * 256
-      )},${Math.floor(Math.random() * 256)})`;
-
-      colors.push(color);
-    }
-
-    return colors;
-  };
-
-  const getRandomValues = (numOfValues) => {
-    const numbers = [];
-
-    for (let i = 0; i < numOfValues; i++) {
-      const value = Math.floor(Math.random() * 120);
-      numbers.push(value);
-    }
-
-    return numbers;
-  };
-
-  const data1 = {
-    labels: ["Python", "Web Development"],
-    datasets: [
-      {
-        data: getRandomValues(2),
-        backgroundColor: getRandomColors(2),
-      },
-    ],
-  };
-  const data2 = {
-    labels: ["Python", "Web Development"],
-    datasets: [
-      {
-        data: getRandomValues(2),
-        backgroundColor: getRandomColors(2),
-      },
-    ],
-  };
+const ChartPie = () => {
+  const data = [
+    { name: "Python", students: 40,color:"#0088FE" },
+    { name: "Web Development", students: 30,color:"#00C49F" },
+    { name: "DevOps", students: 10,color:"#FFBB28" },
+    { name: "JavaScript", students: 20,color:"#FF8042" },
+  ];
 
   return (
-    <div className="max-w-[350px] mx-auto">
-      <Pie
-        data={pieType === "students" ? data1 : data2}
-        options={{
-          // aspectRatio: 1 | 2,
-          layout: {
-            autoPadding: false,
-          },
-          responsive: true,
-          // maintainAspectRatio:false,
-          plugins: {
-            legend: {
-              position: "right",
-
-              labels: {
-                boxWidth: 10,
-                boxHeight: 10,
-                color: "#DBDDEA",
-                font: {
-                  size: 16,
-                },
-              },
-            },
-          },
-        }}
-        onResize={(res) => console.log(res)}
-      />
+    <div className="mx-auto mt-4">
+      <ResponsiveContainer width={"100%"} minHeight={300}>
+        <PieChart>
+          <Pie data={data}  dataKey="students">
+            {data.map((entry, index) => (
+              <Cell
+                key={entry.name}
+                fill={entry.color}
+                stroke={entry.color}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend verticalAlign="top" iconSize={10} />
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 };
 
-export default PieChart;
+export default ChartPie;

@@ -9,15 +9,15 @@ const {
 exports.createSubSection = catchAsync(async (req, res) => {
   const { sectionId, title, description, timeDuration = "", video } = req.body;
 
-  const uploadedVideo = await uploadToCloudinary(video);
+  // const uploadedVideo = await uploadToCloudinary(video);
 
   const subSectionDetails = await SubSection.create({
     title,
     description,
     timeDuration,
     videoUrl: {
-      public_id: uploadedVideo.public_id,
-      url: uploadedVideo.url,
+      public_id: "12133d3wr",
+      url: "http://res.cloudinary.com/dleogo48u/video/upload/v1714645190/avatars/ohanl0py32n4bxadnjxl.mp4",
     },
   });
 

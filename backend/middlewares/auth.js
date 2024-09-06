@@ -5,7 +5,8 @@ const catchAsync = require("../util/catchAsync");
 const { checkRole } = require("../util/checkRole");
 
 exports.userVerification = catchAsync(async (req, res, next) => {
-  const token = req.cookies.token || req.header("authorization")?.split(" ")[1];
+  const token = req.cookies.token || req.header("Authorization")?.split(" ")[1];
+
 
   if (!token) {
     return res.status(401).json({

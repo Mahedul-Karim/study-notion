@@ -5,16 +5,17 @@ import { useData } from "../../../../hooks/useData";
 import Spinner from "../../../ui/Spinner";
 import Empty from "../../../ui/Empty";
 import { useEffect, useState } from "react";
-import { formatCurrency } from "../../../util/format";
-import { toast } from "react-hot-toast";
 import { apiConnector } from "../../../util/api";
 import { useApi } from "../../../../hooks/useApi";
+import { useToast } from "../../../../hooks/useToast";
 
 let existingCarts = [];
 
 const Cart = () => {
   const [data, setData] = useState([]);
   const [isPending, setIsPending] = useState(false);
+
+  const { success, error, warning } = useToast();
 
   const cartItemsPrice = data?.reduce((acc, item) => {
     return acc + item?.courseId?.price;
@@ -24,7 +25,7 @@ const Cart = () => {
     success: () => {},
     error: (err) => {
       setTimeout(() => {
-        toast.error(err);
+        error(err);
         setData(existingCarts);
       }, 2000);
     },
@@ -39,7 +40,7 @@ const Cart = () => {
         });
         setData(res?.carts);
       } catch (err) {
-        toast.error(err.message);
+        error(err.message);
         setData([]);
       } finally {
         setIsPending(false);
@@ -52,7 +53,7 @@ const Cart = () => {
 
     setData((prev) => prev.filter((cart) => cart.courseId._id !== id));
 
-    toast.success("Course was removed from wishlist");
+    success("Course was removed from wishlist");
 
     const options = {
       method: "DELETE",

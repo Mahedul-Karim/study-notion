@@ -14,7 +14,7 @@ exports.getConversations = catchAsync(async (req, res) => {
         recieverId: userId,
       },
     ],
-  })
+  }).sort({createdAt:-1})
     .populate("creatorId","firstName lastName image")
     .populate("recieverId","firstName lastName image");
 

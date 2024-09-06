@@ -3,12 +3,14 @@ import auth from "../slices/auth";
 import profile from "../slices/profile";
 import course from '../slices/course'
 import chat from '../slices/chat'
+import toast from "../slices/toast";
 
 export const rootReducer = combineReducers({
   auth,
   profile,
   course,
-  chat
+  chat,
+  toast
 });
 
 export const signupReducer = (state, action) => {

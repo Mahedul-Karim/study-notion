@@ -7,13 +7,15 @@ import { formatCurrency, formatDate } from "../../../../util/format";
 import ConfirmationModal from "../../../../ui/modal/ConfirmationModal";
 import { useApi } from "../../../../../hooks/useApi";
 import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addNewCourse } from "../../../../../store/slices/course";
+import { useToast } from "../../../../../hooks/useToast";
 
 const CourseTable = ({ course }) => {
   const [openModal, setOpenModal] = useState(false);
+
+  const { success, error, warning } = useToast();
 
   const queryClient = useQueryClient();
 
@@ -24,14 +26,14 @@ const CourseTable = ({ course }) => {
   const { mutate, isPending } = useApi({
     success: (data) => {
       setOpenModal(false);
-      toast.success(data.message);
+      success(data.message);
       queryClient.refetchQueries({
         queryKey: ["instructorCourses"],
         type: "active",
       });
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 

@@ -11,10 +11,12 @@ import {
   setSectionProgress,
 } from "../../../store/slices/course";
 import { useApi } from "../../../hooks/useApi";
-import toast from "react-hot-toast";
+import { useToast } from "../../../hooks/useToast";
 
 const Main = ({ isPending }) => {
   const { viewCourse } = useSelector((state) => state.course);
+
+  const { success, error, warning } = useToast();
 
   const course = viewCourse?.course;
   const selectedSection = viewCourse?.selectedSection;
@@ -45,11 +47,11 @@ const Main = ({ isPending }) => {
   const { mutate } = useApi({
     success: (data) => {
       if (data.message) {
-        toast.success(data.message);
+        success(data.message);
       }
     },
     error: (err) => {
-      toast.error(err);
+      error(err);
     },
   });
 
@@ -61,7 +63,7 @@ const Main = ({ isPending }) => {
     const completedSections = progress.completedSections;
 
     if(completedVideos.includes(id)){
-      toast.success('Video is already marked as completed!');
+      warning('Video is already marked as completed!');
       return;
     }
 
