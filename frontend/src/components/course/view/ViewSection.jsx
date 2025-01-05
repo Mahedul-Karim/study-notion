@@ -34,7 +34,7 @@ const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
       }}
     >
       <div
-        className="bg-blue-5 flex items-center justify-between h-12 px-4 cursor-pointer"
+        className="bg-blue-5 flex items-center justify-between max-h-[100px] px-4 cursor-pointer"
         onClick={() => {
           if (selectedSection === index) {
             return;
@@ -55,7 +55,7 @@ const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
             setActiveSubSection(i)
               ? "bg-primary text-white"
               : "bg-grey-5 text-richblack-600"
-          }  flex items-center  px-4 cursor-pointer h-12 ${
+          }  flex items-center  px-4 cursor-pointer max-h-[100px] ${
             i !== subSection.length - 1 && "border-b border-solid border-border"
           }`}
           key={subSec._id}
