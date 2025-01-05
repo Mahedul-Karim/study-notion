@@ -26,10 +26,11 @@ const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
     <div
       className={`overflow-clip transition-all duration-300 rounded-xl`}
       style={{
-        height:
-          selectedSection === index
-            ? `${48 * (subSection.length + 1)}px`
-            : "48px",
+        maxHeight: selectedSection === index ? `100px` : "48px",
+        // height:
+        //   selectedSection === index
+        //     ? `${48 * (subSection.length + 1)}px`
+        //     : "48px",
       }}
     >
       <div
@@ -68,9 +69,7 @@ const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
               type="checkbox"
               readOnly
               className="accent-green-300"
-              checked={progress?.completedVideos?.includes(
-                subSec?._id
-              )}
+              checked={progress?.completedVideos?.includes(subSec?._id)}
             />{" "}
             {subSec.title}
           </p>
