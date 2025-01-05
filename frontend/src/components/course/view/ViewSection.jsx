@@ -26,7 +26,7 @@ const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
     <div
       className={`overflow-clip transition-all duration-300 rounded-xl`}
       style={{
-        maxHeight: selectedSection === index ? `100px` : "48px",
+        maxHeight: selectedSection === index ? `200px` : "48px",
         // height:
         //   selectedSection === index
         //     ? `${48 * (subSection.length + 1)}px`
@@ -34,14 +34,14 @@ const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
       }}
     >
       <div
-        className="bg-blue-5 flex items-center justify-between max-h-[100px] min-h-12 px-4 cursor-pointer"
+        className="bg-blue-5 flex items-center justify-between max-h-[200px] min-h-12 px-4 cursor-pointer"
         onClick={() => {
           if (selectedSection === index) {
             return;
           }
           dispatch(setSection(index));
           dispatch(setSubSection(0));
-          setShowSidebar(false);
+          // setShowSidebar(false);
         }}
       >
         <p className="text-sm font-semibold">{sectionName}</p>
@@ -55,13 +55,13 @@ const ViewSection = ({ sectionName, subSection, index, setShowSidebar }) => {
             setActiveSubSection(i)
               ? "bg-primary text-white"
               : "bg-grey-5 text-richblack-600"
-          }  flex items-center  px-4 cursor-pointer max-h-[100px] min-h-12 ${
+          }  flex items-center  px-4 cursor-pointer max-h-[200px] min-h-12 ${
             i !== subSection.length - 1 && "border-b border-solid border-border"
           }`}
           key={subSec._id}
           onClick={() => {
             dispatch(setSubSection(i));
-            setShowSidebar(false);
+            // setShowSidebar(false);
           }}
         >
           <p className="text-sm font-semibold flex items-center gap-2">
