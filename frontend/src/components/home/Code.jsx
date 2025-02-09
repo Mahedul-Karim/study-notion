@@ -2,27 +2,22 @@ import React, { useEffect, useRef } from "react";
 
 const Code = ({ text, loop }) => {
   const spanRef = useRef();
+  const isMounted = useRef(true);
 
-  const startWriting = () => {
-    return new Promise((resolve) => {
-      let i = 0;
+  const typeText = async (text) => {
+    let i = 0;
+    while (isMounted.current && i <= text.length) {
+      spanRef.current.textContent = text.substring(0, i);
+      i++;
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+  };
 
-      const interval = setInterval(() => {
-        const span = spanRef.current;
-
-        if (!span) {
-          clearInterval(interval);
-          resolve();
-        }
-
-        span && (span.textContent = text.substring(0, i));
-        i++;
-        if (i > text.length) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, 50);
-    });
+  const deleteText = async () => {
+    while (isMounted.current && spanRef.current.textContent.length > 0) {
+      spanRef.current.textContent = spanRef.current.textContent.slice(0, -1);
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
   };
 
   const pause = () => {
@@ -34,48 +29,28 @@ const Code = ({ text, loop }) => {
     });
   };
 
-  const deleteText = () => {
-    return new Promise((resolve) => {
-      const interval = setInterval(() => {
-        const span = spanRef.current;
+  const runAnimation = async () => {
+    await typeText(text);
+    await pause();
+    await deleteText();
+    await pause();
 
-        if (!span) {
-          clearInterval(interval);
-          resolve();
-        }
-
-        span && (span.textContent = span?.textContent?.substring(
-          0,
-          span?.textContent?.length - 1
-        ));
-
-        if (span?.textContent?.length === 0) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, 50);
-    });
+    if (loop) {
+      runAnimation();
+    }
   };
 
   useEffect(() => {
-    const queue = [startWriting, pause, deleteText, pause];
-
-    const startTyping = async () => {
-      let func = queue.shift();
-
-      while (func !== null) {
-        await func();
-        if (loop) {
-          queue.push(func);
-        }
-        func = queue.shift();
-      }
-    };
+    isMounted.current = true;
 
     if (spanRef.current) {
-      startTyping();
+      runAnimation();
     }
-  }, []);
+
+    return () => {
+      isMounted.current = false;
+    };
+  }, [text, loop]);
 
   return (
     <span
