@@ -29,17 +29,9 @@ const CodeBlock = ({
       <div
         className={`code-border w-full flex py-2 relative background__blur--${blur} ${order2}`}
       >
-        <div className="hidden sm:flex flex-col text-richblack-400 basis-[10%] text-center">
-          {Array.from({ length: 11 }).map((_, i) => (
-            <div key={i}>{i + 1}</div>
-          ))}
-        </div>
-        <div
-          className={`${textColor} font-mono font-semibold text-[14px] leading-6 basis-[90%] shrink-0 pl-4 sm:pl-0 min-h-[290px] sm:min-h-fit`}
-        >
-          <Code text={text} loop />
+        
+          <Code text={text} loop textColor={textColor}/>
           
-        </div>
       </div>
     </div>
   );
