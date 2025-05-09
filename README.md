@@ -36,3 +36,5 @@ https://studynotion20.vercel.app/
 - **React Query:** - Used for api calls and caching.
 - **Axios:** - Used instead of fetch.
 - **Socket IO:** - Used for realtime chats.
+- **Cloudinary:** - To upload video's and images's
+- **Mongoose:** - For making interaction with database easier
