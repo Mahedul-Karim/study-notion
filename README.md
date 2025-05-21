@@ -14,6 +14,7 @@ https://studynotion20.vercel.app/
 - Implemented chat system with socket io
 - Used stripe payment gateway
 - Pagination, Search, Filter feature
+- Used lazy loading for performance optimization
 
 ## ✨ Custom-Built Features (No External Libraries)
 
