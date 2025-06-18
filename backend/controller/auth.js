@@ -44,7 +44,6 @@ exports.signUp = catchAsync(async (req, res) => {
     confirmPassword,
     accountType,
     contactNumber,
-    otp,
   } = req.body;
 
   
@@ -54,8 +53,7 @@ exports.signUp = catchAsync(async (req, res) => {
     !lastName ||
     !email ||
     !password ||
-    !confirmPassword ||
-    !otp
+    !confirmPassword
   ) {
     return res.status(403).json({
       success: false,
@@ -79,14 +77,6 @@ exports.signUp = catchAsync(async (req, res) => {
     });
   }
 
-  const recentOtp = await OTP.findOne({ email });
-
-  if (otp !== recentOtp.otp) {
-    return res.status(401).json({
-      success: false,
-      message: "OTP does not match!",
-    });
-  }
 
   const profile = await Profile.create({
     gender: null,
@@ -105,7 +95,6 @@ exports.signUp = catchAsync(async (req, res) => {
     image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
   });
 
-  await OTP.findOneAndDelete({ email });
 
   res.status(201).json({
     success: true,

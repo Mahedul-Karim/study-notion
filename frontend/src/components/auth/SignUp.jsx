@@ -8,6 +8,9 @@ import { useOtp } from "../../hooks/useOtp";
 import Container from "../layout/Container";
 import Label from "../dashboard/common/form/inputs/Label";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { useApi } from "../../hooks/useApi";
+import { useToast } from "../../hooks/useToast";
+import { useNavigate } from "react-router-dom";
 const BUTTON_VALUE = ["Student", "Instructor"];
 
 const initialState = {
@@ -24,22 +27,34 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const reduxDispatch = useDispatch();
 
+  const navigate = useNavigate();
+  
+  
+    const { success, error, warning } = useToast();
+  
+    const { mutate, isPending } = useApi({
+      success: (data) => {
+        success(data.message);
+        navigate("/login");
+      },
+      error: (err) => {
+        error(err);
+      },
+    });
 
-  const { mutate, isPending } = useOtp();
 
   const formSubmit = (e) => {
     e.preventDefault();
 
-    if (isPending) return;
 
     reduxDispatch(signUpData({ ...state }));
 
     const options = {
       method: "POST",
-      data: { email: state.email },
+      data: { ...state },
     };
 
-    mutate({ endpoint: "user/otp", options });
+    mutate({ endpoint: "user/signup", options });
   };
 
   return (

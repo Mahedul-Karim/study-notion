@@ -1,4 +1,3 @@
-import React from "react";
 import { NAV_LINKS } from "../../util/data";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -7,12 +6,11 @@ const MobileNav = ({ showSidebar, setShowSidebar }) => {
 
   const location = useLocation();
 
-
   return (
     <div
       className={`fixed left-0 top-0 h-full w-[200px] ${
         showSidebar ? "translate-x-0" : "-translate-x-[100%]"
-      } transition-all duration-300 bg-white border-r-[1px] border-richblack-5 border-solid z-[9] overflow-auto`}
+      } transition-all duration-300 bg-white border-r-[1px] border-richblack-5 border-solid z-[9] overflow-auto sidebar`}
     >
       <nav className="flex flex-col justify-between h-full">
         <ul className={`flex flex-col gap-4 text-richblack-700 px-4 py-5`}>
@@ -20,7 +18,9 @@ const MobileNav = ({ showSidebar, setShowSidebar }) => {
             <li key={index} onClick={setShowSidebar.bind(null, false)}>
               <Link
                 to={nav.to}
-                className={`${location.pathname === nav.to && 'text-white bg-primary'} block p-1 rounded-md`}
+                className={`${
+                  location.pathname === nav.to && "text-white bg-primary"
+                } block p-1 rounded-md`}
               >
                 {nav.title}
               </Link>

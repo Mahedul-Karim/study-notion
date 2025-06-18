@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Container from "../Container";
 import { Link, useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
@@ -12,6 +12,8 @@ import Logo from "../../ui/Logo";
 import { VscSignOut } from "react-icons/vsc";
 
 const Header = () => {
+  const containerRef = useRef(null);
+
   const [active, setActive] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -25,15 +27,17 @@ const Header = () => {
   const isHomePage = location?.pathname === "/";
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
+    const scrollListener = () => {
       if (window.scrollY > 70) {
         setActive(true);
       } else {
         setActive(false);
       }
-    });
+    };
 
-    return () => window.removeEventListener("scroll", () => {});
+    window.addEventListener("scroll", scrollListener);
+
+    return () => window.removeEventListener("scroll", scrollListener);
   }, []);
 
   return (
@@ -101,6 +105,7 @@ const Header = () => {
               showSidebar && "active"
             }`}
             onClick={() => setShowSidebar((prev) => !prev)}
+            ref={containerRef}
           />
         </div>
       </Container>
