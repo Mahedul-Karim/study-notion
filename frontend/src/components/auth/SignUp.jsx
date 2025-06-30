@@ -66,19 +66,19 @@ const SignUp = () => {
           </h2>
           <p className="text-richblack-500">
             Build skills for today, tomorrow, and beyond.
-            <span className="italic text-[#FF725E] font-bold block">
+            <span className="italic text-primary font-bold block">
               Education to future-proof your career.
             </span>
           </p>
 
           <form className="flex flex-col gap-3" onSubmit={formSubmit}>
-            <div className="bg-[#FF725E]/[0.2] w-max p-1 flex items-center gap-1 rounded-full">
+            <div className="bg-primary/[0.2] w-max p-1 flex items-center gap-1 rounded-full">
               {BUTTON_VALUE.map((val, i) => (
                 <button
                   key={i}
                   type="button"
                   className={`${
-                    val === state.accountType && "bg-[#FF725E] text-white"
+                    val === state.accountType && "bg-primary text-white"
                   } px-4 py-2 rounded-full`}
                   onClick={() =>
                     dispatchFn({ type: "ACCOUNT_TYPE", payload: val })
@@ -93,7 +93,7 @@ const SignUp = () => {
                 <Label>First Name</Label>
                 <input
                   type="text"
-                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                   disabled={isPending}
                   placeholder={"Enter first name"}
                   onChange={(e) =>
@@ -106,7 +106,7 @@ const SignUp = () => {
                 <Label>Last Name</Label>
                 <input
                   type="text"
-                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                   placeholder={"Enter last name"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -120,7 +120,7 @@ const SignUp = () => {
               <Label>Email Address</Label>
               <input
                 type="text"
-                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
+                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                 placeholder={"Enter email address"}
                 disabled={isPending}
                 onChange={(e) =>
@@ -134,7 +134,7 @@ const SignUp = () => {
                 <Label>Create Password</Label>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                   placeholder={"Enter Password"}
                   disabled={isPending}
                   onChange={(e) =>
@@ -158,7 +158,7 @@ const SignUp = () => {
                 <Label>Confirm Password</Label>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
+                  className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                   placeholder={"Confirm Password"}
                   disabled={isPending}
                   onChange={(e) =>

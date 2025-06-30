@@ -39,14 +39,14 @@ const MobileNav = ({ showSidebar, setShowSidebar }) => {
             <div className="flex flex-col gap-2 px-4 mb-6">
               <Link
                 to={"/login"}
-                className="bg-[#392C7D] py-2 rounded-full flex md:hidden text-white  text-sm items-center justify-center"
+                className="bg-[#392C7D] py-2 rounded-md flex md:hidden text-white  text-sm items-center justify-center"
                 onClick={setShowSidebar.bind(null, false)}
               >
                 Sign In
               </Link>
               <Link
                 to={"/signup"}
-                className="bg-primary py-2 rounded-full flex items-center justify-center text-sm md:hidden text-white"
+                className="bg-primary py-2 rounded-md flex items-center justify-center text-sm md:hidden text-white"
                 onClick={setShowSidebar.bind(null, false)}
               >
                 Register

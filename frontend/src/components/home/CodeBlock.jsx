@@ -29,9 +29,7 @@ const CodeBlock = ({
       <div
         className={`code-border w-full flex py-2 relative background__blur--${blur} ${order2}`}
       >
-        
-          <Code text={text} loop textColor={textColor}/>
-          
+        <Code text={text} loop textColor={textColor} />
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ const Login = () => {
           <h2 className="text-3xl font-semibold text-richblack-700">Welcome back</h2>
           <p className="text-richblack-500">
             Build skills for today, tomorrow, and beyond.
-            <span className="italic text-[#FF725E] font-bold block">
+            <span className="italic text-primary font-bold block">
               Education to future-proof your career.
             </span>
           </p>
@@ -66,7 +66,7 @@ const Login = () => {
               <Label>Email Address</Label>
               <input
                 type="email"
-                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
+                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                 placeholder={"test@gmail.com/test2@gmail.com"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -77,7 +77,7 @@ const Login = () => {
               <Label>Password</Label>
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-[#ffdeda]"
+                className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                 placeholder={"test1234"}
                 name="password"
                 value={password}
@@ -104,7 +104,7 @@ const Login = () => {
             </div>
             <FormButton
               type="submit"
-              extraClass={"flex items-center justify-center"}
+              extraClass={"flex items-center justify-center bg-primary"}
               disabled={isPending}
             >
               {isPending ? "Submitting..." : "Sign In"}{" "}

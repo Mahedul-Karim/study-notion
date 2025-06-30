@@ -52,18 +52,18 @@ const Header = () => {
         <Logo />
 
         <NavBar extraClass="hidden md:flex" />
-        <div className="flex items-center gap-2 md:gap-4 text-richblack-100 relative">
+        <div className="flex items-center gap-2 text-richblack-100 relative">
           {!user ? (
             <>
               <Link
                 to={"/login"}
-                className="bg-[#392C7D] px-3 py-2 text-sm rounded-full  text-white hidden md:block font-medium"
+                className="bg-[#392C7D] px-4 py-2 text-sm rounded-full  text-white hidden md:block font-medium"
               >
                 Sign In
               </Link>
               <Link
                 to={"/signup"}
-                className="bg-primary px-3 py-2 text-white rounded-full hidden md:block text-sm font-medium"
+                className="bg-primary px-4 py-2 text-white rounded-full hidden md:block text-sm font-medium"
               >
                 Register
               </Link>

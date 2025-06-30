@@ -150,7 +150,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="bg-tertiary py-16">
+    <section className="bg-[#EAE2FB]/40 py-16">
       <div>
         <Container>
           <div className="flex flex-col items-center justify-center">
@@ -190,13 +190,13 @@ const Testimonials = () => {
             </div>
             <div className="flex items-center justify-center gap-4 mt-6 w-full">
               <button
-                className="bg-white p-3 rounded-md hover:bg-primary hover:text-white transition-all duration-300"
+                className="bg-secondary text-white p-3 rounded-full transition-all duration-300 hover:bg-secondary/80"
                 onClick={prevSlide}
               >
                 <FaChevronLeft />{" "}
               </button>
               <button
-                className="bg-white p-3 rounded-md hover:bg-primary hover:text-white transition-all duration-300"
+                className="bg-secondary text-white p-3 rounded-full transition-all duration-300 hover:bg-secondary/80"
                 onClick={() => nextSlide()}
               >
                 <FaChevronRight />{" "}

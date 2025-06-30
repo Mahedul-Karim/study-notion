@@ -11,7 +11,7 @@ const NavBar = ({ extraClass = "" }) => {
           <li key={index}>
             <Link
               to={nav.to}
-              className={location.pathname === nav.to && "text-primary"}
+              className={`${location.pathname === nav.to && "text-primary"} font-medium text-sm`}
             >
               {nav.title}
             </Link>
