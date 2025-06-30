@@ -57,15 +57,15 @@ const Header = () => {
             <>
               <Link
                 to={"/login"}
-                className="bg-tertiary px-3 py-2 rounded-md text-white hidden md:block"
+                className="bg-[#392C7D] px-3 py-2 text-sm rounded-full  text-white hidden md:block"
               >
-                Login
+                Sign In
               </Link>
               <Link
                 to={"/signup"}
-                className="bg-tertiary px-3 py-2 text-white rounded-md hidden md:block"
+                className="bg-primary px-3 py-2 text-white rounded-full hidden md:block text-sm"
               >
-                Signup
+                Register
               </Link>
             </>
           ) : (

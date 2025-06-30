@@ -1,12 +1,8 @@
-import React from "react";
 import { NAV_LINKS } from "../../util/data";
 import { Link, useLocation } from "react-router-dom";
 
 const NavBar = ({ extraClass = "" }) => {
-
   const location = useLocation();
-
-  
 
   return (
     <nav>
@@ -15,7 +11,7 @@ const NavBar = ({ extraClass = "" }) => {
           <li key={index}>
             <Link
               to={nav.to}
-              className={location.pathname === nav.to && 'text-primary'}
+              className={location.pathname === nav.to && "text-primary"}
             >
               {nav.title}
             </Link>
