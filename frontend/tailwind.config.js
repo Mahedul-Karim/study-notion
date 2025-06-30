@@ -45,7 +45,7 @@ export default {
       yellow800: "rgb(61 42 1)",
       primary: "#FF4667",
       secondary:'#392C7D',
-      tertiary:'#392C7D',
+      tertiary:'#917CF6',
       border:'#e9ecef',
       background:'#fafafa',
       blue: {
