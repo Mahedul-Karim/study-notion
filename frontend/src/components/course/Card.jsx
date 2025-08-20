@@ -30,7 +30,7 @@ const Card = ({ course }) => {
   return (
     <Link
       to={`/course/${link}`}
-      className="flex flex-col bg-white rounded-2xl cursor-pointer overflow-clip border border-solid border-[#e9ecef] relative pb-4 "
+      className="flex flex-col bg-white rounded-2xl cursor-pointer overflow-clip shadow-sm relative pb-4 group"
     >
       <img
         className="w-full aspect-[16/12] object-cover"
@@ -53,7 +53,7 @@ const Card = ({ course }) => {
           </div>
         </div>
       </div>
-      <h2 className="mt-3 text-xs 400px:text-sm sm:text-[16px] line-clamp-2 font-semibold text-secondary px-3 lg:px-5">
+      <h2 className="mt-3 text-xs 400px:text-sm sm:text-[16px] line-clamp-2 font-semibold text-richblack-800 group-hover:text-primary px-3 lg:px-5 transition-colors duration-300">
         {highlightText(course?.courseName, search)}
       </h2>
 
@@ -71,7 +71,7 @@ const Card = ({ course }) => {
           ({course?.ratingAndReviews?.length})
         </p>
       </div>
-      <p className="text-sm 400px:text-base sm:text-[18px] mt-1 bg-white absolute top-4 400px:top-6 400px:right-8 right-4 400px:px-4 px-2 py-1 rounded-md text-primary">
+      <p className="text-sm 400px:text-base font-semibold bg-white absolute top-4 right-4 400px:px-4 px-2 py-1 rounded-md text-primary">
         {formatCurrency(course?.price)}
       </p>
     </Link>

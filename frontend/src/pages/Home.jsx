@@ -28,7 +28,8 @@ const Home = () => {
 
   return (
     <>
-      <section className="min-h-screen pb-10 bg-[url('/assets/banner.png')] bg-cover bg-no-repeat pt-16">
+      <section className="min-h-screen pb-10 pt-16 relative z-[1]">
+      <div className="absolute inset-0 bg-[url('/assets/banner.png')] bg-cover bg-no-repeat z-[-1] opacity-40" />
         <Container>
           <Hero />
         </Container>

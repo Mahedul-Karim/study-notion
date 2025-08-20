@@ -11,13 +11,15 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useToast } from "../../hooks/useToast";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(
+    "test@gmail.com(user)/test2@gmail.com(instructor)"
+  );
+  const [password, setPassword] = useState("test1234");
   const [showPassword, setShowPassword] = useState(false);
 
   const { success, error, warning } = useToast();
 
-  const { user } = useSelector(state => state.profile)
+  const { user } = useSelector((state) => state.profile);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ const Login = () => {
     success: (data) => {
       success("Login success");
       navigate("/dashboard/user");
-      localStorage.setItem('token',JSON.stringify(data?.token))
+      localStorage.setItem("token", JSON.stringify(data?.token));
       dispatch(setUser(data.user));
     },
     error: (err) => {
@@ -45,15 +47,17 @@ const Login = () => {
     mutate({ endpoint: "user/login", options });
   };
 
-  if(user){
-    return navigate('/')
+  if (user) {
+    return navigate("/");
   }
 
   return (
     <div className="bg-white min-h-[calc(100vh_-_70px)] py-20 text-richblack-25">
       <Container extraClass={"grid md:grid-cols-2 place-items-center"}>
         <div className="flex flex-col gap-2 w-11/12 max-w-[450px]">
-          <h2 className="text-3xl font-semibold text-richblack-700">Welcome back</h2>
+          <h2 className="text-3xl font-semibold text-richblack-700">
+            Welcome back
+          </h2>
           <p className="text-richblack-500">
             Build skills for today, tomorrow, and beyond.
             <span className="italic text-primary font-bold block">
@@ -76,7 +80,7 @@ const Login = () => {
             <div className="relative">
               <Label>Password</Label>
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 className="bg-white text-base p-3 focus:outline-none rounded-lg w-full  relative disabled:bg-grey-5 disabled:cursor-not-allowed text-richblack-700 placeholder:text-richblack-400 border border-solid border-secondary/20"
                 placeholder={"test1234"}
                 name="password"
@@ -110,11 +114,14 @@ const Login = () => {
               {isPending ? "Submitting..." : "Sign In"}{" "}
             </FormButton>
           </form>
+          <p className="text-sm text-richblack-400">
+            Don&apos;t have an account?{" "}
+            <Link to={"/signup"} className="text-primary">
+              Sign Up
+            </Link>{" "}
+          </p>
         </div>
-        <div
-          className="hidden md:block w-11/12 max-w-[450px] relative z-[1]"
-          
-        >
+        <div className="hidden md:block w-11/12 max-w-[450px] relative z-[1]">
           <img
             src="/assets/login-img.png"
             className="w-full h-full object-cover"

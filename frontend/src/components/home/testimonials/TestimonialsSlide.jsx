@@ -2,7 +2,7 @@ import React from "react";
 
 const TestimonialsSlide = ({ src, paragraph, name }) => {
   return (
-    <blockquote className="bg-white rounded-2xl px-4 400px:px-8 pt-10 sm:pt-20 pb-6 shrink-0 w-full relative z-[1] overflow-clip">
+    <blockquote className="bg-background rounded-2xl px-4 400px:px-8 pt-10 sm:pt-20 pb-6 shrink-0 w-full relative z-[1] overflow-clip">
       <img
         src={"/assets/qute.png"}
         alt=""

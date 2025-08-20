@@ -10,7 +10,7 @@ import Label from "../dashboard/common/form/inputs/Label";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useApi } from "../../hooks/useApi";
 import { useToast } from "../../hooks/useToast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const BUTTON_VALUE = ["Student", "Instructor"];
 
 const initialState = {
@@ -28,24 +28,21 @@ const SignUp = () => {
   const reduxDispatch = useDispatch();
 
   const navigate = useNavigate();
-  
-  
-    const { success, error, warning } = useToast();
-  
-    const { mutate, isPending } = useApi({
-      success: (data) => {
-        success(data.message);
-        navigate("/login");
-      },
-      error: (err) => {
-        error(err);
-      },
-    });
 
+  const { success, error, warning } = useToast();
+
+  const { mutate, isPending } = useApi({
+    success: (data) => {
+      success(data.message);
+      navigate("/login");
+    },
+    error: (err) => {
+      error(err);
+    },
+  });
 
   const formSubmit = (e) => {
     e.preventDefault();
-
 
     reduxDispatch(signUpData({ ...state }));
 
@@ -72,7 +69,7 @@ const SignUp = () => {
           </p>
 
           <form className="flex flex-col gap-3" onSubmit={formSubmit}>
-            <div className="bg-primary/[0.2] w-max p-1 flex items-center gap-1 rounded-full">
+            <div className="bg-primary/10 w-max p-1 flex items-center gap-1 rounded-full">
               {BUTTON_VALUE.map((val, i) => (
                 <button
                   key={i}
@@ -190,11 +187,14 @@ const SignUp = () => {
               {isPending ? "Submitting..." : "Sign Up"}
             </FormButton>
           </form>
+          <p className="text-sm text-richblack-400">
+            Already have an account?{" "}
+            <Link to={"/login"} className="text-primary">
+              Sign In
+            </Link>{" "}
+          </p>
         </div>
-        <div
-          className="hidden md:block w-11/12 max-w-[450px] relative z-[1]"
-       
-        >
+        <div className="hidden md:block w-11/12 max-w-[450px] relative z-[1]">
           <img
             src="/assets/login-img.png"
             className="w-full h-full object-cover"

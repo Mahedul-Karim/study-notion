@@ -13,7 +13,8 @@ const Mentor = () => {
   }, []);
 
   return (
-    <section className="bg-[url('/assets/banner.png')] bg-cover bg-no-repeat py-4">
+    <section className="py-4 relative">
+      <div className="bg-[url('/assets/banner.png')] bg-cover bg-no-repeat inset-0 opacity-40 absolute" />
       <div
         className={`opacity-0 ${isIntersecting && "slideUp"}`}
         ref={containerRef}
@@ -23,10 +24,10 @@ const Mentor = () => {
             <img src="/assets/share.png" alt="" />
           </div>
           <div className="flex flex-col gap-4 justify-center">
-            <h3 className="text-xl sm:text-3xl md:text-4xl font-bold max-w-[92%] !leading-[1.2] text-richblack-700">
+            <h3 className="text-xl sm:text-3xl font-bold max-w-[92%] !leading-[1.2] text-richblack-700">
               Want to share your knowledge? Join us a Mentor
             </h3>
-            <p className="text-richblack-500 text-xs sm:text-sm md:text-lg">
+            <p className="text-richblack-500 text-sm md:text-base">
               High-definition video is video of higher resolution and quality
               than standard-definition. While there is no standardized meaning
               for high-definition, generally any video.

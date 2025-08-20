@@ -59,7 +59,7 @@ const Header = () => {
             <>
               <Link
                 to={"/signup"}
-                className="bg-secondary px-4 py-2 text-white rounded-md hidden md:block text-sm font-medium"
+                className="bg-secondary px-4 py-2 text-white rounded-md hidden md:block text-sm font-semibold"
               >
                 Get Started
               </Link>

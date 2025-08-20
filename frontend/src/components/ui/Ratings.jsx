@@ -9,7 +9,7 @@ const Ratings = ({ rating, size,extraClass }) => {
     } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
       stars.push(<IoIosStarHalf color="#ffb931" fontSize={size} className={extraClass}/>);
     } else {
-      stars.push(<IoIosStar color="gray" fontSize={size} className={extraClass}/>);
+      stars.push(<IoIosStar fontSize={size} className={`${extraClass} text-black/40`}/>);
     }
   }
 

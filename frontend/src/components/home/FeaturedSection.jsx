@@ -21,7 +21,7 @@ const FeaturedSection = () => {
   }, []);
 
   return (
-    <section className="bg-[url('/assets/banner.png')] bg-cover bg-no-repeat py-16">
+    <section className="bg-background py-16">
       <div
         className={`opacity-0 ${isIntersecting && "slideUp"}`}
         ref={containerRef}
@@ -35,7 +35,7 @@ const FeaturedSection = () => {
             <>
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-richblack-700 text-xl 400px:text-2xl sm:text-4xl font-semibold">
+                  <h3 className="text-richblack-700 text-2xl font-semibold">
                     Featured Courses
                   </h3>
                 </div>

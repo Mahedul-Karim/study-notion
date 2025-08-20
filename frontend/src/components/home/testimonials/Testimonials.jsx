@@ -150,7 +150,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="bg-[#EAE2FB]/40 py-16">
+    <section className="py-16">
       <div>
         <Container>
           <div className="flex flex-col items-center justify-center">
