@@ -1,6 +1,7 @@
 import { NAV_LINKS } from "../../util/data";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Logo from "../../ui/Logo";
 const MobileNav = ({ showSidebar, setShowSidebar }) => {
   const { user } = useSelector((state) => state.profile);
 
@@ -20,6 +21,9 @@ const MobileNav = ({ showSidebar, setShowSidebar }) => {
           showSidebar ? "translate-x-0" : "-translate-x-[100%]"
         } transition-all duration-300 bg-white border-r-[1px] border-richblack-5 border-solid z-[9] overflow-auto sidebar`}
       >
+        <div className="py-2 border-b border-border flex items-center justify-center">
+          <Logo />
+        </div>
         <nav className="flex flex-col justify-between h-full">
           <ul className={`flex flex-col gap-4 text-richblack-700 px-4 py-5`}>
             {NAV_LINKS.map((nav, index) => (
@@ -36,20 +40,13 @@ const MobileNav = ({ showSidebar, setShowSidebar }) => {
             ))}
           </ul>
           {!user && (
-            <div className="flex flex-col gap-2 px-4 mb-6">
-              <Link
-                to={"/login"}
-                className="bg-[#392C7D] py-2 rounded-md flex md:hidden text-white  text-sm items-center justify-center"
-                onClick={setShowSidebar.bind(null, false)}
-              >
-                Sign In
-              </Link>
+            <div className="flex flex-col gap-2 px-4 mb-6 border-t border-border pt-4">
               <Link
                 to={"/signup"}
-                className="bg-primary py-2 rounded-md flex items-center justify-center text-sm md:hidden text-white"
+                className="bg-secondary py-2 rounded-md flex items-center justify-center text-sm md:hidden text-white"
                 onClick={setShowSidebar.bind(null, false)}
               >
-                Register
+                Get Started
               </Link>
             </div>
           )}

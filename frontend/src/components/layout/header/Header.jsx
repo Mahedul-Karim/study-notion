@@ -43,12 +43,14 @@ const Header = () => {
   return (
     <header
       className={`${
-        active ? "bg-white shadow-md" : "bg-none"
+        active ? "bg-white shadow-sm" : "bg-none"
       } fixed w-full transition-all duration-300 z-[12]
-      ${!isHomePage && "bg-white shadow-md"}
+      ${!isHomePage && "bg-white shadow-sm"}
       `}
     >
-      <Container extraClass={"!py-3 flex items-center justify-between"}>
+      <Container
+        extraClass={"!py-3 flex items-center h-[70px] justify-between"}
+      >
         <Logo />
 
         <NavBar extraClass="hidden md:flex" />
@@ -56,16 +58,10 @@ const Header = () => {
           {!user ? (
             <>
               <Link
-                to={"/login"}
-                className="bg-[#392C7D] px-4 py-2 text-sm rounded-full  text-white hidden md:block font-medium"
-              >
-                Sign In
-              </Link>
-              <Link
                 to={"/signup"}
-                className="bg-primary px-4 py-2 text-white rounded-full hidden md:block text-sm font-medium"
+                className="bg-secondary px-4 py-2 text-white rounded-md hidden md:block text-sm font-medium"
               >
-                Register
+                Get Started
               </Link>
             </>
           ) : (
